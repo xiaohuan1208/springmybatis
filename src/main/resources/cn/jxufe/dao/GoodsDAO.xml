@@ -200,4 +200,8 @@
       img = #{img,jdbcType=VARCHAR}
     where goodsId = #{goodsid,jdbcType=INTEGER}
   </update>
+  
+  <select id="findByName" resultType="cn.jxufe.entity.Goods">
+      SELECT * FROM T_Goods WHERE goodsName like concat('%',#{0},'%')
+  </select>
 </mapper>

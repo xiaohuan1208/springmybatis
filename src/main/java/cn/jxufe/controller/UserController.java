@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 * 用户功能访问控制器
 * */
 @Controller
-@RequestMapping("user")
+@RequestMapping("user")    //
 public class UserController {
     @Autowired
     private UserService userService;
@@ -53,6 +53,7 @@ public class UserController {
     public User getUserinfo(HttpSession session){
         return userService.getUserinfo(session);
     }
+
 }
 /*
 代码手中走~佛祖心中留！求永无BUG！
