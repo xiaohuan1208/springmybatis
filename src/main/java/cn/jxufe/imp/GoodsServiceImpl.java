@@ -18,7 +18,16 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> searchGoods(String goodsName) {
-        List<Goods> list = goodsDAO.findByName(goodsName);
-        return list;
+        return goodsDAO.findByName(goodsName);
+    }
+
+    @Override
+    public List<Goods> findAll(){
+        return goodsDAO.findAll();
+    }
+
+    @Override
+    public Goods findOne(int goodsId){
+        return goodsDAO.selectByPrimaryKey(goodsId);
     }
 }
