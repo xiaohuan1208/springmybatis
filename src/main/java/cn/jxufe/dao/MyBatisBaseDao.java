@@ -24,4 +24,9 @@ public interface MyBatisBaseDao<Model, PK extends Serializable> {
     int updateByPrimaryKeySelective(Model record);
 
     int updateByPrimaryKey(Model record);
+
+    /*
+    * 该方法需要自己在对应的xml映射文件中写sql语句
+    * */
+    List<Model> findAll();
 }
