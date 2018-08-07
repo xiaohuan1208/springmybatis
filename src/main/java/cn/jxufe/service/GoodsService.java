@@ -5,7 +5,6 @@ import cn.jxufe.entity.Goods;
 import java.util.List;
 
 /**
-<<<<<<< HEAD
  * Created by LHM on 2018/8/7.
  */
 public interface GoodsService {
