@@ -35,7 +35,7 @@
 </header>
 <div class="userInfor">
  <a class="userIcon"><img src="../../images/icon/DefaultAvatar.jpg"/></a>
- <h2>176029****2</h2>
+ <h2 id="tel">176029****2</h2>
 </div>
 <ul class="userList">
  <li><a href="order_list" class="orderListIcon">订单</a></li>
@@ -56,3 +56,17 @@
 </nav>
 </body>
 </html>
+<script>
+ $(document).ready(function(){
+  $.get("user/information",function(data){
+   $(".userInfor #tel").html(data.telphone);
+   if(data.headimg == null || "" == data.headimg){
+    $(".userInfor .userIcon img").attr("src","../../images/icon/DefaultAvatar.jpg");
+   }else{
+    $(".userInfor .userIcon img").attr("src",data.headimg);
+   }
+  });
+ });
+
+
+</script>
