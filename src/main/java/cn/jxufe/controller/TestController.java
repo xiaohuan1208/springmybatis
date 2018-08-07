@@ -1,6 +1,5 @@
 package cn.jxufe.controller;
 
-import cn.jxufe.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ public class TestController {
     public String toPage(@PathVariable String url){
         return url;
     }
-
 
 
 }
