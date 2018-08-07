@@ -27,11 +27,31 @@
 <script src="../../js/jquery.js"></script>
 <script>
 $(document).ready(function(){
-  //效果测试，程序对接可将其删除
-  $(".add_btn").click(function(){
-	  $(".cart_icon em").html(parseInt($(".cart_icon em").html())+1);
-	  });
+ var goodsId = getParams();
+ $.get("goods/one?goodsId="+goodsId,function(data){
+  showGoods(data);
+ })
 });
+
+function showGoods(data){
+ $(".pro_bigImg img").attr("src","upload/"+data.img);
+ $(".pro_baseInfor h2").html(data.description);
+ $(".pro_baseInfor strong").html(data.sellingprice);
+ $(".pro_baseInfor del").html(data.originalprice);
+ $(".pro_infor #create-time").html(data.createtime);
+ $(".pro_infor #designer").html(data.designer);
+ $("#comment b").html(data.comment);
+ $("#sell b").html(data.transactionnum);
+ $("#like b").html(data.likenumber);
+
+}
+
+function getParams() {
+ var href = window.document.location.href;
+ var goodsId = href.split("?")[1].split("=")[1];
+ return goodsId;
+}
+
 </script>
 </head>
 <body>
@@ -57,23 +77,23 @@ $(document).ready(function(){
  <ul>
   <li>
    <span>创建时间</span>
-   <span><time>2018-05-12</time></span>
+   <span><time  id="create-time">2018-05-12</time></span>
   </li>
   <li>
    <span>设计者</span>
-   <span>HZIT</span>
+   <span id="designer">HZIT</span>
   </li>
   <li class="more_link" onClick="location.href='comment'">
    <span>评论</span>
-   <span>共计<b>398</b>人点评</span>
+   <span id="comment">共计<b>398</b>人点评</span>
   </li>
   <li>
    <span>成交</span>
-   <span>共计<b>632</b>笔</span>
+   <span id="sell">共计<b>632</b>笔</span>
   </li>
   <li>
    <span>点赞</span>
-   <span>共计<b>432</b>人</span>
+   <span id="like">共计<b>432</b>人</span>
   </li>
  </ul>
 </div>
