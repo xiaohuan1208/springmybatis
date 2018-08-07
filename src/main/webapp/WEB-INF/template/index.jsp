@@ -32,7 +32,7 @@
         autoplay:5000,
         visibilityFullFit : true,
         loop:true,
-        pagination : '.pagination',
+        pagination : '.pagination'
       });
       //飞入动画，具体根据实际情况调整
       $(".addToCart").click(function(){
@@ -50,7 +50,42 @@
           opacity:1
         },"slow");
       });
+      //获取商品数据
+      goodsList();
     });
+
+    //获取商品数据
+    function goodsList(){
+
+      $.get("goods/list",function(data){
+        showGoodsList(data);
+      })
+    }
+    //刷新商品信息界面
+    function showGoodsList(data){
+      var list = $(".tab_proList ul");
+      list.html("");
+
+      $.each(data,function(index,item){
+        var template = $("#goods-template").clone();
+        template.removeAttr("hidden");
+        template.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
+        if(item.img != null){
+          template.find(".goodsPic img").attr("src","../../upload/"+item.img);
+        }
+        template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
+        template.find(".goodsInfor .name").html(item.goodsname);
+        template.find(".goodsInfor del").html(item.originalprice);
+        template.find(".goodsInfor strong").html(item.sellingprice);
+        template.find("aside .like_icon").html(item.likenumber);
+        template.find("aside .comment_icon").html(item.commentnum);
+        template.find("aside .deal_icon").html(item.transactionnum);
+
+        list.append(template);
+
+      });
+    }
+
   </script>
 </head>
 <body>
@@ -78,32 +113,33 @@
 <!--Tab:productList-->
 <dl class="tab_proList">
   <dd>
-    <ul>
-      <li>
-        <div class="productArea">
-          <a href="product" class="goodsPic">
-            <img src="../../upload/goods001.jpg"/>
-          </a>
-          <div class="goodsInfor">
-            <h2>
-              <a href="product">水晶骷髅头 截取字符串...</a>
-            </h2>
-            <p>
-              <del>5.90</del>
-            </p>
-            <p>
-              <strong class="price">3.90</strong>
-            </p>
-            <a class="addToCart">&#126;</a>
-          </div>
+    <li id="goods-template" hidden="hidden">
+      <div class="productArea">
+        <a href="product" class="goodsPic">
+          <img src="../../upload/goods001.jpg"/>
+        </a>
+        <div class="goodsInfor">
+          <h2>
+            <a class="name" href="product">水晶骷髅头 截取字符串...</a>
+          </h2>
+          <p>
+            <del>5.90</del>
+          </p>
+          <p>
+            <strong class="price">3.90</strong>
+          </p>
+          <a class="addToCart">&#126;</a>
         </div>
-        <aside>
-          <a class="like_icon">580</a>
-          <a class="comment_icon">260</a>
-          <a class="deal_icon">355</a>
-        </aside>
-      </li>
-      <li>
+      </div>
+      <aside>
+        <a class="like_icon">580</a>
+        <a class="comment_icon">260</a>
+        <a class="deal_icon">355</a>
+      </aside>
+    </li>
+    <ul>
+
+      <%--<li>
         <div class="productArea">
           <a href="product" class="goodsPic">
             <img src="../../upload/goods002.jpg"/>
@@ -198,7 +234,7 @@
           <a class="comment_icon">20</a>
           <a class="deal_icon">35</a>
         </aside>
-      </li>
+      </li>--%>
     </ul>
   </dd>
 </dl>
