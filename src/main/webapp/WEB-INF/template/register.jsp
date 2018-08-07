@@ -32,7 +32,7 @@
  <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
  <h1>注册</h1>
 </header>
-<mark class="formMark">这里可以放置提示性语句！</mark>
+<mark class="formMark"></mark>
 <form id="register-form">
 <ul class="formarea">
  <li>
@@ -72,8 +72,14 @@
   user.telphone = $("#telphone").val();
   user.checkCode = $("#checkCode").val();
   //ajax方式提交表单
-  $.post("user/register",user,function(e){
-   console.log(e);
+  $.post("user/register",user,function(result){
+    console.log(result);
+    if(result.code == 1){
+     $("mark").html(result.message);
+     location.href="index";
+    }else if(result.code < 0){
+     $("mark").html(result.message);
+   }
   });
 
  });
