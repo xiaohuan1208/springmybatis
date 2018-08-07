@@ -5,6 +5,7 @@ import cn.jxufe.entity.Goods;
 import cn.jxufe.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,6 +29,12 @@ public class GoodsController {
     @RequestMapping("one")
     public Goods getGoods(int goodsId){
         return goodsService.findOne(goodsId);
+    }
+
+    @ResponseBody
+    @RequestMapping("search_{goodsName}")
+    public List<Goods> searchGoods(@PathVariable String goodsName){
+        return goodsService.searchGoods(goodsName);
     }
 }
 /*
