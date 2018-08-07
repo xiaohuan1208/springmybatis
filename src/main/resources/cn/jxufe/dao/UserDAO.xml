@@ -2,62 +2,105 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jxufe.dao.UserDAO">
   <resultMap id="BaseResultMap" type="cn.jxufe.entity.User">
-    <id column="telphone" jdbcType="VARCHAR" property="telphone" />
-    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <id column="telPhone" jdbcType="VARCHAR" property="telphone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="headImg" jdbcType="VARCHAR" property="headimg" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
   </resultMap>
   <sql id="Base_Column_List">
-    telphone, nickName, `password`
+    telPhone, `password`, nickName, headImg, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from T_User
-    where telphone = #{telphone,jdbcType=VARCHAR}
+    from T_UserInfo
+    where telPhone = #{telphone,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from T_User
-    where telphone = #{telphone,jdbcType=VARCHAR}
+    delete from T_UserInfo
+    where telPhone = #{telphone,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" keyColumn="telphone" keyProperty="telphone" parameterType="cn.jxufe.entity.User" useGeneratedKeys="true">
-    insert into T_User (nickName, `password`)
-    values (#{nickname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.jxufe.entity.User">
+    insert into T_UserInfo (telPhone, `password`, nickName, 
+      headImg, createTime, updateTime
+      )
+    values (#{telphone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{headimg,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" keyColumn="telphone" keyProperty="telphone" parameterType="cn.jxufe.entity.User" useGeneratedKeys="true">
-    insert into T_User
+  <insert id="insertSelective" parameterType="cn.jxufe.entity.User">
+    insert into T_UserInfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="nickname != null">
-        nickName,
+      <if test="telphone != null">
+        telPhone,
       </if>
       <if test="password != null">
         `password`,
       </if>
+      <if test="nickname != null">
+        nickName,
+      </if>
+      <if test="headimg != null">
+        headImg,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimg != null">
+        #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.jxufe.entity.User">
-    update T_User
+    update T_UserInfo
     <set>
-      <if test="nickname != null">
-        nickName = #{nickname,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         `password` = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="nickname != null">
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimg != null">
+        headImg = #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
-    where telphone = #{telphone,jdbcType=VARCHAR}
+    where telPhone = #{telphone,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.User">
-    update T_User
-    set nickName = #{nickname,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR}
-    where telphone = #{telphone,jdbcType=VARCHAR}
+    update T_UserInfo
+    set `password` = #{password,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      headImg = #{headimg,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where telPhone = #{telphone,jdbcType=VARCHAR}
   </update>
 </mapper>
