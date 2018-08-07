@@ -1,22 +1,15 @@
 package cn.jxufe.controller;
 
-import cn.jxufe.bean.Message;
-import cn.jxufe.entity.Registerinfo;
 import cn.jxufe.entity.User;
-import cn.jxufe.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Administrator on 2018/8/2.
  */
 @Controller
 public class TestController {
-    @Autowired
-    private UserService userService;
 
     @RequestMapping("{url}")
 
@@ -24,12 +17,7 @@ public class TestController {
         return url;
     }
 
-    @RequestMapping("user/register")
-    @ResponseBody
-    public Message list(Registerinfo registerinfo){
 
-       return userService.register(registerinfo);
-    }
 
 }
 /*
