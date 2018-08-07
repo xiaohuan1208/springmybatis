@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface GoodsDAO extends MyBatisBaseDao<Goods, Integer> {
-    //注释
+
 }
