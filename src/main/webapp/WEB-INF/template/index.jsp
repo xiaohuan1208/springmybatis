@@ -35,7 +35,7 @@
                 autoplay: 5000,
                 visibilityFullFit: true,
                 loop: true,
-                pagination: '.pagination',
+                pagination: '.pagination'
             });
             //飞入动画，具体根据实际情况调整
             $(".addToCart").click(function () {
