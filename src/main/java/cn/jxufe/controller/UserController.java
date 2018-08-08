@@ -5,6 +5,7 @@ import cn.jxufe.entity.Registerinfo;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,9 +31,6 @@ public class UserController {
     @RequestMapping(value = "login")
     @ResponseBody
     public Message login(User user, HttpSession session){
-
-        System.out.println(user.getTelphone());
-        System.out.println(user.getPassword());
         return userService.login(user,session);
     }
 
@@ -45,6 +43,49 @@ public class UserController {
         return userService.register(registerinfo, session);
     }
 
+    /**
+     * 修改密码
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @param session
+     * @return
+     */
+   @RequestMapping(value = "change_pwd")
+   @ResponseBody
+   public Message change_pwd(String oldPassword, String newPassword,HttpSession session){
+       return userService.change_pwd(oldPassword, newPassword, session);
+   }
+
+    /**
+     * 修改用户名
+     * @param nickname
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "change_name")
+    @ResponseBody
+    public Message change_name(String nickname,HttpSession session){
+        return userService.change_name(nickname, session);
+    }
+
+    /**
+     * 修改手机号码
+     * @param telphone
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "change_tel")
+    @ResponseBody
+    public Message change_tel(String telphone,HttpSession session){
+        return userService.change_tel(telphone, session);
+    }
+
+    @RequestMapping(value = "find_pwd")
+    @ResponseBody
+    public Message find_pwd(String telphone,String checkcode,String password){
+        return userService.find_pwd(telphone,checkcode,password);
+    }
+
     /*
     * 获取用户session信息
     * */
@@ -54,23 +95,4 @@ public class UserController {
         return userService.getUserinfo(session);
     }
 }
-/*
-代码手中走~佛祖心中留！求永无BUG！
-                   _ooOoo_
-                  o8888888o
-                  88" . "88
-                  (| -_- |)
-                  O\  =  /O
-               ____/`---'\____
-             .'  \\|     |//  `.
-            /  \\|||  :  |||//  \
-           /  _||||| -:- |||||-  \
-           |   | \\\  -  /// |   |
-           | \_|  ''\---/''  |   |
-            \  .-\__  `-`  ___/-. /
-          ___`. .'  /--.--\  `. . __
-       ."" '<  `.___\_<|>_/___.'  >'"".
-      | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-      \  \ `-.   \_ __\ /__ _/   .-` /  /
- ======`-.____`-.___\_____/___.-`____.-'======
- */
+

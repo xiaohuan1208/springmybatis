@@ -8,6 +8,7 @@ import cn.jxufe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -22,6 +23,7 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private UserDAO userDAO;
+
     @Override
     public Message register(Registerinfo registerinfo, HttpSession session) {
         User user = new User();
@@ -64,29 +66,92 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public Message change_pwd(String oldPassword, String newPassword,HttpSession session) {
+        Message message =new Message();
+        User user = getUserinfo(session);
+        if(user.getPassword().equals(oldPassword)){
+            user.setPassword(newPassword);
+            try {
+                userDAO.updateByPrimaryKey(user);
+                message.setCode(1);
+                message.setMessage("密码修改成功！");
+                session.setAttribute("user",user);
+            }catch (Exception e){
+                message.setCode(0);
+                message.setMessage("密码修改失败！");
+            }
+        }else {
+            message.setCode(-1);
+            message.setMessage("密码不正确！");
+        }
+        return message;
+    }
+
+    @Override
+    public Message change_name(String nickname, HttpSession session) {
+        Message message =new Message();
+        User user = getUserinfo(session);
+        user.setNickname(nickname);
+        try {
+            userDAO.updateByPrimaryKey(user);
+            message.setCode(1);
+            message.setMessage("用户名修改成功！");
+            session.setAttribute("user",user);
+        }catch (Exception e){
+            message.setCode(-1);
+            message.setMessage("用户名修改失败！");
+        }
+        return message;
+    }
+
+    @Override
+    public Message change_tel(String telphone, HttpSession session) {
+        Message message = new Message();
+        User user = getUserinfo(session);
+        String oldtel = user.getTelphone();
+        try {
+            userDAO.updateByTel(telphone,oldtel);
+            message.setCode(1);
+            message.setMessage("手机号码修改成功！");
+            user.setTelphone(telphone);
+            session.setAttribute("user",user);
+        }catch (Exception e){
+            message.setCode(-1);
+            message.setMessage("手机号码修改失败！");
+        }
+        return message;
+    }
+
+    @Override
+    public Message find_pwd(String telphone, String checkcode, String password) {
+        Message message = new Message();
+        if(checkcode.equals("123456")){
+            User user = userDAO.selectByPrimaryKey(telphone);
+            if(user!=null){
+                user.setPassword(password);
+                int result = userDAO.updateByPrimaryKey(user);
+                if(result==1){
+                    message.setCode(1);
+                    message.setMessage("成功找回密码！");
+                }else {
+                    message.setCode(-1001);
+                    message.setMessage("找回密码失败！");
+                }
+            }else {
+                message.setCode(-1);
+                message.setMessage("该用户不存在！");
+            }
+        }else {
+            message.setCode(-2);
+            message.setMessage("验证码错误！");
+        }
+        return message;
+    }
+
+    @Override
     public User getUserinfo(HttpSession session) {
 
         User user = (User)session.getAttribute("user");
         return user;
     }
 }
-/*
-代码手中走~佛祖心中留！求永无BUG！
-                   _ooOoo_
-                  o8888888o
-                  88" . "88
-                  (| -_- |)
-                  O\  =  /O
-               ____/`---'\____
-             .'  \\|     |//  `.
-            /  \\|||  :  |||//  \
-           /  _||||| -:- |||||-  \
-           |   | \\\  -  /// |   |
-           | \_|  ''\---/''  |   |
-            \  .-\__  `-`  ___/-. /
-          ___`. .'  /--.--\  `. . __
-       ."" '<  `.___\_<|>_/___.'  >'"".
-      | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-      \  \ `-.   \_ __\ /__ _/   .-` /  /
- ======`-.____`-.___\_____/___.-`____.-'======
- */
