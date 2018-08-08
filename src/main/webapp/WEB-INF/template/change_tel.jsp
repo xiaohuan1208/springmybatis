@@ -53,28 +53,34 @@
         });
     });
     $(".formLastBtn").on("click", function () {
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/;
         var telphone = $("#telPhone").val();
-        $.ajax({
-            type: "POST",
-            url: "user/change_tel",
-            data: {telphone:telphone},
-            dataType: "json",
-            success: function (result) {
-                if(result.code==1){
-                    setInterval(go, 1000);
-                    var x = 3;
-                    function go() {
-                        x--;
-                        if (x > 0) {
-                            $("mark").html(result.message + x + "秒后跳转回设置页面");
-                        } else {
-                            location.href = 'profile';
+        var flag = reg.test(telphone);
+        if(flag){
+            $.ajax({
+                type: "POST",
+                url: "user/change_tel",
+                data: {telphone:telphone},
+                dataType: "json",
+                success: function (result) {
+                    if(result.code==1){
+                        setInterval(go, 1000);
+                        var x = 3;
+                        function go() {
+                            x--;
+                            if (x > 0) {
+                                $("mark").html(result.message + x + "秒后跳转回设置页面");
+                            } else {
+                                location.href = 'profile';
+                            }
                         }
+                    }else{
+                        $("mark").html(result.message);
                     }
-                }else{
-                    $("mark").html(result.message);
                 }
-            }
-        })
+            })
+        }else{
+            $("mark").html("请输入正确的手机号码！");
+        }
     })
 </script>

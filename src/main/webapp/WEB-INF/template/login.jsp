@@ -95,20 +95,24 @@
 
     //登录
     $("#login-input").on("click", function () {
-        console.log("loading");
-
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/;
         var user = {}
         user.telphone = $("#telphone").val();
-        user.password = $("#password").val()
-        //ajax方式提交表单
+        user.password = $("#password").val();
+        var flag = reg.test(user.telphone);
+        if(flag){
+            //ajax方式提交表单
+            $.post("user/login", user, function (result) {
+                if (result.code == 1) {
+                    location.href = "index";
+                } else {
+                    $("mark").html(result.message);
+                }
+            });
+        }else{
+            $("mark").html("请输入正确的手机号码！");
+        }
 
-        $.post("user/login", user, function (result) {
-            if (result.code == 1) {
-                location.href = "index";
-            } else {
-                $("mark").html(result.message);
-            }
-        });
 
     });
 

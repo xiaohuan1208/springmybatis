@@ -68,23 +68,28 @@
 </body>
 </html>
 <script>
-
     $("#register-input").on("click", function () {
         console.log("loading");
-
+        var reg = /^1[3|4|5|7|8][0-9]{9}$/;
         var user = {}
         user.telphone = $("#telphone").val();
         user.checkCode = $("#checkCode").val();
-        //ajax方式提交表单
-        $.post("user/register", user, function (result) {
-            console.log(result);
-            if (result.code == 1) {
-                $("mark").html(result.message);
-                location.href = "index";
-            } else if (result.code < 0) {
-                $("mark").html(result.message);
-            }
-        });
+        var flag = reg.test(user.telphone);
+        if(flag){
+            //ajax方式提交表单
+            $.post("user/register", user, function (result) {
+                console.log(result);
+                if (result.code == 1) {
+                    $("mark").html(result.message);
+                    location.href = "index";
+                } else{
+                    $("mark").html(result.message);
+                }
+            });
+        }else{
+            $("mark").html("请输入正确的手机号码！");
+        }
+
 
     });
 </script>
