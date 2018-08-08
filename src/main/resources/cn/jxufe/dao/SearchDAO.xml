@@ -68,4 +68,7 @@
       creteTime = #{cretetime,jdbcType=TIMESTAMP}
     where telphone = #{telphone,jdbcType=VARCHAR}
   </update>
+  <select id="findAll" resultType="cn.jxufe.entity.Search">
+    SELECT * FROM T_Search
+  </select>
 </mapper>

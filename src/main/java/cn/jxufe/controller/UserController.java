@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 * 用户功能访问控制器
 * */
 @Controller
-@RequestMapping("user")
+@RequestMapping("user")    //
 public class UserController {
     @Autowired
     private UserService userService;
@@ -80,6 +80,13 @@ public class UserController {
         return userService.change_tel(telphone, session);
     }
 
+    /**
+     * 找回密码
+     * @param telphone
+     * @param checkcode
+     * @param password
+     * @return
+     */
     @RequestMapping(value = "find_pwd")
     @ResponseBody
     public Message find_pwd(String telphone,String checkcode,String password){
@@ -94,5 +101,6 @@ public class UserController {
     public User getUserinfo(HttpSession session){
         return userService.getUserinfo(session);
     }
+
 }
 
