@@ -34,6 +34,7 @@ $(document).ready(function(){
 });
 
 function showGoods(data){
+ $("header h1").html(data.goodsname);
  $(".pro_bigImg img").attr("src","upload/"+data.img);
  $(".pro_baseInfor h2").html(data.description);
  $(".pro_baseInfor strong").html(data.sellingprice);
