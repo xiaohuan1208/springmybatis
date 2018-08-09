@@ -35,22 +35,7 @@
         pagination : '.pagination'
       });
 
-     /* //飞入动画，具体根据实际情况调整
-      $(".addToCart").click(function(){
-        $(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);测试+1
-        var shopOffset = $(".hoverCart").offset();
-        var cloneDiv = $(this).parent().siblings(".goodsPic").clone();
-        var proOffset = $(this).parent().siblings(".goodsPic").offset();
-        cloneDiv.css({ "position": "absolute", "top": proOffset.top, "left": proOffset.left });
-        $(this).parent().siblings(".goodsPic").parent().append(cloneDiv);
-        cloneDiv.animate({
-          width:0,
-          height:0,
-          left: shopOffset.left,
-          top: shopOffset.top,
-          opacity:1
-        },"slow");
-      });*/
+    
       //获取商品数据
       goodsList();
 
@@ -108,10 +93,11 @@
         }
       });
     }
+
     //飞入特效
     function animation(obj){
       obj=$(obj);
-     // $(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);测试+1
+      // $(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);测试+1
       var shopOffset = $(".hoverCart").offset();
       var cloneDiv = obj.parent().siblings(".goodsPic").clone();
       var proOffset = obj.parent().siblings(".goodsPic").offset();
@@ -180,102 +166,7 @@
     </li>
     <ul>
 
-      <%--<li>
-        <div class="productArea">
-          <a href="product" class="goodsPic">
-            <img src="../../upload/goods002.jpg"/>
-          </a>
-          <div class="goodsInfor">
-            <h2>
-              <a href="product">烟灰缸 玻璃工艺品...</a>
-            </h2>
-            <p>
-              <del>5.90</del>
-            </p>
-            <p>
-              <strong class="price">3.90</strong>
-            </p>
-            <a class="addToCart">&#126;</a>
-          </div>
-        </div>
-        <aside>
-          <a class="like_icon">1100</a>
-          <a class="comment_icon">420</a>
-          <a class="deal_icon">299</a>
-        </aside>
-      </li>
-      <li>
-        <div class="productArea">
-          <a href="product" class="goodsPic">
-            <img src="../../upload/goods003.jpg"/>
-          </a>
-          <div class="goodsInfor">
-            <h2>
-              <a href="product">迷你花杯 送底座</a>
-            </h2>
-            <p>
-              <del>19.90</del>
-            </p>
-            <p>
-              <strong class="price">12.90</strong>
-            </p>
-            <a class="addToCart">&#126;</a>
-          </div>
-        </div>
-        <aside>
-          <a class="like_icon">580</a>
-          <a class="comment_icon">260</a>
-          <a class="deal_icon">355</a>
-        </aside>
-      </li>
-      <li>
-        <div class="productArea">
-          <a href="product" class="goodsPic">
-            <img src="../../upload/goods004.jpg"/>
-          </a>
-          <div class="goodsInfor">
-            <h2>
-              <a href="product">开光招财 聚财貔貅风水摆件</a>
-            </h2>
-            <p>
-              <del>99.90</del>
-            </p>
-            <p>
-              <strong class="price">69.90</strong>
-            </p>
-            <a class="addToCart">&#126;</a>
-          </div>
-        </div>
-        <aside>
-          <a class="like_icon">80</a>
-          <a class="comment_icon">60</a>
-          <a class="deal_icon">55</a>
-        </aside>
-      </li>
-      <li>
-        <div class="productArea">
-          <a href="product" class="goodsPic">
-            <img src="../../upload/goods005.jpg"/>
-          </a>
-          <div class="goodsInfor">
-            <h2>
-              <a href="product">翅琉璃对 天鹅新房摆件...</a>
-            </h2>
-            <p>
-              <del>88.90</del>
-            </p>
-            <p>
-              <strong class="price">59.90</strong>
-            </p>
-            <a class="addToCart">&#126;</a>
-          </div>
-        </div>
-        <aside>
-          <a class="like_icon">50</a>
-          <a class="comment_icon">20</a>
-          <a class="deal_icon">35</a>
-        </aside>
-      </li>--%>
+      
     </ul>
   </dd>
 </dl>

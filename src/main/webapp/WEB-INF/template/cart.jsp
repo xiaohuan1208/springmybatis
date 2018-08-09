@@ -147,8 +147,8 @@
      template.find(".goodsInfor #number").html(item.number);
      template.find(".numberWidget .number").val(item.number);
 
-     template.find(".priceArea strong").html(result.sellingprice);
-     template.find(".priceArea del").html(result.originalprice);
+     template.find(".priceArea strong").html(result.sellingprice/100.00);
+     template.find(".priceArea del").html(result.originalprice/100.00);
      list.append(template);
     });
    });

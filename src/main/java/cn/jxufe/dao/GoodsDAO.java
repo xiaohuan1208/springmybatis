@@ -1,6 +1,7 @@
 package cn.jxufe.dao;
 
 import cn.jxufe.entity.Goods;
+import org.springframework.stereotype.Repository;
 
 import org.springframework.stereotype.Repository;
 
