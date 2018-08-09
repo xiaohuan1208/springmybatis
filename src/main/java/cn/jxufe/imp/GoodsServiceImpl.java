@@ -31,13 +31,5 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDAO.selectByPrimaryKey(goodsId);
     }
 
-    @Override
-    public List<Goods> findAll() {
-        return goodsDAO.findAll();
-    }
 
-    @Override
-    public Goods findOne(int goodsId) {
-        return goodsDAO.selectByPrimaryKey(goodsId);
-    }
 }
