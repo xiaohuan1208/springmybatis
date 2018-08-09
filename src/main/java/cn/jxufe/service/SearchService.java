@@ -1,7 +1,10 @@
 package cn.jxufe.service;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Search;
 
+import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -9,4 +12,6 @@ import java.util.List;
  */
 public interface SearchService {
     public List<Search> findAll();//查询所有的搜索记录
+    public Message addSearch(String content,HttpSession session);//添加搜索记录
+    public Message deleteSearch(HttpSession httpSession);//删除当前用户的搜索记录
 }

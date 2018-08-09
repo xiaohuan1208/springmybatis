@@ -21,7 +21,7 @@ public class Search implements Serializable {
     /**
      * 搜索时间
      */
-    private Date cretetime;
+    private Date createtime;
 
     private static final long serialVersionUID = 1L;
 
@@ -42,11 +42,11 @@ public class Search implements Serializable {
     }
 
     public Date getCretetime() {
-        return cretetime;
+        return createtime;
     }
 
     public void setCretetime(Date cretetime) {
-        this.cretetime = cretetime;
+        this.createtime = cretetime;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Search implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", telphone=").append(telphone);
         sb.append(", content=").append(content);
-        sb.append(", cretetime=").append(cretetime);
+        sb.append(", cretetime=").append(createtime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
