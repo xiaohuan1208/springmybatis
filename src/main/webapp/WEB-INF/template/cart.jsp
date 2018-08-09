@@ -25,30 +25,6 @@
 <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" type="text/css" href="../../css/style.css" />
 <script src="../../js/jquery.js"></script>
-<script>
-$(document).ready(function(){
-
-/*  //minus
-  $(".minus").click(function(){
-	  var currNum=$(this).siblings(".number");
-	  if(currNum.val()<=1){
-		  $(this).parents("dd").remove();
-		  nullTips();
-		  }else{
-			  currNum.val(parseInt(currNum.val())-1);
-			  }
-	  });
-
-
-
-  //plus
-  $(".plus").click(function(){
-	  var currNum=$(this).siblings(".number");
-	  currNum.val(parseInt(currNum.val())+1);
-	  });*/
-
-});
-</script>
 </head>
 <body>
 <!--header-->
@@ -219,7 +195,7 @@ $(document).ready(function(){
 
  }
 
- function minus(goodsid){
+ /*function minus(goodsid){
   var cart = {}
   cart.goodsId = goodsid;
   var number = -1;
@@ -229,7 +205,7 @@ $(document).ready(function(){
     show();
    }
   });
- }
+ }*/
 
 
 </script>
