@@ -25,6 +25,7 @@
 <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" type="text/css" href="../../css/style.css" />
 <script src="../../js/jquery.js"></script>
+
 </head>
 <body>
 <!--header-->
@@ -195,7 +196,7 @@
 
  }
 
- /*function minus(goodsid){
+ function minus(goodsid){
   var cart = {}
   cart.goodsId = goodsid;
   var number = -1;
@@ -205,7 +206,7 @@
     show();
    }
   });
- }*/
+ }
 
 
 </script>
