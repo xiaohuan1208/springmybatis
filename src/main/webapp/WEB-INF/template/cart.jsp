@@ -28,50 +28,6 @@
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
     <script src="../../js/jquery.js"></script>
-    <script>
-        $(document).ready(function () {
-            //show or hide:delBtn
-            $(".edit").toggle(function () {
-                $(this).parent().siblings("dd").find(".delBtn").fadeIn();
-                $(this).html("完成");
-                $(".numberWidget").show();
-                $(".priceArea").hide();
-            }, function () {
-                $(this).parent().siblings("dd").find(".delBtn").fadeOut();
-                $(this).html("编辑");
-                $(".numberWidget").hide();
-                $(".priceArea").show();
-            });
-            //minus
-            $(".minus").click(function () {
-                var currNum = $(this).siblings(".number");
-                if (currNum.val() <= 1) {
-                    $(this).parents("dd").remove();
-                    nullTips();
-                } else {
-                    currNum.val(parseInt(currNum.val()) - 1);
-                }
-            });
-            //plus
-            $(".plus").click(function () {
-                var currNum = $(this).siblings(".number");
-                currNum.val(parseInt(currNum.val()) + 1);
-            });
-            //delBtn
-            $(".delBtn").click(function () {
-                $(this).parent().remove();
-                nullTips();
-            });
-            //isNull->tips
-            function nullTips() {
-                if ($(".cart dd").length == 0) {
-                    var tipsCont = "<mark style='display:block;background:none;text-align:center;color:grey;'>购物车为空！</mark>"
-                    $(".cart").remove();
-                    $("body").append(tipsCont);
-                }
-            }
-        });
-    </script>
 </head>
 <body>
 <!--header-->
@@ -80,77 +36,74 @@
 
     <h1>购物车</h1>
 </header>
+<dd id="template" hidden="hidden">
+    <input type="checkbox"/>
+    <a href="product" class="goodsPic"><img src="../../upload/goods004.jpg"/></a>
+
+    <div class="goodsInfor">
+        <h2>
+            <a id="name" href="product">聚财貔貅风水摆件</a>
+            <span id="number">1</span>
+        </h2>
+
+        <div class="priceArea">
+            <strong>0.00</strong>
+            <del>0.00</del>
+        </div>
+        <div class="numberWidget">
+            <input type="button" value="-" class="minus"/>
+            <input type="text" value="1" disabled class="number"/>
+            <input type="button" value="+" class="plus"/>
+        </div>
+    </div>
+    <a class="delBtn">删除</a>
+</dd>
 <dl class="cart">
     <dt>
-        <label><input type="checkbox"/>全选</label>
+        <label><input type="checkbox" id="checkAll"/>全选</label>
         <a class="edit">编辑</a>
     </dt>
-    <dd>
-        <input type="checkbox"/>
-        <a href="product" class="goodsPic"><img src="../../upload/goods004.jpg"/></a>
 
-        <div class="goodsInfor">
-            <h2>
-                <a href="product">聚财貔貅风水摆件</a>
-                <span>1</span>
-            </h2>
-
-            <div class="priceArea">
-                <strong>0.00</strong>
-                <del>0.00</del>
-            </div>
-            <div class="numberWidget">
-                <input type="button" value="-" class="minus"/>
-                <input type="text" value="1" disabled class="number"/>
-                <input type="button" value="+" class="plus"/>
-            </div>
-        </div>
-        <a class="delBtn">删除</a>
+    <%--<dd>
+     <input type="checkbox"/>
+     <a href="product" class="goodsPic"><img src="../../upload/goods002.jpg"/></a>
+     <div class="goodsInfor">
+      <h2>
+       <a href="product">烟灰缸 玻璃工艺品...</a>
+       <span>1</span>
+      </h2>
+      <div class="priceArea">
+       <strong>0.00</strong>
+       <del>0.00</del>
+      </div>
+      <div class="numberWidget">
+       <input type="button" value="-" class="minus"/>
+       <input type="text" value="1" disabled class="number"/>
+       <input type="button" value="+" class="plus"/>
+      </div>
+     </div>
+     <a class="delBtn">删除</a>
     </dd>
     <dd>
-        <input type="checkbox"/>
-        <a href="product" class="goodsPic"><img src="../../upload/goods002.jpg"/></a>
-
-        <div class="goodsInfor">
-            <h2>
-                <a href="product">烟灰缸 玻璃工艺品...</a>
-                <span>1</span>
-            </h2>
-
-            <div class="priceArea">
-                <strong>0.00</strong>
-                <del>0.00</del>
-            </div>
-            <div class="numberWidget">
-                <input type="button" value="-" class="minus"/>
-                <input type="text" value="1" disabled class="number"/>
-                <input type="button" value="+" class="plus"/>
-            </div>
-        </div>
-        <a class="delBtn">删除</a>
-    </dd>
-    <dd>
-        <input type="checkbox"/>
-        <a href="product" class="goodsPic"><img src="../../upload/goods003.jpg"/></a>
-
-        <div class="goodsInfor">
-            <h2>
-                <a href="product">迷你花杯 送底座</a>
-                <span>1</span>
-            </h2>
-
-            <div class="priceArea">
-                <strong>0.00</strong>
-                <del>0.00</del>
-            </div>
-            <div class="numberWidget">
-                <input type="button" value="-" class="minus"/>
-                <input type="text" value="1" disabled class="number"/>
-                <input type="button" value="+" class="plus"/>
-            </div>
-        </div>
-        <a class="delBtn">删除</a>
-    </dd>
+     <input type="checkbox"/>
+     <a href="product" class="goodsPic"><img src="../../upload/goods003.jpg"/></a>
+     <div class="goodsInfor">
+      <h2>
+       <a href="product">迷你花杯 送底座</a>
+       <span>1</span>
+      </h2>
+      <div class="priceArea">
+       <strong>0.00</strong>
+       <del>0.00</del>
+      </div>
+      <div class="numberWidget">
+       <input type="button" value="-" class="minus"/>
+       <input type="text" value="1" disabled  class="number"/>
+       <input type="button" value="+" class="plus"/>
+      </div>
+     </div>
+     <a class="delBtn">删除</a>
+    </dd>--%>
 </dl>
 <!--bottom nav-->
 <div style="height:1rem;"></div>
@@ -163,3 +116,101 @@
 </aside>
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+
+        //show or hide:delBtn
+        $(".edit").toggle(function () {
+            $(this).parent().siblings("dd").find(".delBtn").fadeIn();
+            $(this).html("完成");
+            $(".numberWidget").show();
+            $(".priceArea").hide();
+        }, function () {
+            $(this).parent().siblings("dd").find(".delBtn").fadeOut();
+            $(this).html("编辑");
+            $(".numberWidget").hide();
+            $(".priceArea").show();
+        });
+
+        //minus
+        $(".minus").click(function () {
+            var currNum = $(this).siblings(".number");
+            if (currNum.val() <= 1) {
+                $(this).parents("dd").remove();
+                nullTips();
+            } else {
+                currNum.val(parseInt(currNum.val()) - 1);
+            }
+        });
+
+
+        //plus
+        $(".plus").click(function () {
+            var currNum = $(this).siblings(".number");
+            currNum.val(parseInt(currNum.val()) + 1);
+        });
+
+        //delBtn
+        $(".delBtn").click(function () {
+            $(this).parent().remove();
+            nullTips();
+        });
+        //isNull->tips
+        function nullTips() {
+            if ($(".cart dd").length == 0) {
+                var tipsCont = "<mark style='display:block;background:none;text-align:center;color:grey;'>购物车为空！</mark>"
+                $(".cart").remove();
+                $("body").append(tipsCont);
+            }
+        }
+
+        //list.find("dd").remove();
+        show();
+
+    });
+
+    function show() {
+
+        var list = $(".cart");
+        list.find("dd").remove();
+        $.get("user/cart", function (data) {
+
+            //循环获取商品详情
+            $.each(data, function (index, item) {
+                //获取单个商品详情
+                $.get("goods/one?goodsId=" + item.goodsId, function (result) {
+                    //渲染界面
+                    var template = $("#template").clone(true);
+                    template.removeAttr("hidden");
+                    template.attr("datagoodsid", result.goodsid);
+                    template.find(".goodsPic").attr("href", "product?goodId=" + result.goodsid);
+                    if (result.img != null) {
+                        template.find("img").attr("src", "upload/" + result.img);
+                    }
+                    template.find(".goodsInfor #name").html(result.goodsname);
+                    template.find(".goodsInfor #number").html(item.number);
+                    template.find(".numberWidget .number").val(item.number);
+
+                    template.find(".priceArea strong").html(result.sellingprice/100.00);
+                    template.find(".priceArea del").html(result.originalprice/100.00);
+                    list.append(template);
+                });
+            });
+        });
+
+    }
+
+   /* function minus(goodsid) {
+        var cart = {}
+        cart.goodsId = goodsid;
+        var number = -1;
+        cart.number = number;
+        $.get("user/pushcart", cart, function (data) {
+            if (data.code > 0) {
+                show();
+            }
+        });
+    }*/
+
+
+</script>

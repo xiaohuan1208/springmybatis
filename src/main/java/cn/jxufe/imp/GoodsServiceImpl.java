@@ -31,4 +31,5 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDAO.selectByPrimaryKey(goodsId);
     }
 
+
 }

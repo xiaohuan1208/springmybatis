@@ -1,5 +1,6 @@
 package cn.jxufe.controller;
 
+import cn.jxufe.bean.Cart;
 import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Registerinfo;
 import cn.jxufe.entity.User;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/8/6.
@@ -100,6 +103,19 @@ public class UserController {
     @ResponseBody
     public User getUserinfo(HttpSession session){
         return userService.getUserinfo(session);
+    }
+
+
+    @RequestMapping("pushcart")
+    @ResponseBody
+    public Message pushCart(Cart cart, HttpSession session){
+        return userService.pushCart(cart, session);
+    }
+
+    @RequestMapping("cart")
+    @ResponseBody
+    public Map<Integer,Cart> getCart(HttpSession session){
+        return userService.getCart(session);
     }
 
 }

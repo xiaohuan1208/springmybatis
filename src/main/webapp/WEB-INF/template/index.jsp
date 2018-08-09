@@ -61,7 +61,10 @@
             });
             //获取商品数据
             goodsList();
-
+            //初始化购物车数量
+            $.get("user/cart",function(data){
+              $(".hoverCart a").html(Object.keys(data).length);
+            });
         });
         //获取商品数据
         function goodsList(){
@@ -87,8 +90,22 @@
                 template.find("aside .like_icon").html(item.likenumber);
                 template.find("aside .comment_icon").html(item.commentnum);
                 template.find("aside .deal_icon").html(item.transactionnum);
+                template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+")");
                 list.append(template);
             });
+        }
+        //加入购物车
+        function pushCart(goodsid){
+          var cart = {}
+          cart.goodsId = goodsid;
+          cart.number = 1;
+          $.get("user/pushcart",cart,function(result){
+            if(result.code>0){
+              $.get("user/cart",function(data){
+                $(".hoverCart a").html(Object.keys(data).length);
+              });
+            }
+          });
         }
         //获取广告数据
        /* function advList(){
@@ -113,9 +130,9 @@
 <body>
 <!--header-->
 <header>
-    <a href="location" class="location">深圳市</a>
-    <h1>合众饰品专卖</h1>
-    <a href="search" class="rt_searchIcon">&#37;</a>
+  <a href="location" class="location">深圳市</a>
+  <h1>合众饰品专卖</h1>
+  <a href="search" class="rt_searchIcon">&#37;</a>
 </header>
 <!--slide-->
 <div class="slide">
@@ -129,39 +146,38 @@
             </div>
         </c:forEach>
     </div>
-
     <div class="pagination"></div>
 </div>
 <!--Tab:productList-->
 <dl class="tab_proList">
-    <dd>
-        <li id="goods-template" hidden="hidden">
-            <div class="productArea">
-                <a href="product" class="goodsPic">
-                    <img src="../../upload/goods001.jpg"/>
-                </a>
-                <div class="goodsInfor">
-                    <h2>
-                        <a class="name" href="product">水晶骷髅头 截取字符串...</a>
-                    </h2>
-                    <p>
-                        <del>5.90</del>
-                    </p>
-                    <p>
-                        <strong class="price">3.90</strong>
-                    </p>
-                    <a class="addToCart">&#126;</a>
-                </div>
-            </div>
-            <aside>
-                <a class="like_icon">580</a>
-                <a class="comment_icon">260</a>
-                <a class="deal_icon">355</a>
-            </aside>
-        </li>
-        <ul>
+  <dd>
+    <li id="goods-template" hidden="hidden">
+      <div class="productArea">
+        <a href="product" class="goodsPic">
+          <img src="../../upload/goods001.jpg"/>
+        </a>
+        <div class="goodsInfor">
+          <h2>
+            <a class="name" href="product">水晶骷髅头 截取字符串...</a>
+          </h2>
+          <p>
+            <del>5.90</del>
+          </p>
+          <p>
+            <strong class="price">3.90</strong>
+          </p>
+          <a class="addToCart">&#126;</a>
+        </div>
+      </div>
+      <aside>
+        <a class="like_icon">580</a>
+        <a class="comment_icon">260</a>
+        <a class="deal_icon">355</a>
+      </aside>
+    </li>
+    <ul>
 
-        </ul>
+    </ul>
     </dd>
 </dl>
 <!--floatCart-->
