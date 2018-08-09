@@ -56,6 +56,7 @@
 
     //获取商品数据
     function goodsList(){
+
       $.get("goods/list",function(data){
         showGoodsList(data);
       })
