@@ -53,52 +53,14 @@
  </div>
  <a class="delBtn">删除</a>
 </dd>
+<%--购物车列表--%>
 <dl class="cart">
  <dt>
   <label><input type="checkbox"/>全选</label>
   <a class="edit">编辑</a>
  </dt>
 
- <%--<dd>
-  <input type="checkbox"/>
-  <a href="product" class="goodsPic"><img src="../../upload/goods002.jpg"/></a>
-  <div class="goodsInfor">
-   <h2>
-    <a href="product">烟灰缸 玻璃工艺品...</a>
-    <span>1</span>
-   </h2>
-   <div class="priceArea">
-    <strong>0.00</strong>
-    <del>0.00</del>
-   </div>
-   <div class="numberWidget">
-    <input type="button" value="-" class="minus"/>
-    <input type="text" value="1" disabled class="number"/>
-    <input type="button" value="+" class="plus"/>
-   </div>
-  </div>
-  <a class="delBtn">删除</a>
- </dd>
- <dd>
-  <input type="checkbox"/>
-  <a href="product" class="goodsPic"><img src="../../upload/goods003.jpg"/></a>
-  <div class="goodsInfor">
-   <h2>
-    <a href="product">迷你花杯 送底座</a>
-    <span>1</span>
-   </h2>
-   <div class="priceArea">
-    <strong>0.00</strong>
-    <del>0.00</del>
-   </div>
-   <div class="numberWidget">
-    <input type="button" value="-" class="minus"/>
-    <input type="text" value="1" disabled  class="number"/>
-    <input type="button" value="+" class="plus"/>
-   </div>
-  </div>
-  <a class="delBtn">删除</a>
- </dd>--%>
+
 </dl>
 <!--bottom nav-->
 <div style="height:1rem;"></div>
@@ -125,14 +87,13 @@
    $(this).html("编辑");
    $(".numberWidget").hide();
    $(".priceArea").show();
+   getCartDOM();//测试
   });
 
   //minus
   $(".minus").click(function(){
    var currNum=$(this).siblings(".number");
    if(currNum.val()<=1){
-    $(this).parents("dd").remove();
-    nullTips();
    }else{
     currNum.val(parseInt(currNum.val())-1);
    }
@@ -170,7 +131,6 @@
   var list = $(".cart");
   list.find("dd").remove();
   $.get("user/cart",function(data){
-
    //循环获取商品详情
    $.each(data,function(index,item){
     //获取单个商品详情
@@ -196,7 +156,7 @@
 
  }
 
- function minus(goodsid){
+ /*function minus(goodsid){
   var cart = {}
   cart.goodsId = goodsid;
   var number = -1;
@@ -204,6 +164,30 @@
   $.get("user/pushcart",cart,function(data){
    if(data.code>0){
     show();
+   }
+  });
+ }*/
+
+ function getCartDOM(){
+  var Dom = $(".cart dd");
+  var cartList = [];
+  $.each(Dom,function(index,item){
+   var cart = {}
+   cart.goodsId = $(item).attr("datagoodsid");
+   var number = $(item).find(".numberWidget .number").val();
+   cart.number = number;
+   cartList.push(cart);
+  });
+  $.ajax({
+   url:"user/editcart",
+   data:JSON.stringify(cartList),
+   type:"POST",
+   dataType:"json",
+   contentType:"application/json",
+   success:function(data){
+    if(data.code>0){
+     show();
+    }
    }
   });
  }
