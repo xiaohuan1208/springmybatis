@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TestController {
 
     @RequestMapping("{url}")
-
     public String toPage(@PathVariable String url){
         return url;
     }
