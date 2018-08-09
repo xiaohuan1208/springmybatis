@@ -48,7 +48,7 @@
     </p>
     <p>
         <a href="order_list">查看订单</a>
-        <a href="index.jsp">返回首页</a>
+        <a href="page_index">返回首页</a>
     </p>
 </section>
 </body>

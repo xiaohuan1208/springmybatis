@@ -104,7 +104,7 @@
             //ajax方式提交表单
             $.post("user/login", user, function (result) {
                 if (result.code == 1) {
-                    location.href = "index";
+                    location.href = "page_index";
                 } else {
                     $("mark").html(result.message);
                 }

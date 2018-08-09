@@ -40,10 +40,10 @@
 <!--fixedNav:footer-->
 <div style="height:1.2rem;"></div>
 <nav>
-    <a href="index.jsp" class="homeIcon">首页</a>
-    <a href="category.jsp" class="categoryIcon">分类</a>
-    <a href="cart.jsp" class="cartIcon">购物车</a>
-    <a href="user.jsp" class="userIcon">个人中心</a>
+    <a href="page_index" class="homeIcon">首页</a>
+    <a href="category" class="categoryIcon">分类</a>
+    <a href="cart" class="cartIcon">购物车</a>
+    <a href="user" class="userIcon">个人中心</a>
 </nav>
 </body>
 </html>
