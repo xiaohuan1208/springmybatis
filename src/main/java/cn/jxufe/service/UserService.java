@@ -24,6 +24,8 @@ public interface UserService {
     public Message pushCart(Cart cart, HttpSession session);
 
     public Map<Integer,Cart> getCart(HttpSession session);
+
+    public Message eidtCart(Cart[] cart,HttpSession session);
 }
 /*
 代码手中走~佛祖心中留！求永无BUG！

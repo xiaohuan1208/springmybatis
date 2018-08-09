@@ -111,6 +111,29 @@ public class UserServiceImp implements UserService {
 
         return map;
     }
+
+    @Override
+    public Message eidtCart(Cart[] cart, HttpSession session) {
+
+        Message message = new Message();
+        Map<Integer,Cart> cartMap = (Map<Integer,Cart>)session.getAttribute("cart");
+        if(cartMap==null){
+            cartMap=new HashMap<Integer,Cart>();
+        }
+        //清空购物车
+        cartMap.clear();
+
+        for (Cart c : cart){
+            //放入商品
+            cartMap.put(c.getGoodsId(),c);
+        }
+
+        //放入session
+        session.setAttribute("cart", cartMap);
+        message.setCode(1);
+        message.setMessage("修改成功");
+        return message;
+    }
 }
 /*
 代码手中走~佛祖心中留！求永无BUG！
