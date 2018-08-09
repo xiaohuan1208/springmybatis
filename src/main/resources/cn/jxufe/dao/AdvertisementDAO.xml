@@ -11,6 +11,9 @@
   <sql id="Base_Column_List">
     advertiseId, advSequence, advImg, linkUrl, createTime
   </sql>
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT * FROM T_Advertisement ORDER BY advSequence LIMIT 0,5
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
