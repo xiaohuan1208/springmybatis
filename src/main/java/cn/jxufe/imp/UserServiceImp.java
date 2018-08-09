@@ -1,5 +1,6 @@
 package cn.jxufe.imp;
 
+import cn.jxufe.bean.Cart;
 import cn.jxufe.bean.Message;
 import cn.jxufe.dao.UserDAO;
 import cn.jxufe.entity.Registerinfo;
@@ -7,8 +8,13 @@ import cn.jxufe.entity.User;
 import cn.jxufe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.misc.resources.Messages_sv;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/8/6.
@@ -68,6 +74,42 @@ public class UserServiceImp implements UserService {
 
         User user = (User)session.getAttribute("user");
         return user;
+    }
+
+    /*将商品信息添加到购物车session中*/
+    @Override
+    public Message pushCart(Cart cart, HttpSession session) {
+
+        Message message = new Message();
+
+        Map<Integer,Cart> cartMap = (Map<Integer,Cart>)session.getAttribute("cart");
+        if(cartMap==null){
+            cartMap=new HashMap<Integer,Cart>();
+        }
+
+        //通过传入的商品ID查询购物车中是否存在购物商品
+        Cart c = cartMap.get(cart.getGoodsId());
+        if(c == null){
+            cartMap.put(cart.getGoodsId(),cart);
+        }else {
+            c.setNumber(c.getNumber()+cart.getNumber());
+            cartMap.put(c.getGoodsId(),c);
+        }
+        session.setAttribute("cart",cartMap);
+        message.setCode(1);
+        message.setMessage("添加成功");
+
+        return message;
+    }
+
+    @Override
+    public Map<Integer,Cart> getCart(HttpSession session) {
+        Map<Integer,Cart> map = (Map<Integer,Cart>)session.getAttribute("cart");
+        if(map == null){
+            System.out.println("is null ++++++++++++++++");
+        }
+
+        return map;
     }
 }
 /*
