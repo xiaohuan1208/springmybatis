@@ -36,8 +36,8 @@ $(document).ready(function(){
 function showGoods(data){
  $(".pro_bigImg img").attr("src","upload/"+data.img);
  $(".pro_baseInfor h2").html(data.description);
- $(".pro_baseInfor strong").html(data.sellingprice);
- $(".pro_baseInfor del").html(data.originalprice);
+ $(".pro_baseInfor strong").html(data.sellingprice/100.00);
+ $(".pro_baseInfor del").html(data.originalprice/100.00);
  $(".pro_infor #create-time").html(data.createtime);
  $(".pro_infor #designer").html(data.designer);
  $("#comment b").html(data.comment);

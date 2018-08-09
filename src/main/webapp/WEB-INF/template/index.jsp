@@ -34,7 +34,7 @@
                 visibilityFullFit : true,
                 loop:true,
                 pagination : '.pagination',
-                paginationClickable: true,
+                paginationClickable: true
                 /*observer: true,
                 observerParents: true,
                 autoplayDisableOnInteraction:false,
@@ -82,8 +82,8 @@
                 }
                 template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
                 template.find(".goodsInfor .name").html(item.goodsname);
-                template.find(".goodsInfor del").html(item.originalprice);
-                template.find(".goodsInfor strong").html(item.sellingprice);
+                template.find(".goodsInfor del").html(item.originalprice/100.00);
+                template.find(".goodsInfor strong").html(item.sellingprice/100.00);
                 template.find("aside .like_icon").html(item.likenumber);
                 template.find("aside .comment_icon").html(item.commentnum);
                 template.find("aside .deal_icon").html(item.transactionnum);
