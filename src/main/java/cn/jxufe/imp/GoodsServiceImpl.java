@@ -1,5 +1,6 @@
 package cn.jxufe.imp;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.dao.GoodsDAO;
 import cn.jxufe.entity.Goods;
 import cn.jxufe.service.GoodsService;
@@ -31,5 +32,25 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsDAO.selectByPrimaryKey(goodsId);
     }
 
-
+    @Override
+    public Message add(Goods goods) {
+        Message message = new Message();
+//        try{
+//            goodsDAO.insertSelective(goods);
+//            message.setCode(1);
+//            message.setMessage("作品上传成功");
+//        }catch (Exception e){
+//            message.setCode(-1);
+//            message.setMessage("上传失败，请重试");
+//            e.getMessage();
+//        }
+        if(goodsDAO.insertSelective(goods)>0){
+            message.setCode(1);
+            message.setMessage("作品上传成功");
+        }else {
+            message.setCode(-1);
+            message.setMessage("上传失败，请重试");
+        }
+        return message;
+    }
 }
