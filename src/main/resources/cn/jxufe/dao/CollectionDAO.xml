@@ -79,4 +79,10 @@
       `status` = #{status,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findByTelphoneAndGoodsId" resultType="cn.jxufe.entity.Collection">
+    SELECT * FROM T_Collection WHERE telphone = #{telphone} and goodsid = #{goodsid}
+  </select>
+  <select id="findByTelphone" resultType="cn.jxufe.entity.Collection">
+    SELECT * FROM T_Collection WHERE telphone = #{0} AND status = 1
+  </select>
 </mapper>
