@@ -204,4 +204,7 @@
   <select id="findByName" resultType="cn.jxufe.entity.Goods">
       SELECT * FROM T_Goods WHERE goodsName like concat('%',#{0},'%')
   </select>
+  <select id="findByStatus" resultType="cn.jxufe.entity.Goods">
+    SELECT * FROM T_Goods WHERE status = 1
+  </select>
 </mapper>

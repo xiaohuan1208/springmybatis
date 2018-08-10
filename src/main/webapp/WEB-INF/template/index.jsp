@@ -34,6 +34,8 @@
         loop:true,
         pagination : '.pagination'
       });
+
+    
       //获取商品数据
       goodsList();
 
@@ -54,6 +56,7 @@
     function showGoodsList(data){
       var list = $(".tab_proList ul");
       list.html("");
+
       $.each(data,function(index,item){
         var template = $("#goods-template").clone();
         template.removeAttr("hidden");
@@ -68,9 +71,10 @@
         template.find("aside .like_icon").html(item.likenumber);
         template.find("aside .comment_icon").html(item.commentnum);
         template.find("aside .deal_icon").html(item.transactionnum);
-        template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+")");
-        template.find("aside .like_icon").attr("onclick","likeGoods("+item.goodsid+")");
+        template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+",this)");
+        
         list.append(template);
+
       });
     }
 
@@ -85,6 +89,27 @@
             $(".hoverCart a").html(Object.keys(data).length);
           });
         }
+      });
+    }
+
+    //飞入特效
+    function animation(obj){
+      obj=$(obj);
+      // $(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);测试+1
+      var shopOffset = $(".hoverCart").offset();
+      var cloneDiv = obj.parent().siblings(".goodsPic").clone();
+      var proOffset = obj.parent().siblings(".goodsPic").offset();
+      console.log(proOffset);
+      cloneDiv.css({ "position": "absolute", "top": proOffset.top, "left": proOffset.left });
+      obj.parent().siblings(".goodsPic").parent().append(cloneDiv);
+      cloneDiv.animate({
+        width:0,
+        height:0,
+        left: shopOffset.left,
+        top: shopOffset.top,
+        opacity:1
+      },"slow",function(){
+        $(this).remove();
       });
     }
 
@@ -103,18 +128,18 @@
 <header>
   <a href="location" class="location">深圳市</a>
   <h1>合众饰品专卖</h1>
-  <a href="searchTable/getSearch" class="rt_searchIcon">&#37;</a>
+  <a href="search" class="rt_searchIcon">&#37;</a>
 </header>
 <!--slide-->
 <div class="slide">
   <div class="swiper-wrapper">
       <%--循环顶部图片--%>
       <c:forEach items="${list}" var="b">
-        <div class="swiper-slide">
-          <a href="#">
-            <img src="upload/${b.brandPic}"/>
-          </a>
-        </div>
+    <div class="swiper-slide">
+      <a href="#">
+        <img src="upload/${b.brandPic}"/>
+      </a>
+    </div>
       </c:forEach>
   </div>
   <div class="pagination"></div>
@@ -122,7 +147,6 @@
 <!--Tab:productList-->
 <dl class="tab_proList">
   <dd>
-
     <li id="goods-template" hidden="hidden">
       <div class="productArea">
         <a href="product" class="goodsPic">
@@ -149,7 +173,7 @@
     </li>
     <ul>
 
-
+      
     </ul>
   </dd>
 </dl>

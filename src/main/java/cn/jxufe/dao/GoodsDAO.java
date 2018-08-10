@@ -1,6 +1,7 @@
 package cn.jxufe.dao;
 
 import cn.jxufe.entity.Goods;
+import org.springframework.stereotype.Repository;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +22,8 @@ public interface GoodsDAO extends MyBatisBaseDao<Goods, Integer> {
      * 查询全部商品
      */
     public List<Goods> findAll();
-
+    /**
+     * 通过状态查询全部商品
+     */
+    public List<Goods> findByStatus();
 }

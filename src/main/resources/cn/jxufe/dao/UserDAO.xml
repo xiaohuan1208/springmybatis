@@ -103,4 +103,9 @@
       updateTime = #{updatetime,jdbcType=TIMESTAMP}
     where telPhone = #{telphone,jdbcType=VARCHAR}
   </update>
+  <update id="updateByTel" parameterType="java.lang.String" >
+    UPDATE T_UserInfo
+    SET telPhone = #{telphone,jdbcType=VARCHAR}
+    WHERE telPhone = #{oldtel,jdbcType=VARCHAR}
+  </update>
 </mapper>

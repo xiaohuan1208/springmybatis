@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxufe.dao.AdminDAO">
+  <resultMap id="BaseResultMap" type="cn.jxufe.entity.Admin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="logCount" jdbcType="INTEGER" property="logcount" />
+    <result column="isSuper" jdbcType="BIT" property="issuper" />
+    <result column="isDisabled" jdbcType="BIT" property="isdisabled" />
+    <result column="logStatus" jdbcType="VARCHAR" property="logstatus" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, account, `password`, logCount, isSuper, isDisabled, logStatus, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_Admin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_Admin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.jxufe.entity.Admin">
+    insert into T_Admin (id, account, `password`, 
+      logCount, isSuper, isDisabled, 
+      logStatus, createTime, updateTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{logcount,jdbcType=INTEGER}, #{issuper,jdbcType=BIT}, #{isdisabled,jdbcType=BIT}, 
+      #{logstatus,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.jxufe.entity.Admin">
+    insert into T_Admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="logcount != null">
+        logCount,
+      </if>
+      <if test="issuper != null">
+        isSuper,
+      </if>
+      <if test="isdisabled != null">
+        isDisabled,
+      </if>
+      <if test="logstatus != null">
+        logStatus,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="logcount != null">
+        #{logcount,jdbcType=INTEGER},
+      </if>
+      <if test="issuper != null">
+        #{issuper,jdbcType=BIT},
+      </if>
+      <if test="isdisabled != null">
+        #{isdisabled,jdbcType=BIT},
+      </if>
+      <if test="logstatus != null">
+        #{logstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.jxufe.entity.Admin">
+    update T_Admin
+    <set>
+      <if test="account != null">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="logcount != null">
+        logCount = #{logcount,jdbcType=INTEGER},
+      </if>
+      <if test="issuper != null">
+        isSuper = #{issuper,jdbcType=BIT},
+      </if>
+      <if test="isdisabled != null">
+        isDisabled = #{isdisabled,jdbcType=BIT},
+      </if>
+      <if test="logstatus != null">
+        logStatus = #{logstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Admin">
+    update T_Admin
+    set account = #{account,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      logCount = #{logcount,jdbcType=INTEGER},
+      isSuper = #{issuper,jdbcType=BIT},
+      isDisabled = #{isdisabled,jdbcType=BIT},
+      logStatus = #{logstatus,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

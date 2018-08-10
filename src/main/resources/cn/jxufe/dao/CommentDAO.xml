@@ -1,120 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jxufe.dao.CommentDAO">
-  <resultMap id="BaseResultMap" type="cn.jxufe.entity.Comment">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="telphone" jdbcType="VARCHAR" property="telphone" />
-    <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
-    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
-    <result column="headImg" jdbcType="VARCHAR" property="headimg" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, telphone, goodsId, content, createTime, nickName, headImg
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from T_Comment
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from T_Comment
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.jxufe.entity.Comment">
-    insert into T_Comment (id, telphone, goodsId, 
-      content, createTime, nickName, 
-      headImg)
-    values (#{id,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{goodsid,jdbcType=INTEGER}, 
-      #{content,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{nickname,jdbcType=VARCHAR}, 
-      #{headimg,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="cn.jxufe.entity.Comment">
-    insert into T_Comment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="telphone != null">
-        telphone,
-      </if>
-      <if test="goodsid != null">
-        goodsId,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="createtime != null">
-        createTime,
-      </if>
-      <if test="nickname != null">
-        nickName,
-      </if>
-      <if test="headimg != null">
-        headImg,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="telphone != null">
-        #{telphone,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsid != null">
-        #{goodsid,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="headimg != null">
-        #{headimg,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.jxufe.entity.Comment">
-    update T_Comment
-    <set>
-      <if test="telphone != null">
-        telphone = #{telphone,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsid != null">
+    <resultMap id="BaseResultMap" type="cn.jxufe.entity.Comment">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+        <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+        <result column="headImg" jdbcType="VARCHAR" property="headimg" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, telphone, goodsId, content, createTime, nickName, headImg
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from T_Comment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from T_Comment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="cn.jxufe.entity.Comment">
+        insert into T_Comment (id, telphone, goodsId,
+        content, createTime, nickName,
+        headImg)
+        values (#{id,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{goodsid,jdbcType=INTEGER},
+        #{content,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{nickname,jdbcType=VARCHAR},
+        #{headimg,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="cn.jxufe.entity.Comment">
+        insert into T_Comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="telphone != null">
+                telphone,
+            </if>
+            <if test="goodsid != null">
+                goodsId,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="nickname != null">
+                nickName,
+            </if>
+            <if test="headimg != null">
+                headImg,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="telphone != null">
+                #{telphone,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsid != null">
+                #{goodsid,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="headimg != null">
+                #{headimg,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.jxufe.entity.Comment">
+        update T_Comment
+        <set>
+            <if test="telphone != null">
+                telphone = #{telphone,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsid != null">
+                goodsId = #{goodsid,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="nickname != null">
+                nickName = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="headimg != null">
+                headImg = #{headimg,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Comment">
+        update T_Comment
+        set telphone = #{telphone,jdbcType=VARCHAR},
         goodsId = #{goodsid,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
         createTime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="nickname != null">
         nickName = #{nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="headimg != null">
-        headImg = #{headimg,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Comment">
-    update T_Comment
-    set telphone = #{telphone,jdbcType=VARCHAR},
-      goodsId = #{goodsid,jdbcType=INTEGER},
-      content = #{content,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=TIMESTAMP},
-      nickName = #{nickname,jdbcType=VARCHAR},
-      headImg = #{headimg,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="findByGoodsId" resultType="cn.jxufe.entity.Comment">
-    SELECT * FROM T_Comment WHERE goodsId = #{0}
-  </select>
+        headImg = #{headimg,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="findByGoodsId" resultType="cn.jxufe.entity.Comment">
+        SELECT * FROM T_Comment WHERE goodsId = #{0}
+    </select>
 </mapper>

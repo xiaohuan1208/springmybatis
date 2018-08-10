@@ -25,6 +25,7 @@ public class SearchController {
         try {
             //获取当前用户的搜索记录
             map.put("searchList",searchService.findAll());
+            System.out.println(searchService.findAll().size());
         }catch (Exception e){
             e.printStackTrace();
             return "404";

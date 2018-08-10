@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CollectionDAO extends MyBatisBaseDao<Collection, Integer> {
     /**
-     * 通过电弧号码和商品ID查询相应的收藏信息
+     * 通过电话号码和商品ID查询相应的收藏信息
      * @return
      */
     public Collection findByTelphoneAndGoodsId(Collection collection);

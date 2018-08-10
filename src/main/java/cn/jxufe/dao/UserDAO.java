@@ -2,6 +2,7 @@ package cn.jxufe.dao;
 
 import cn.jxufe.entity.User;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserDAO extends MyBatisBaseDao<User, String> {
+    int updateByTel(@Param("telphone") String telphone,@Param("oldtel") String oldtel);
 }

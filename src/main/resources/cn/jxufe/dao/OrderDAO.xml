@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.jxufe.dao.OrderDAO">
+  <resultMap id="BaseResultMap" type="cn.jxufe.entity.Order">
+    <id column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="orderRemarks" jdbcType="VARCHAR" property="orderremarks" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="orderState" jdbcType="VARCHAR" property="orderstate" />
+    <result column="totalPrice" jdbcType="DOUBLE" property="totalprice" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    orderId, telphone, orderRemarks, createTime, orderState, totalPrice, address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_Order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_Order
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.jxufe.entity.Order">
+    insert into T_Order (orderId, telphone, orderRemarks, 
+      createTime, orderState, totalPrice, 
+      address)
+    values (#{orderid,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{orderremarks,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{orderstate,jdbcType=VARCHAR}, #{totalprice,jdbcType=DOUBLE}, 
+      #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.jxufe.entity.Order">
+    insert into T_Order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="telphone != null">
+        telphone,
+      </if>
+      <if test="orderremarks != null">
+        orderRemarks,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="orderstate != null">
+        orderState,
+      </if>
+      <if test="totalprice != null">
+        totalPrice,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderremarks != null">
+        #{orderremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderstate != null">
+        #{orderstate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null">
+        #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.jxufe.entity.Order">
+    update T_Order
+    <set>
+      <if test="telphone != null">
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderremarks != null">
+        orderRemarks = #{orderremarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderstate != null">
+        orderState = #{orderstate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalprice != null">
+        totalPrice = #{totalprice,jdbcType=DOUBLE},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Order">
+    update T_Order
+    set telphone = #{telphone,jdbcType=VARCHAR},
+      orderRemarks = #{orderremarks,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      orderState = #{orderstate,jdbcType=VARCHAR},
+      totalPrice = #{totalprice,jdbcType=DOUBLE},
+      address = #{address,jdbcType=VARCHAR}
+    where orderId = #{orderid,jdbcType=INTEGER}
+  </update>
+</mapper>
