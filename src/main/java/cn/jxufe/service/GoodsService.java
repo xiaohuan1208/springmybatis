@@ -1,5 +1,6 @@
 package cn.jxufe.service;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Goods;
 
 import java.util.List;
@@ -21,5 +22,10 @@ public interface GoodsService {
     * 根据id查找单个商品
     * */
     public Goods findOne(int goodsId);
-}
+
+    /*
+    * 添加商品信息
+    * */
+    public Message add(Goods goods);
+ }
 
