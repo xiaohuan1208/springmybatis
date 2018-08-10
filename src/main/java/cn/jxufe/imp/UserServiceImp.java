@@ -105,9 +105,7 @@ public class UserServiceImp implements UserService {
     @Override
     public Map<Integer,Cart> getCart(HttpSession session) {
         Map<Integer,Cart> map = (Map<Integer,Cart>)session.getAttribute("cart");
-        if(map == null){
-            System.out.println("is null ++++++++++++++++");
-        }
+
 
         return map;
     }

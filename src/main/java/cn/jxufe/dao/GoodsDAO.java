@@ -17,5 +17,9 @@ public interface GoodsDAO extends MyBatisBaseDao<Goods, Integer> {
      * 通过关键字查询商品信息
      */
     public List<Goods> findByName(String goodsName);
+    /**
+     * 查询全部商品
+     */
+    public List<Goods> findAll();
 
 }

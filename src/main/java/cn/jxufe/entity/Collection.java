@@ -20,7 +20,7 @@ public class Collection implements Serializable {
     private String telphone;
 
     /**
-     * 评论状态 0:表示被删除 1：表示未删除
+     * 状态 0:表示已删除（取消收藏） 1：表示未删除（收藏状态）
      */
     private Boolean status;
 

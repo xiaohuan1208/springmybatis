@@ -39,9 +39,9 @@ public class SearchServiceImpl implements SearchService {
     public Message addSearch(String content,HttpSession session) {
         Message message = new Message();
         try{
-            //User user = (User)session.getAttribute("user");
+            User sessionUser = (User)session.getAttribute("user");
             Search search = new Search();
-            search.setTelphone("13687091090");
+            search.setTelphone(sessionUser.getTelphone());
             search.setContent(content);
             int result = searchDAO.insertSelective(search);
             if(result>0){
@@ -63,9 +63,9 @@ public class SearchServiceImpl implements SearchService {
     public Message deleteSearch(HttpSession httpSession) {
         Message message = new Message();
         try {
-            //User user = (User)session.getAttribute("user");
-            String telphone = "13687091090";
-            int result = searchDAO.deleteByTelphone(telphone);
+            User sessionUser = (User)httpSession.getAttribute("user");
+            //String telphone = "13687091090";
+            int result = searchDAO.deleteByTelphone(sessionUser.getTelphone());
             if(result>0){
                 message.setCode(10);
                 message.setMessage("清除成功");

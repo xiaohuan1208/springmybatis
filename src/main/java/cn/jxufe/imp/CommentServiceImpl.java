@@ -6,6 +6,7 @@ import cn.jxufe.dao.UserDAO;
 import cn.jxufe.entity.Comment;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.CommentService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,20 +29,25 @@ public class CommentServiceImpl implements CommentService {
     public Message addComment(Comment comment,HttpSession session) {
         Message message = new Message();
         try{
-            //User user = (User)session.getAttribute("User");
-            //comment.setTelphone(user.getTelphone());
-            comment.setTelphone("13687091090");
-            //通过手机号获取评论人的信息
-            User user = userDAO.selectByPrimaryKey(comment.getTelphone());
-            comment.setNickname(user.getNickname());
-            comment.setHeadimg(user.getHeadimg());
-            int result = commentDAO.insert(comment);
-            if(result>0){
-                message.setCode(10);
-                message.setMessage("评论成功");
-            }else{
+            User sessionUser = (User)session.getAttribute("user");
+            if(sessionUser==null){
                 message.setCode(-10);
-                message.setMessage("评论失败");
+                message.setMessage("请先登录");
+            }else{
+                comment.setTelphone(sessionUser.getTelphone());
+                //comment.setTelphone("13687091090");
+                //通过手机号获取评论人的信息
+                User user = userDAO.selectByPrimaryKey(comment.getTelphone());
+                comment.setNickname(user.getNickname());
+                comment.setHeadimg(user.getHeadimg());
+                int result = commentDAO.insert(comment);
+                if(result>0){
+                    message.setCode(10);
+                    message.setMessage("评论成功");
+                }else{
+                    message.setCode(-10);
+                    message.setMessage("评论失败");
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -52,14 +58,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findByGoodsid(Integer goodsId) {
+    public PageInfo<Comment> findByGoodsid(Integer goodsId,Integer page) {
         List<Comment> commentList;
+        PageInfo pageInfo;
         try{
+            PageHelper.startPage(page,4);//默认每页显示四条记录
             commentList = commentDAO.findByGoodsId(goodsId);
+            pageInfo = new PageInfo(commentList);
         }catch (Exception e){
             e.printStackTrace();
             return null;
         }
-        return commentList;
+        return pageInfo;
     }
 }

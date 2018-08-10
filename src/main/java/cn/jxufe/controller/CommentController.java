@@ -5,12 +5,12 @@ import cn.jxufe.entity.Comment;
 import cn.jxufe.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
+
+
 
 /**
  * Created by LHM on 2018/8/8.
@@ -27,10 +27,15 @@ public class CommentController {
         return commentService.addComment(comment,session);
     }
 
-    @RequestMapping("getComment_{goodsId}")
+    /**
+     *
+     * @param goodsId 商品ID
+     * @param page 需要显示第几页
+     * @return
+     */
+    @RequestMapping("getComment")
     @ResponseBody
-    public List<Comment> getComment(@PathVariable Integer goodsId){
-        System.out.println(goodsId);
-        return commentService.findByGoodsid(goodsId);
+    public Object getComment(@RequestParam(value = "goodsId") Integer goodsId,@RequestParam(value = "page") Integer page){
+        return commentService.findByGoodsid(goodsId,page);
     }
 }
