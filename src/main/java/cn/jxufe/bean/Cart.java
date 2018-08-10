@@ -1,29 +1,34 @@
-package cn.jxufe.service;
+package cn.jxufe.bean;
 
-import cn.jxufe.bean.Cart;
-import cn.jxufe.bean.Message;
-import cn.jxufe.entity.Registerinfo;
-import cn.jxufe.entity.User;
-
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by Administrator on 2018/8/6.
+ * Created by Administrator on 2018/8/8.
  */
-public interface UserService {
 
-    public Message register(Registerinfo registerinfo, HttpSession session);
+/*
+* 购物商品类
+* */
+public class Cart {
 
-    public Message login(User user, HttpSession session);
+    private int goodsId;
+    private int number;
 
-    public User getUserinfo(HttpSession session);
+    public int getGoodsId() {
+        return goodsId;
+    }
 
-    /*将商品信息添加到session中*/
-    public Message pushCart(Cart cart, HttpSession session);
+    public void setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
+    }
 
-    public Map<Integer,Cart> getCart(HttpSession session);
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 }
 /*
 代码手中走~佛祖心中留！求永无BUG！

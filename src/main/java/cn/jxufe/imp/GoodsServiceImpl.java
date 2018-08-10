@@ -30,4 +30,6 @@ public class GoodsServiceImpl implements GoodsService {
     public Goods findOne(int goodsId){
         return goodsDAO.selectByPrimaryKey(goodsId);
     }
+
+
 }

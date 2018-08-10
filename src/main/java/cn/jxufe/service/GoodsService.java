@@ -22,3 +22,4 @@ public interface GoodsService {
     * */
     public Goods findOne(int goodsId);
 }
+

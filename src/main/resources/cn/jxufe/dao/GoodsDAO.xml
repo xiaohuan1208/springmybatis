@@ -21,6 +21,10 @@
     goodsId, goodsName, originalPrice, sellingPrice, stock, description, typeId, transactionNum, 
     likeNumber, designer, createTime, `status`, commentNum, img
   </sql>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from T_Goods
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

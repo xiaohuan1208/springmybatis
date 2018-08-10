@@ -35,8 +35,8 @@
         pagination : '.pagination'
       });
       //飞入动画，具体根据实际情况调整
-      $(".addToCart").click(function(){
-        $(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);/*测试+1*/
+      /*$(".addToCart").click(function(){
+        $(".hoverCart a").html(parseInt($(".hoverCart a").html())+1);*//*测试+1*//*
         var shopOffset = $(".hoverCart").offset();
         var cloneDiv = $(this).parent().siblings(".goodsPic").clone();
         var proOffset = $(this).parent().siblings(".goodsPic").offset();
@@ -49,9 +49,14 @@
           top: shopOffset.top,
           opacity:1
         },"slow");
-      });
+      });*/
       //获取商品数据
       goodsList();
+
+      //初始化购物车数量
+      $.get("user/cart",function(data){
+        $(".hoverCart a").html(Object.keys(data).length);
+      });
     });
 
     //获取商品数据
@@ -80,12 +85,26 @@
         template.find("aside .like_icon").html(item.likenumber);
         template.find("aside .comment_icon").html(item.commentnum);
         template.find("aside .deal_icon").html(item.transactionnum);
+        template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+")");
 
         list.append(template);
 
       });
     }
 
+    function pushCart(goodsid){
+      var cart = {}
+      cart.goodsId = goodsid;
+      cart.number = 1;
+      $.get("user/pushcart",cart,function(result){
+        if(result.code>0){
+          $.get("user/cart",function(data){
+
+            $(".hoverCart a").html(Object.keys(data).length);
+          });
+        }
+      });
+    }
   </script>
 </head>
 <body>
@@ -106,7 +125,6 @@
           </a>
         </div>
       </c:forEach>
-
   </div>
   <div class="pagination"></div>
 </div>
