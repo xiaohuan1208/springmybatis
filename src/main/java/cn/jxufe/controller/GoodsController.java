@@ -1,5 +1,6 @@
 package cn.jxufe.controller;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Goods;
 
 import cn.jxufe.service.GoodsService;
@@ -35,6 +36,12 @@ public class GoodsController {
     @RequestMapping("search_{goodsName}")
     public List<Goods> searchGoods(@PathVariable String goodsName){
         return goodsService.searchGoods(goodsName);
+    }
+
+    @ResponseBody
+    @RequestMapping("publish")
+    public Message add(Goods goods){
+        return goodsService.add(goods);
     }
 }
 /*
