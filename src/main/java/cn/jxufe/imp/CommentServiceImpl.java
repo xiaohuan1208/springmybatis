@@ -63,6 +63,7 @@ public class CommentServiceImpl implements CommentService {
         PageInfo pageInfo;
         try{
             PageHelper.startPage(page,4);//默认每页显示四条记录
+            PageHelper.orderBy("createtime desc");
             commentList = commentDAO.findByGoodsId(goodsId);
             pageInfo = new PageInfo(commentList);
         }catch (Exception e){
