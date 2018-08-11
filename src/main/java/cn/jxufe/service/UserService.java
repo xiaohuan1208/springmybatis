@@ -32,5 +32,7 @@ public interface UserService {
     public Message pushCart(Cart cart, HttpSession session);
 
     public Map<Integer,Cart> getCart(HttpSession session);
+
+    public Message eidtCart(Cart[] cart,HttpSession session);
 }
 

@@ -8,6 +8,7 @@ import cn.jxufe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -116,6 +117,12 @@ public class UserController {
     @ResponseBody
     public Map<Integer,Cart> getCart(HttpSession session){
         return userService.getCart(session);
+    }
+
+    @RequestMapping("editcart")
+    @ResponseBody
+    public Message eidtCart(@RequestBody Cart[] cart,HttpSession session){
+        return userService.eidtCart(cart,session);
     }
 
 }
