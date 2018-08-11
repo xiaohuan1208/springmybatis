@@ -66,8 +66,8 @@
         }
         template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
         template.find(".goodsInfor .name").html(item.goodsname);
-        template.find(".goodsInfor del").html(item.originalprice);
-        template.find(".goodsInfor strong").html(item.sellingprice);
+        template.find(".goodsInfor del").html(item.originalprice/100.00);
+        template.find(".goodsInfor strong").html(item.sellingprice/100.00);
         template.find("aside .like_icon").html(item.likenumber);
         template.find("aside .comment_icon").html(item.commentnum);
         template.find("aside .deal_icon").html(item.transactionnum);
@@ -127,10 +127,10 @@
 <div class="slide">
   <div class="swiper-wrapper">
       <%--循环顶部图片--%>
-      <c:forEach items="${list}" var="b">
+      <c:forEach items="${adv}" var="item">
     <div class="swiper-slide">
-      <a href="#">
-        <img src="upload/${b.brandPic}"/>
+      <a href="${item.linkurl}">
+        <img src="upload/${item.advimg}"/>
       </a>
     </div>
       </c:forEach>
@@ -177,7 +177,7 @@
 <!--fixedNav:footer-->
 <div style="height:1.2rem;"></div>
 <nav>
-  <a href="index" class="homeIcon">首页</a>
+  <a href="page_index" class="homeIcon">首页</a>
   <a href="category" class="categoryIcon">分类</a>
   <a href="cart" class="cartIcon">购物车</a>
   <a href="user" class="userIcon">我的</a>

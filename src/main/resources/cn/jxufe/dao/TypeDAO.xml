@@ -16,6 +16,9 @@
     from T_Type
     where typeId = #{typeid,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM T_Type WHERE status = 1 ORDER BY sequence
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_Type
     where typeId = #{typeid,jdbcType=INTEGER}

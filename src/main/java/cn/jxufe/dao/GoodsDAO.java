@@ -19,4 +19,5 @@ public interface GoodsDAO extends MyBatisBaseDao<Goods, Integer> {
      */
     public List<Goods> findByName(String goodsName);
 
+    public List<Goods> findByType(int typeId);
 }

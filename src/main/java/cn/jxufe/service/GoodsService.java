@@ -21,5 +21,10 @@ public interface GoodsService {
     * 根据id查找单个商品
     * */
     public Goods findOne(int goodsId);
-}
+
+    /*
+    * 根据商品类型id分页查找商品
+    * */
+    public List<Goods> findByType(int pageNo, int pageSize,int typeId);
+ }
 
