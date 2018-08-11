@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * T_Comment
- * @author 
+ * @author
  */
 public class Comment implements Serializable {
     /**
@@ -32,6 +32,10 @@ public class Comment implements Serializable {
      * 评论时间
      */
     private Date createtime;
+
+    private String nickname;
+
+    private String headimg;
 
     private static final long serialVersionUID = 1L;
 
@@ -75,6 +79,22 @@ public class Comment implements Serializable {
         this.createtime = createtime;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getHeadimg() {
+        return headimg;
+    }
+
+    public void setHeadimg(String headimg) {
+        this.headimg = headimg;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -88,10 +108,12 @@ public class Comment implements Serializable {
         }
         Comment other = (Comment) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getTelphone() == null ? other.getTelphone() == null : this.getTelphone().equals(other.getTelphone()))
-            && (this.getGoodsid() == null ? other.getGoodsid() == null : this.getGoodsid().equals(other.getGoodsid()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
-            && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()));
+                && (this.getTelphone() == null ? other.getTelphone() == null : this.getTelphone().equals(other.getTelphone()))
+                && (this.getGoodsid() == null ? other.getGoodsid() == null : this.getGoodsid().equals(other.getGoodsid()))
+                && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+                && (this.getCreatetime() == null ? other.getCreatetime() == null : this.getCreatetime().equals(other.getCreatetime()))
+                && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
+                && (this.getHeadimg() == null ? other.getHeadimg() == null : this.getHeadimg().equals(other.getHeadimg()));
     }
 
     @Override
@@ -103,6 +125,8 @@ public class Comment implements Serializable {
         result = prime * result + ((getGoodsid() == null) ? 0 : getGoodsid().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         result = prime * result + ((getCreatetime() == null) ? 0 : getCreatetime().hashCode());
+        result = prime * result + ((getNickname() == null) ? 0 : getNickname().hashCode());
+        result = prime * result + ((getHeadimg() == null) ? 0 : getHeadimg().hashCode());
         return result;
     }
 
@@ -117,6 +141,8 @@ public class Comment implements Serializable {
         sb.append(", goodsid=").append(goodsid);
         sb.append(", content=").append(content);
         sb.append(", createtime=").append(createtime);
+        sb.append(", nickname=").append(nickname);
+        sb.append(", headimg=").append(headimg);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

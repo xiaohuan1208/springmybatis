@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="cn.jxufe.entity.Search">
     <id column="telphone" jdbcType="VARCHAR" property="telphone" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="creteTime" jdbcType="TIMESTAMP" property="cretetime" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    telphone, content, creteTime
+    telphone, content, createTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -20,9 +20,9 @@
     where telphone = #{telphone,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.jxufe.entity.Search">
-    insert into T_Search (telphone, content, creteTime
+    insert into T_Search (telphone, content, createTime
       )
-    values (#{telphone,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{cretetime,jdbcType=TIMESTAMP}
+    values (#{telphone,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.jxufe.entity.Search">
@@ -34,8 +34,8 @@
       <if test="content != null">
         content,
       </if>
-      <if test="cretetime != null">
-        creteTime,
+      <if test="createtime != null">
+        createTime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -45,8 +45,8 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="cretetime != null">
-        #{cretetime,jdbcType=TIMESTAMP},
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -56,8 +56,8 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="cretetime != null">
-        creteTime = #{cretetime,jdbcType=TIMESTAMP},
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where telphone = #{telphone,jdbcType=VARCHAR}
@@ -65,10 +65,13 @@
   <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Search">
     update T_Search
     set content = #{content,jdbcType=VARCHAR},
-      creteTime = #{cretetime,jdbcType=TIMESTAMP}
+      createTime = #{createtime,jdbcType=TIMESTAMP}
     where telphone = #{telphone,jdbcType=VARCHAR}
   </update>
-  <select id="findAll" resultType="cn.jxufe.entity.Search">
-    SELECT * FROM T_Search
+  <select id="findByTelphone" resultType="cn.jxufe.entity.Search">
+    SELECT * FROM T_Search WHERE telphone = #{0}
   </select>
+  <delete id="deleteByTelphone" parameterType="java.lang.String">
+    DELETE FROM T_Search WHERE telphone = #{0}
+  </delete>
 </mapper>

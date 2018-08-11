@@ -5,9 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
     <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="status" jdbcType="BIT" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, goodsId, telphone
+    id, goodsId, telphone, `status`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,10 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.jxufe.entity.Collection">
-    insert into T_Collection (id, goodsId, telphone
-      )
-    values (#{id,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}
-      )
+    insert into T_Collection (id, goodsId, telphone, 
+      `status`)
+    values (#{id,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.jxufe.entity.Collection">
     insert into T_Collection
@@ -37,6 +38,9 @@
       <if test="telphone != null">
         telphone,
       </if>
+      <if test="status != null">
+        `status`,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,6 +51,9 @@
       </if>
       <if test="telphone != null">
         #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -59,13 +66,23 @@
       <if test="telphone != null">
         telphone = #{telphone,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Collection">
     update T_Collection
     set goodsId = #{goodsid,jdbcType=INTEGER},
-      telphone = #{telphone,jdbcType=VARCHAR}
+      telphone = #{telphone,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findByTelphoneAndGoodsId" resultType="cn.jxufe.entity.Collection">
+    SELECT * FROM T_Collection WHERE telphone = #{telphone} and goodsid = #{goodsid}
+  </select>
+  <select id="findByTelphone" resultType="cn.jxufe.entity.Collection">
+    SELECT * FROM T_Collection WHERE telphone = #{0} AND status = 1
+  </select>
 </mapper>

@@ -10,8 +10,16 @@ import java.util.List;
  */
 @Repository
 public interface SearchDAO extends MyBatisBaseDao<Search, String> {
-    /**
-     * 查询所有的搜索记录
+    /*
+     * 查询当前用户所有的搜索记录
      */
-    public List<Search> findAll();
+    public List<Search> findByTelphone(String telphone);
+    /*
+    * 添加搜索记录
+     */
+    public int addSearch(Search search);
+    /*
+    * 删除当前登录用户的搜索记录
+     */
+    public int deleteByTelphone(String telphone);
 }

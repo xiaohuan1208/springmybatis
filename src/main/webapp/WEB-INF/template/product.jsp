@@ -33,37 +33,40 @@ $(document).ready(function(){
  })
 });
 
-function showGoods(data){
- $("header h1").html(data.goodsname);
- $(".pro_bigImg img").attr("src","upload/"+data.img);
- $(".pro_baseInfor h2").html(data.description);
- $(".pro_baseInfor strong").html(data.sellingprice/100.00);
- $(".pro_baseInfor del").html(data.originalprice/100.00);
- $(".pro_infor #create-time").html(data.createtime);
- $(".pro_infor #designer").html(data.designer);
- $("#comment b").html(data.comment);
- $("#sell b").html(data.transactionnum);
- $("#like b").html(data.likenumber);
+        function showGoods(data) {
+            $("header h1").html(data.goodsname);
+            $(".pro_bigImg img").attr("src", "upload/" + data.img);
+            $(".pro_baseInfor h2").html(data.description);
+            $(".pro_baseInfor strong").html(data.sellingprice);
+            $(".pro_baseInfor del").html(data.originalprice);
+            $(".pro_infor #create-time").html(data.createtime);
+            $(".pro_infor #designer").html(data.designer);
+            $("#comment b").html(data.comment);
+            $("#sell b").html(data.transactionnum);
+            $("#like b").html(data.likenumber);
+            $(".pro_infor .more_link").attr("onclick", "comment("+data.goodsid+")");
+        }
 
-}
+        function getParams() {
+            var href = window.document.location.href;
+            var goodsId = href.split("?")[1].split("=")[1];
+            return goodsId;
+        }
 
-function getParams() {
- var href = window.document.location.href;
- var goodsId = href.split("?")[1].split("=")[1];
- return goodsId;
-}
+        function comment(goodsid){
+            location.href="comment?goodsId="+goodsid;
+        }
 
 </script>
 </head>
 <body>
 <!--header-->
 <header>
-    <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
-
-    <h1>产品详情</h1>
+ <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+ <h1>产品详情</h1>
 </header>
 <div class="pro_bigImg">
-    <img src="../../upload/goods005.jpg"/>
+ <img src="../../upload/goods005.jpg"/>
 </div>
 <!--base information-->
 <section class="pro_baseInfor">

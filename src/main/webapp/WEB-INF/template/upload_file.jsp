@@ -40,13 +40,13 @@
     <ul>
         <li>
             <label id="file_pic">
-                <input type="file" style="display:none;"/>
+                <input type="file" name="file" id="file" style="display:none;"/>
                 <img src="../../images/uploadImg.png"/>
             </label>
         </li>
         <li>
             <label>标题：</label>
-            <input type="text" placeholder="作品标题..."/>
+            <input id="goodsName" type="text" placeholder="作品标题..."/>
         </li>
         <li>
             <label>内容：</label>
@@ -54,12 +54,22 @@
         </li>
         <li>
             <label>作者：</label>
-            <input type="text" placeholder="作者..." value="HZIT"/>
+            <input id="designer" type="text" placeholder="作者..." value="HZIT"/>
         </li>
         <li><input type="button" value="提交作品"/></li>
     </ul>
 </div>
+<!--用于弹框显示的，合并代码的时候别遗漏了-->
+<div id="pro" style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
+    <p style="color:white;text-align: center;line-height: 100px;"></p>
+</div>
+
 <script>
+    $(document).ready(function(){
+        $.get("user/information", function (data) {
+            $("#designer").val(data.nickname);
+        });
+    });
     var showImg = document.querySelector("#file_pic");
     var getImg = document.querySelector("input[type='file']");
     if (typeof FileReader === 'undefined') {
@@ -80,6 +90,48 @@
             showImg.innerHTML = '<img src="' + this.result + '"/>';
         }
     }
+
+
+    //上传作品
+    $("input[type='button']").click(function () {
+        //上传图片
+        var data = new FormData();
+        data.append('file', getImg.files[0]);
+        $.ajax({
+            type: 'POST',
+            url: "file/upload",
+            data: data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (ret) {
+                if(ret.code>0){
+                    //当图片上传成功执行上传商品信息函数
+                    uploadGoods(ret.message);
+                }
+            }
+        });
+    });
+
+    function uploadGoods(imgUrl){
+        var goods = {};
+        goods.img = imgUrl;
+        goods.goodsname = $("#goodsName").val();
+        goods.description = $("textarea").val();
+        goods.designer = $("#designer").val();
+        $.post("goods/publish",goods,function(data){
+            //商品信息上传成功后的回调函数
+            prompt(data.message);
+        });
+    }
+
+    //弹框显示，自动消失
+    function prompt(text){
+        $('#pro p').html(text);
+        $('#pro').show ().delay (3000).fadeOut ();
+    }
+
+
 </script>
 </body>
 </html>

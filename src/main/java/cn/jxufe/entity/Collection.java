@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * T_Collection
- * @author 
+ * @author
  */
 public class Collection implements Serializable {
     private Integer id;
@@ -18,6 +18,11 @@ public class Collection implements Serializable {
      * 手机号（账号）
      */
     private String telphone;
+
+    /**
+     * 状态 0:表示已删除（取消收藏） 1：表示未删除（收藏状态）
+     */
+    private Boolean status;
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +50,14 @@ public class Collection implements Serializable {
         this.telphone = telphone;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -58,8 +71,9 @@ public class Collection implements Serializable {
         }
         Collection other = (Collection) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getGoodsid() == null ? other.getGoodsid() == null : this.getGoodsid().equals(other.getGoodsid()))
-            && (this.getTelphone() == null ? other.getTelphone() == null : this.getTelphone().equals(other.getTelphone()));
+                && (this.getGoodsid() == null ? other.getGoodsid() == null : this.getGoodsid().equals(other.getGoodsid()))
+                && (this.getTelphone() == null ? other.getTelphone() == null : this.getTelphone().equals(other.getTelphone()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -69,6 +83,7 @@ public class Collection implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getGoodsid() == null) ? 0 : getGoodsid().hashCode());
         result = prime * result + ((getTelphone() == null) ? 0 : getTelphone().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
 
@@ -81,6 +96,7 @@ public class Collection implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", goodsid=").append(goodsid);
         sb.append(", telphone=").append(telphone);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

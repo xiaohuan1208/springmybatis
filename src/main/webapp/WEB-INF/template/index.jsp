@@ -69,12 +69,11 @@
         template.find(".goodsInfor del").html(item.originalprice/100.00);
         template.find(".goodsInfor strong").html(item.sellingprice/100.00);
         template.find("aside .like_icon").html(item.likenumber);
+        template.find("aside .like_icon").attr("onclick","likeGoods("+item.goodsid+")");
         template.find("aside .comment_icon").html(item.commentnum);
         template.find("aside .deal_icon").html(item.transactionnum);
         template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+",this)");
-
         list.append(template);
-
       });
     }
 
@@ -82,12 +81,10 @@
       var cart = {}
       cart.goodsId = goodsid;
       cart.number = 1;
-
       $.get("user/pushcart",cart,function(result){
-        animation(obj);
         if(result.code>0){
           $.get("user/cart",function(data){
-
+            animation(obj);
             $(".hoverCart a").html(Object.keys(data).length);
           });
         }
@@ -114,6 +111,15 @@
         $(this).remove();
       });
     }
+
+    //点赞
+    function likeGoods(goodsid){
+      $.post("collection/addCollection_"+goodsid, function (e) {
+        console.log(e.message);
+        //重新获取数据
+        goodsList();
+      })
+    }
   </script>
 </head>
 <body>
@@ -121,7 +127,7 @@
 <header>
   <a href="location" class="location">深圳市</a>
   <h1>合众饰品专卖</h1>
-  <a href="search" class="rt_searchIcon">&#37;</a>
+  <a href="searchTable/getSearch" class="rt_searchIcon">&#37;</a>
 </header>
 <!--slide-->
 <div class="slide">
@@ -145,10 +151,12 @@
         <a href="product" class="goodsPic">
           <img src="../../upload/goods001.jpg"/>
         </a>
+
         <div class="goodsInfor">
           <h2>
             <a class="name" href="product">水晶骷髅头 截取字符串...</a>
           </h2>
+
           <p>
             <del>5.90</del>
           </p>
