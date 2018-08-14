@@ -28,6 +28,7 @@
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
     <script src="../../js/jquery.js"></script>
+    <script type="text/javascript" src="../../js/getCurrLocation.js"></script>
 </head>
 <body>
 <!--header-->
@@ -36,35 +37,85 @@
 
     <h1>我的位置</h1>
 </header>
-<div class="location_auto">定位城市：<span>自动定位...</span></div>
-<dl class="cityLi">
-    <dt>热门城市</dt>
-    <dd><a>西安</a></dd>
-    <dd><a>杭州</a></dd>
-    <dd><a>广州</a></dd>
-    <dd><a>北京</a></dd>
-    <dd><a>上海</a></dd>
-    <dd><a>南京</a></dd>
+<div class="location_auto">定位城市：<span onclick="chooseCity(this)">自动定位...</span></div>
+<dl class="cityLi" id="template" hidden="hidden">
+    <dt></dt>
 </dl>
-<dl class="cityLi">
-    <dt>A</dt>
-    <dd><a>鞍山</a></dd>
-    <dd><a>安庆</a></dd>
-    <dd><a>安阳</a></dd>
-    <dd><a>安顺</a></dd>
-    <dd><a>安康</a></dd>
-    <dd><a>阿拉善盟</a></dd>
-    <dd><a>阿克苏</a></dd>
-</dl>
-<dl class="cityLi">
-    <dt>B</dt>
-    <dd><a>北京</a></dd>
-    <dd><a>保定</a></dd>
-    <dd><a>包头</a></dd>
-    <dd><a>蚌埠</a></dd>
-    <dd><a>滨州</a></dd>
-    <dd><a>宝鸡</a></dd>
-    <dd><a>巴彦淖尔</a></dd>
-</dl>
+<ul id="cityList"></ul>
+
+<script type="text/javascript">
+    $(function () {
+        //自动定位
+        writeAddress($(".location_auto span"));
+        //查询所有的地点
+        getArea();
+        //查询热门城市
+        getHotCity();
+    });
+    //获取地区信息
+    function getArea() {
+        $.get("area/getAll", function (data) {
+            fecthData(data);
+        })
+    }
+    function getHotCity(){
+        $.get("area/getHotCity", function (data) {
+            showHotCity(data);
+        })
+    }
+    //根据首字母提取出相应的数据
+    function fecthData(data) {
+        for (var i = 0; i < 26; i++) {
+            var array = [];
+            var hotCity = [];
+            var c = String.fromCharCode((65 + i));
+            $.each(data, function (index, item) {
+                if (item.pinyin == c) {
+                    array.push(item.areaname);
+                }
+            })
+            showArea(c,array);
+        }
+    }
+    //分类显示基本城市数据
+    function showArea(c,data) {
+        if(data.length!=0){
+            var template = $("#template").clone();
+            template.removeAttr("hidden");
+            template.find("dt").html(c);
+            for(var i=0;i<data.length;i++){
+                if(data[i].length>6){
+                    data[i] = data[i].slice(0,6);
+                }
+                var dd = "<dd><a onclick='chooseCity(this)'>"+data[i]+"</a></dd>";
+                template.append(dd);
+            }
+            $("#cityList").append(template);
+        }
+    }
+    //显示热门城市
+    function showHotCity(data){
+        var template = $("#template").clone();
+        template.removeAttr("hidden");
+        template.find("dt").html("热门城市");
+        if(data.length==0){
+            var dd = "<dd>暂无热门城市<dd>"
+        }else{
+            for(var i=0;i<data.length;i++){
+                if(data[i].areaname.length>6){
+                    data[i].areaname = data[i].areaname.slice(0,6);
+                }
+                var dd = "<dd><a onclick='chooseCity(this)'>"+data[i].areaname+"</a></dd>";
+                template.append(dd);
+            }
+        }
+        $("#cityList").append(template);
+    }
+    //点击城市名跳转
+    function chooseCity(obj){
+        var cityName = obj.innerHTML;
+        location.href="index?cityName="+cityName;
+    }
+</script>
 </body>
 </html>

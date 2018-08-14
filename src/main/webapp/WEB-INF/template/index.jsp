@@ -26,6 +26,7 @@
   <link rel="stylesheet" type="text/css" href="../../css/style.css" />
   <script src="../../js/jquery.js"></script>
   <script src="../../js/swiper.min.js"></script>
+  <script type="text/javascript" src="../../js/getCurrLocation.js"></script>
   <script>
     $(document).ready(function(){
       var mySwiper = new Swiper('.slide',{
@@ -35,7 +36,8 @@
         pagination : '.pagination'
       });
 
-    
+      //调用自动定位函数
+      writeAddress($(".location"));
       //获取商品数据
       goodsList();
 
@@ -43,6 +45,7 @@
       $.get("user/cart",function(data){
         $(".hoverCart a").html(Object.keys(data).length);
       });
+
     });
 
     //获取商品数据
@@ -56,13 +59,12 @@
     function showGoodsList(data){
       var list = $(".tab_proList ul");
       list.html("");
-
       $.each(data,function(index,item){
         var template = $("#goods-template").clone();
         template.removeAttr("hidden");
         template.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
         if(item.img != null){
-          template.find(".goodsPic img").attr("src","../../upload/"+item.img);
+          template.find(".goodsPic img").attr("src",item.img);
         }
         template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
         template.find(".goodsInfor .name").html(item.goodsname);
@@ -120,12 +122,13 @@
         goodsList();
       })
     }
+
   </script>
 </head>
 <body>
 <!--header-->
 <header>
-  <a href="location" class="location">深圳市</a>
+  <a href="location" class="location">${cityName}</a>
   <h1>合众饰品专卖</h1>
   <a href="searchTable/getSearch" class="rt_searchIcon">&#37;</a>
 </header>
@@ -136,7 +139,7 @@
       <c:forEach items="${list}" var="b">
     <div class="swiper-slide">
       <a href="#">
-        <img src="upload/${b.brandPic}"/>
+        <img src="${b.brandPic}"/>
       </a>
     </div>
       </c:forEach>
