@@ -8,29 +8,39 @@ import java.io.Serializable;
  */
 public class Area implements Serializable {
     /**
-     * 地区id
+     * 地区Id
      */
     private Integer areaid;
 
     /**
      * 地区编码
      */
-    private Integer areacode;
+    private String areacode;
 
     /**
-     * 地区名称
+     * 地区名
      */
     private String areaname;
 
     /**
-     * 地区级别（1：省份，2：市，3：区县）
+     * 地区级别（1:省份province,2:市city,3:区县district,4:街道street）
      */
-    private Integer level;
+    private Byte level;
 
     /**
      * 地区父节点
      */
     private Integer parentid;
+
+    /**
+     * 首字母
+     */
+    private String pinyin;
+
+    /**
+     * 是否是热门城市（1：是，0：否）
+     */
+    private Integer ishot;
 
     private static final long serialVersionUID = 1L;
 
@@ -42,11 +52,11 @@ public class Area implements Serializable {
         this.areaid = areaid;
     }
 
-    public Integer getAreacode() {
+    public String getAreacode() {
         return areacode;
     }
 
-    public void setAreacode(Integer areacode) {
+    public void setAreacode(String areacode) {
         this.areacode = areacode;
     }
 
@@ -58,11 +68,11 @@ public class Area implements Serializable {
         this.areaname = areaname;
     }
 
-    public Integer getLevel() {
+    public Byte getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(Byte level) {
         this.level = level;
     }
 
@@ -72,6 +82,22 @@ public class Area implements Serializable {
 
     public void setParentid(Integer parentid) {
         this.parentid = parentid;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
+    }
+
+    public Integer getIshot() {
+        return ishot;
+    }
+
+    public void setIshot(Integer ishot) {
+        this.ishot = ishot;
     }
 
     @Override
@@ -90,7 +116,9 @@ public class Area implements Serializable {
             && (this.getAreacode() == null ? other.getAreacode() == null : this.getAreacode().equals(other.getAreacode()))
             && (this.getAreaname() == null ? other.getAreaname() == null : this.getAreaname().equals(other.getAreaname()))
             && (this.getLevel() == null ? other.getLevel() == null : this.getLevel().equals(other.getLevel()))
-            && (this.getParentid() == null ? other.getParentid() == null : this.getParentid().equals(other.getParentid()));
+            && (this.getParentid() == null ? other.getParentid() == null : this.getParentid().equals(other.getParentid()))
+            && (this.getPinyin() == null ? other.getPinyin() == null : this.getPinyin().equals(other.getPinyin()))
+            && (this.getIshot() == null ? other.getIshot() == null : this.getIshot().equals(other.getIshot()));
     }
 
     @Override
@@ -102,6 +130,8 @@ public class Area implements Serializable {
         result = prime * result + ((getAreaname() == null) ? 0 : getAreaname().hashCode());
         result = prime * result + ((getLevel() == null) ? 0 : getLevel().hashCode());
         result = prime * result + ((getParentid() == null) ? 0 : getParentid().hashCode());
+        result = prime * result + ((getPinyin() == null) ? 0 : getPinyin().hashCode());
+        result = prime * result + ((getIshot() == null) ? 0 : getIshot().hashCode());
         return result;
     }
 
@@ -116,6 +146,8 @@ public class Area implements Serializable {
         sb.append(", areaname=").append(areaname);
         sb.append(", level=").append(level);
         sb.append(", parentid=").append(parentid);
+        sb.append(", pinyin=").append(pinyin);
+        sb.append(", ishot=").append(ishot);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
