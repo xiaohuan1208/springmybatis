@@ -91,7 +91,7 @@
                     slide.removeAttr("hidden");
                     slide.removeAttr("id");
                     if(item.img != null){
-                        slide.find(".goodsPic img").attr("src","../../upload/"+item.img);
+                        slide.find(".goodsPic img").attr("src",item.img);
                     }
                     slide.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
                     slide.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
@@ -154,7 +154,7 @@
                         slide.removeAttr("hidden");
                         slide.removeAttr("id");
                         if(item.img != null){
-                            slide.find(".goodsPic img").attr("src","../../upload/"+item.img);
+                            slide.find(".goodsPic img").attr("src",item.img);
                         }
                         slide.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
                         slide.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
@@ -236,7 +236,7 @@
     <ul></ul>
     <li id="product" hidden="hidden">
         <a href="product" class="goodsPic">
-            <img src="../../upload/goods001.jpg"/>
+            <img src="goods001.jpg"/>
         </a>
         <div class="goodsInfor">
             <h2>

@@ -62,7 +62,7 @@
         template.removeAttr("hidden");
         template.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
         if(item.img != null){
-          template.find(".goodsPic img").attr("src","../../upload/"+item.img);
+          template.find(".goodsPic img").attr("src",item.img);
         }
         template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
         template.find(".goodsInfor .name").html(item.goodsname);
@@ -136,7 +136,7 @@
       <c:forEach items="${adv}" var="item">
           <div class="swiper-slide">
             <a href="${item.linkurl}">
-              <img src="upload/${item.advimg}"/>
+              <img src="${item.advimg}"/>
             </a>
           </div>
       </c:forEach>
@@ -149,7 +149,7 @@
     <li id="goods-template" hidden="hidden">
       <div class="productArea">
         <a href="product" class="goodsPic">
-          <img src="../../upload/goods001.jpg"/>
+          <img src="goods001.jpg"/>
         </a>
 
         <div class="goodsInfor">

@@ -38,7 +38,7 @@
         //获取商品并展示
         function showGoods(data) {
             $("header h1").html(data.goodsname);
-            $(".pro_bigImg img").attr("src", "upload/" + data.img);
+            $(".pro_bigImg img").attr("src",data.img);
             $(".pro_baseInfor h2").html(data.description);
             $(".pro_baseInfor strong").html(data.sellingprice / 100.00);
             $(".pro_baseInfor del").html(data.originalprice / 100.00);
@@ -69,7 +69,7 @@
     <h1>产品详情</h1>
 </header>
 <div class="pro_bigImg">
-    <img src="../../upload/goods005.jpg"/>
+    <img src="goods005.jpg"/>
 </div>
 <!--base information-->
 <section class="pro_baseInfor">
