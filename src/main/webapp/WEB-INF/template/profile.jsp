@@ -32,7 +32,7 @@
 <body>
 <!--header-->
 <header>
-    <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+    <a href="user" class="iconfont backIcon">&#60;</a>
 
     <h1>个人资料</h1>
 </header>

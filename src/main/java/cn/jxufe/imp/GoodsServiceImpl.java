@@ -4,6 +4,7 @@ import cn.jxufe.bean.Message;
 import cn.jxufe.dao.GoodsDAO;
 import cn.jxufe.entity.Goods;
 import cn.jxufe.service.GoodsService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> findAll() {
+    public List<Goods> findAll(){
         return goodsDAO.findAll();
     }
 
@@ -35,6 +36,12 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Goods findOne(int goodsId){
         return goodsDAO.selectByPrimaryKey(goodsId);
+    }
+
+    @Override
+    public List<Goods> findByType(int pageNo, int pageSize, int typeId) {
+        PageHelper.startPage(pageNo,pageSize);
+        return goodsDAO.findByType(typeId);
     }
 
     @Override

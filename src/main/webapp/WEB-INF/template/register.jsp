@@ -81,7 +81,7 @@
                 console.log(result);
                 if (result.code == 1) {
                     $("mark").html(result.message);
-                    location.href = "index";
+                    location.href = "page_index";
                 } else{
                     $("mark").html(result.message);
                 }
