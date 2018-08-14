@@ -3,13 +3,15 @@
 <mapper namespace="cn.jxufe.dao.AreaDAO">
   <resultMap id="BaseResultMap" type="cn.jxufe.entity.Area">
     <id column="areaId" jdbcType="INTEGER" property="areaid" />
-    <result column="areaCode" jdbcType="INTEGER" property="areacode" />
+    <result column="areaCode" jdbcType="VARCHAR" property="areacode" />
     <result column="areaName" jdbcType="VARCHAR" property="areaname" />
-    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="level" jdbcType="TINYINT" property="level" />
     <result column="parentId" jdbcType="INTEGER" property="parentid" />
+    <result column="pinyin" jdbcType="CHAR" property="pinyin" />
+    <result column="isHot" jdbcType="INTEGER" property="ishot" />
   </resultMap>
   <sql id="Base_Column_List">
-    areaId, areaCode, areaName, `level`, parentId
+    areaId, areaCode, areaName, `level`, parentId, pinyin, isHot
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,9 +25,11 @@
   </delete>
   <insert id="insert" parameterType="cn.jxufe.entity.Area">
     insert into T_Area (areaId, areaCode, areaName, 
-      `level`, parentId)
-    values (#{areaid,jdbcType=INTEGER}, #{areacode,jdbcType=INTEGER}, #{areaname,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER})
+      `level`, parentId, pinyin, 
+      isHot)
+    values (#{areaid,jdbcType=INTEGER}, #{areacode,jdbcType=VARCHAR}, #{areaname,jdbcType=VARCHAR}, 
+      #{level,jdbcType=TINYINT}, #{parentid,jdbcType=INTEGER}, #{pinyin,jdbcType=CHAR}, 
+      #{ishot,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.jxufe.entity.Area">
     insert into T_Area
@@ -45,22 +49,34 @@
       <if test="parentid != null">
         parentId,
       </if>
+      <if test="pinyin != null">
+        pinyin,
+      </if>
+      <if test="ishot != null">
+        isHot,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="areaid != null">
         #{areaid,jdbcType=INTEGER},
       </if>
       <if test="areacode != null">
-        #{areacode,jdbcType=INTEGER},
+        #{areacode,jdbcType=VARCHAR},
       </if>
       <if test="areaname != null">
         #{areaname,jdbcType=VARCHAR},
       </if>
       <if test="level != null">
-        #{level,jdbcType=INTEGER},
+        #{level,jdbcType=TINYINT},
       </if>
       <if test="parentid != null">
         #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null">
+        #{pinyin,jdbcType=CHAR},
+      </if>
+      <if test="ishot != null">
+        #{ishot,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -68,26 +84,44 @@
     update T_Area
     <set>
       <if test="areacode != null">
-        areaCode = #{areacode,jdbcType=INTEGER},
+        areaCode = #{areacode,jdbcType=VARCHAR},
       </if>
       <if test="areaname != null">
         areaName = #{areaname,jdbcType=VARCHAR},
       </if>
       <if test="level != null">
-        `level` = #{level,jdbcType=INTEGER},
+        `level` = #{level,jdbcType=TINYINT},
       </if>
       <if test="parentid != null">
         parentId = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="pinyin != null">
+        pinyin = #{pinyin,jdbcType=CHAR},
+      </if>
+      <if test="ishot != null">
+        isHot = #{ishot,jdbcType=INTEGER},
       </if>
     </set>
     where areaId = #{areaid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Area">
     update T_Area
-    set areaCode = #{areacode,jdbcType=INTEGER},
+    set areaCode = #{areacode,jdbcType=VARCHAR},
       areaName = #{areaname,jdbcType=VARCHAR},
-      `level` = #{level,jdbcType=INTEGER},
-      parentId = #{parentid,jdbcType=INTEGER}
+      `level` = #{level,jdbcType=TINYINT},
+      parentId = #{parentid,jdbcType=INTEGER},
+      pinyin = #{pinyin,jdbcType=CHAR},
+      isHot = #{ishot,jdbcType=INTEGER}
     where areaId = #{areaid,jdbcType=INTEGER}
   </update>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE level = 2
+  </select>
+  <select id="findByPinyin" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE pinyin = #{0} AND  level = 2
+  </select>
+  <select id="findHotCity" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE isHot = 1
+  </select>
 </mapper>
