@@ -76,7 +76,7 @@
         list.append(template);
       });
     }
-
+    //加入购物车
     function pushCart(goodsid,obj){
       var cart = {}
       cart.goodsId = goodsid;
@@ -134,11 +134,11 @@
   <div class="swiper-wrapper">
       <%--循环顶部图片--%>
       <c:forEach items="${adv}" var="item">
-    <div class="swiper-slide">
-      <a href="${item.linkurl}">
-        <img src="upload/${item.advimg}"/>
-      </a>
-    </div>
+          <div class="swiper-slide">
+            <a href="${item.linkurl}">
+              <img src="upload/${item.advimg}"/>
+            </a>
+          </div>
       </c:forEach>
   </div>
   <div class="pagination"></div>

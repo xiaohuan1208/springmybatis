@@ -39,9 +39,9 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public List<Goods> findByType(int pageNo, int pageSize, int typeId) {
+    public List<Goods> findByType(int pageNo, int pageSize, int typeId,String orders) {
         PageHelper.startPage(pageNo,pageSize);
-        return goodsDAO.findByType(typeId);
+        return goodsDAO.findByType(typeId,orders);
     }
 
     @Override

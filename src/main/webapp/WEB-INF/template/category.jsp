@@ -48,7 +48,10 @@
                 slidesPerGroup: 5
             });
             showCategory_list();
-
+            //初始化购物车数量
+            $.get("user/cart",function(data){
+                $(".hoverCart a").html(Object.keys(data).length);
+            });
         });
         //展示分类列表
         function showCategory_list(){
@@ -72,16 +75,17 @@
                 var swiper = new Swiper('.swiper-container', {
                     slidesPerView : 5
                 });
-                showGoods(curr_page);
+                showGoods(curr_page,"sellingPrice","DESC");
             })
         }
-        function showGoods(curr_page){
+        //展示商品信息
+        function showGoods(curr_page,sort,order){
             var typeid = $(".curr_link").attr("tittle");
             var list = $(".productList ul");
             list.html("");
             console.log($(".curr_link").prop("outerHTML"));
             console.log(typeid);
-            $.get("goods/getByType",{pageNo:curr_page,pageSize:5,typeId:typeid},function(data){
+            $.get("goods/getByType",{pageNo:curr_page,pageSize:5,typeId:typeid,sort:sort,order:order},function(data){
                 $.each(data, function (index, item) {
                     var slide = $("#product").clone();
                     slide.removeAttr("hidden");
@@ -99,6 +103,7 @@
                 })
             })
         }
+        //加入购物车
         function pushCart(goodsid,obj){
             var cart = {}
             cart.goodsId = goodsid;
@@ -134,11 +139,12 @@
                 $(this).remove();
             });
         }
+        //加载更多商品
         function moreGoods(){
             curr_page +=1;
             var typeid = $(".curr_link").attr("tittle");
             var list = $(".productList ul");
-            $.get("goods/getByType",{pageNo:curr_page,pageSize:5,typeId:typeid},function(data){
+            $.get("goods/getByType",{pageNo:curr_page,pageSize:5,typeId:typeid,sort:"sellingPrice",order:"DESC"},function(data){
                 if(data.length==0){
                     $(".more_btn").html("没有更多数据");
                     curr_page -=1;
@@ -161,12 +167,37 @@
                 }
             })
         }
+        //切换商品类型
         function curr_type(e){
             $(".curr_link").removeAttr("class");
             $(e).attr("class","curr_link");
             curr_page = 1;
-            showGoods(curr_page);
+            showGoods(curr_page,"sellingPrice","DESC");
             $(".more_btn").html("加载更多");
+        }
+        var priceLog = true;
+        //根据价格排序
+        function orderByPrice(){
+            curr_page = 1;
+            if(priceLog){
+                showGoods(1,"sellingPrice","ASC");
+                priceLog = false;
+            }else{
+                showGoods(curr_page,"sellingPrice","DESC");
+                priceLog = true;
+            }
+        }
+        var salesLog = true;
+        //根据销量排序
+        function orderBySales(){
+            curr_page = 1;
+            if(priceLog){
+                showGoods(curr_page,"transactionNum","ASC");
+                priceLog = false;
+            }else{
+                showGoods(curr_page,"transactionNum","DESC");
+                priceLog = true;
+            }
         }
     </script>
 </head>
@@ -188,8 +219,8 @@
 </div>
 <!--asc->1[升序asc_icon];des->0[降序des_icon]-->
 <ul class="sift_nav">
-    <li><a class="des_icon">价格</a></li>
-    <li><a class="des_icon">销量优先</a></li>
+    <li><a class="des_icon" onclick="orderByPrice()">价格</a></li>
+    <li><a class="des_icon" onclick="orderBySales()">销量优先</a></li>
     <li>
         <a class="nav_li drop_icon">筛选项目</a>
         <ul class="drop_list">

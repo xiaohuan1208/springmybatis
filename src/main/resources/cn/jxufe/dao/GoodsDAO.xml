@@ -25,9 +25,10 @@
   <select id="findAll" resultMap="BaseResultMap">
     select * from T_Goods
   </select>
-  <select id="findByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByType" resultMap="BaseResultMap">
     SELECT * FROM T_Goods
     WHERE typeId = #{typeId}
+    ORDER BY ${orders}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
