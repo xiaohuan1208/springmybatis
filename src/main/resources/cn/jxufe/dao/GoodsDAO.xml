@@ -27,7 +27,7 @@
   </select>
   <select id="findByType" resultMap="BaseResultMap">
     SELECT * FROM T_Goods
-    WHERE typeId = #{typeId}
+    WHERE typeId = #{typeId} AND status = 1
     ORDER BY ${orders}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

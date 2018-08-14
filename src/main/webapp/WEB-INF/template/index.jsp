@@ -35,7 +35,6 @@
         pagination : '.pagination'
       });
 
-    
       //获取商品数据
       goodsList();
 
@@ -56,7 +55,6 @@
     function showGoodsList(data){
       var list = $(".tab_proList ul");
       list.html("");
-
       $.each(data,function(index,item){
         var template = $("#goods-template").clone();
         template.removeAttr("hidden");
@@ -174,7 +172,6 @@
     </li>
     <ul>
 
-      
     </ul>
   </dd>
 </dl>
