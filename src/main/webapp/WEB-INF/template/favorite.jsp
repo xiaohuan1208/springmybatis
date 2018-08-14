@@ -183,8 +183,7 @@
     <a href="cart">0</a>
 </div>
 <!--用于弹框显示的，合并代码的时候别遗漏了-->
-<div id="pro"
-     style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
+<div id="pro" style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
     <p style="color:white;text-align: center;line-height: 100px;"></p>
 </div>
 </body>

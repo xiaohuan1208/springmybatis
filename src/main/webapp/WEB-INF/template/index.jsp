@@ -26,6 +26,7 @@
   <link rel="stylesheet" type="text/css" href="../../css/style.css" />
   <script src="../../js/jquery.js"></script>
   <script src="../../js/swiper.min.js"></script>
+  <script type="text/javascript" src="../../js/getCurrLocation.js"></script>
   <script>
     $(document).ready(function(){
       var mySwiper = new Swiper('.slide',{
@@ -35,6 +36,8 @@
         pagination : '.pagination'
       });
 
+      //调用自动定位函数
+      writeAddress($(".location"));
       //获取商品数据
       goodsList();
 

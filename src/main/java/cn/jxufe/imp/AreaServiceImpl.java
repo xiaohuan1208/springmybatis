@@ -30,4 +30,32 @@ public class AreaServiceImpl implements AreaService {
     public List<Area> getDistrict(int parentId) {
         return areaDAO.getByParentId(parentId);
     }
+    @Override
+    public List<Area> findAll() {
+        try {
+            return areaDAO.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    @Override
+    public List<Area> findByPinyin(String pinyin) {
+        try {
+            return areaDAO.findByPinyin(pinyin);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Area> findHotCity() {
+        try{
+            return areaDAO.findHotCity();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

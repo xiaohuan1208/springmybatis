@@ -120,4 +120,14 @@
       isHot = #{ishot,jdbcType=INTEGER}
     where areaId = #{areaid,jdbcType=INTEGER}
   </update>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE level = 2
+  </select>
+  <select id="findByPinyin" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE pinyin = #{0} AND  level = 2
+  </select>
+  <select id="findHotCity" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE isHot = 1
+  </select>
 </mapper>

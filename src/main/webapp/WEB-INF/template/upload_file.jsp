@@ -124,7 +124,6 @@
             prompt(data.message);
         });
     }
-
     //弹框显示，自动消失
     function prompt(text){
         $('#pro p').html(text);

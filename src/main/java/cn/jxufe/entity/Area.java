@@ -25,7 +25,7 @@ public class Area implements Serializable {
     /**
      * 地区级别（1:省份province,2:市city,3:区县district,4:街道street）
      */
-    private Integer level;
+    private Byte level;
 
     /**
      * 地区父节点
@@ -68,11 +68,11 @@ public class Area implements Serializable {
         this.areaname = areaname;
     }
 
-    public Integer getLevel() {
+    public Byte getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(Byte level) {
         this.level = level;
     }
 

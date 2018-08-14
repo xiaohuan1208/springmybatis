@@ -12,4 +12,19 @@ import java.util.List;
 public interface AreaDAO extends MyBatisBaseDao<Area, Integer> {
     List<Area> getByParentId(int parentId);
     List<Area> getByAreaName(String areaName);
+    /**
+     * 查询所有地址
+     * @return
+     */
+    public List<Area> findAll();
+    /**
+     * 通过首字母查询地区信息
+     * @return
+     */
+    public List<Area> findByPinyin(String pinyin);
+    /**
+     * 查询热门城市
+     * @return
+     */
+    public List<Area> findHotCity();
 }

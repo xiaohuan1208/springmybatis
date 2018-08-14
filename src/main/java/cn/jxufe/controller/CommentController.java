@@ -35,7 +35,7 @@ public class CommentController {
      */
     @RequestMapping("getComment")
     @ResponseBody
-    public Object getComment(@RequestParam(value = "goodsId") Integer goodsId,@RequestParam(value = "page") Integer page){
+    public Object getComment(@RequestParam(value = "goodsId") Integer goodsId,@RequestParam(value = "page",defaultValue = "1") Integer page){
         return commentService.findByGoodsid(goodsId,page);
     }
 }
