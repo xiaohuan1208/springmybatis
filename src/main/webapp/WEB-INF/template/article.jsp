@@ -32,7 +32,6 @@
 <!--header-->
 <header>
     <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
-
     <h1>文章标题</h1>
 </header>
 <div class="article">
