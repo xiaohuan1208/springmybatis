@@ -27,7 +27,6 @@ public interface GoodsService {
     * 根据商品类型id分页查找商品
     * */
     public List<Goods> findByType(int pageNo, int pageSize,int typeId);
- }
 
     /*
     * 添加商品信息
@@ -37,5 +36,9 @@ public interface GoodsService {
      * 查询上架商品
      */
     public List<Goods> findByStatus();
+    /*
+    * 通过昵称查询商品
+    * */
+    public List<Goods> findByNickname(String nickname);
  }
 
