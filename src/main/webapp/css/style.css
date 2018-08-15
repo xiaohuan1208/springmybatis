@@ -109,6 +109,7 @@ nav .userIcon:before{content:"U";}
 .tab_proList dd li aside a:last-child{border:none;}
 .tab_proList dd li aside a:before{font-family:'freshregular';display:block;margin-bottom:2px;font-size:.28rem;color:#d2d2d2;}
 .tab_proList dd li aside a.like_icon:before{content:"z";}
+.tab_proList dd li aside a.like_icon_visited:before{content:"z";color: #FF1493;}
 .tab_proList dd li aside a.comment_icon:before{content:"p";}
 .tab_proList dd li aside a.deal_icon:before{content:"l";}
 .tab_proList dd li:last-child{margin:0;}
