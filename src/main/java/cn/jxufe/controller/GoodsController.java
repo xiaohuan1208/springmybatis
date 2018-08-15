@@ -49,6 +49,11 @@ public class GoodsController {
     public List<Goods> getGoodsByType(int pageNo, int pageSize, int typeId){
         return goodsService.findByType(pageNo, pageSize, typeId);
     }
+    @ResponseBody
+    @RequestMapping("usergoods")
+    public List<Goods> getGoodsByNickname(String nickname){
+        return goodsService.findByNickname(nickname);
+    }
 }
 //
 
