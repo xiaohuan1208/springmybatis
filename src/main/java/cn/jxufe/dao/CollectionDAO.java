@@ -22,4 +22,6 @@ public interface CollectionDAO extends MyBatisBaseDao<Collection, Integer> {
      * @return
      */
     public List<Collection> findByTelphone(String telphone);
+
+    public Collection findByTelAndGoodsid(Collection collection);
 }
