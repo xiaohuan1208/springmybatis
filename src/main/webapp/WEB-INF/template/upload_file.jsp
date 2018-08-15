@@ -54,7 +54,7 @@
         </li>
         <li>
             <label>作者：</label>
-            <input id="designer" type="text" placeholder="作者..." value="HZIT"/>
+            <input id="designer" readonly="readonly" type="text" placeholder="作者..." value="HZIT"/>
         </li>
         <li><input type="button" value="提交作品"/></li>
     </ul>
