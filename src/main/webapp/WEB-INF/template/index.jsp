@@ -74,7 +74,23 @@
         template.find("aside .comment_icon").html(item.commentnum);
         template.find("aside .deal_icon").html(item.transactionnum);
         template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+",this)");
+        isLike(item.goodsid,template);
         list.append(template);
+      });
+    }
+    //渲染点赞样式
+    function isLike(goodsid,template){
+      var collection = {};
+      collection.goodsid = goodsid;
+      $.get("collection/islike",collection,function(result){
+
+          if(result.code>0){
+            template.find("aside a:first-child").attr("class","like_icon_visited");
+
+          }else{
+            template.find("aside a:first-child").attr("class","like_icon");
+
+          }
       });
     }
     //加入购物车
