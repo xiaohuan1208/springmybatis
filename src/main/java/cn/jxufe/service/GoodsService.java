@@ -27,7 +27,7 @@ public interface GoodsService {
     * 根据商品类型id分页查找商品
     * */
     public List<Goods> findByType(int pageNo, int pageSize,int typeId);
- }
+
 
     /*
     * 添加商品信息
