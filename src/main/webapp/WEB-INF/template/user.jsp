@@ -42,7 +42,7 @@
          <input type="file" name="file" id="file" hidden="hidden">
          <img src="../../images/icon/DefaultAvatar.jpg"/>
      </a>--%>
-    <h2 id="tel">176029****2</h2>
+    <h2 id="tel">未登录</h2>
 </div>
 <ul class="userList">
  <li><a href="order_list" class="orderListIcon">订单</a></li>
@@ -95,7 +95,8 @@
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = function (e) {
-                showImg.innerHTML = '<img src="' + this.result + '"/>';
+               // showImg.innerHTML = '<img src="' + this.result + '"/>';
+                $(".userIcon img").attr("src",this.result);
                 uploadAvatar("file",getImg.files[0]);
 
             }
@@ -116,14 +117,24 @@
             contentType: false,
             success: function (ret) {
                 if(ret.code>0){
-                    $
-                    //当图片上传成功执行上传商品信息函数
-                    prompt(ret.message);
+                    //当头像上传第三方oss成功
+                    // 更新用户头像信息
+                    updateImg(ret.message);
                 }
             }
         });
     }
 
+    //
+    function updateImg(imgUrl){
+        var user = {}
+        user.headimg = imgUrl
+        user.telphone = $("#tel").html();
+        $.post("user/img",user,function(data){
+            //提示信息
+            prompt(data.message);
+        });
+    }
     //弹框显示，自动消失
     function prompt(text){
         $('#pro p').html(text);
