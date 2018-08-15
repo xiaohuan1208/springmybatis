@@ -28,4 +28,9 @@ public interface GoodsDAO extends MyBatisBaseDao<Goods, Integer> {
      * 通过状态查询全部商品
      */
     public List<Goods> findByStatus();
+
+    /*
+    * 通过设计者获取商品
+    * */
+    public List<Goods> findByNickname(String nickname);
 }
