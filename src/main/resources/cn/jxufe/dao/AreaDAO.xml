@@ -19,6 +19,12 @@
     from T_Area
     where areaId = #{areaid,jdbcType=INTEGER}
   </select>
+  <select id="getByParentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE parentId = #{parentId};
+  </select>
+  <select id="getByAreaName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM T_Area WHERE parentId in(SELECT areaId FROM T_Area WHERE areaName = #{areaName})
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_Area
     where areaId = #{areaid,jdbcType=INTEGER}

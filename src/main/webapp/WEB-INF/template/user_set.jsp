@@ -37,7 +37,7 @@
 </header>
 <ul class="inforList">
     <li><a href="change_pwd" class="isNext">修改密码</a></li>
-    <li><a href="address" class="isNext">我的地址</a></li>
+    <li><a href="address/area" class="isNext">我的地址</a></li>
     <li><a href="article" class="isNext">关于我们</a></li>
     <li><a href="login" class="lastBtn">安全退出</a></li>
 </ul>

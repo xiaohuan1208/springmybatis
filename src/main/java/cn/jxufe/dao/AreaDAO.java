@@ -10,6 +10,8 @@ import java.util.List;
  */
 @Repository
 public interface AreaDAO extends MyBatisBaseDao<Area, Integer> {
+    List<Area> getByParentId(int parentId);
+    List<Area> getByAreaName(String areaName);
     /**
      * 查询所有地址
      * @return

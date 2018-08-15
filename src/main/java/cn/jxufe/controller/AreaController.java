@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * Created by LHM on 2018/8/13.
+ * Created by 29596 on 2018/8/13.
  */
 @Controller
 @RequestMapping("area")
@@ -20,6 +20,23 @@ public class AreaController {
     @Autowired
     private AreaService areaService;
 
+    @RequestMapping("province")
+    public String getAreaGrid(ModelMap modelMap){
+        List<Area>  areas = areaService.getProvince(-1);
+        modelMap.put("list",areas);
+        return "address";
+    }
+    @RequestMapping("getDistrict")
+    @ResponseBody
+    public List<Area> getDistrict(int parentId){
+        return areaService.getDistrict(parentId);
+    }
+    @RequestMapping("getCity")
+    @ResponseBody
+    public List<Area> getCity(int parentId) {
+        return areaService.getCity(parentId);
+    }
+    
     @RequestMapping("getAll")
     @ResponseBody
     public List<Area> getAll(){

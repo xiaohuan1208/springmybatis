@@ -58,7 +58,6 @@
     function showGoodsList(data){
       var list = $(".tab_proList ul");
       list.html("");
-
       $.each(data,function(index,item){
         var template = $("#goods-template").clone();
         template.removeAttr("hidden");
@@ -78,7 +77,7 @@
         list.append(template);
       });
     }
-
+    //加入购物车
     function pushCart(goodsid,obj){
       var cart = {}
       cart.goodsId = goodsid;
@@ -136,11 +135,11 @@
   <div class="swiper-wrapper">
       <%--循环顶部图片--%>
       <c:forEach items="${adv}" var="item">
-    <div class="swiper-slide">
-      <a href="${item.linkurl}">
-        <img src="upload/${item.advimg}"/>
-      </a>
-    </div>
+          <div class="swiper-slide">
+            <a href="${item.linkurl}">
+              <img src="${item.advimg}"/>
+            </a>
+          </div>
       </c:forEach>
   </div>
   <div class="pagination"></div>
@@ -151,7 +150,7 @@
     <li id="goods-template" hidden="hidden">
       <div class="productArea">
         <a href="product" class="goodsPic">
-          <img src="../../upload/goods001.jpg"/>
+          <img src="goods001.jpg"/>
         </a>
 
         <div class="goodsInfor">
@@ -176,7 +175,6 @@
     </li>
     <ul>
 
-      
     </ul>
   </dd>
 </dl>

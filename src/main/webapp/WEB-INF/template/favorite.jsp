@@ -84,7 +84,7 @@
                     template.removeAttr("hidden");
                     template.find(".goodsPic").attr("href", "product?goodsId=" + item.goodsid);
                     if (item.img != null) {
-                        template.find(".goodsPic img").attr("src", "../../upload/" + item.img);
+                        template.find(".goodsPic img").attr("src", item.img);
                     }
                     template.find(".goodsInfor .name").attr("href", "product?goodsId=" + item.goodsid);
                     template.find(".goodsInfor .name").html(item.goodsname);
@@ -158,7 +158,7 @@
 <section class="productList">
     <li id="template" hidden="hidden">
         <a href="product" class="goodsPic">
-            <img src="../../upload/goods001.jpg"/>
+            <img src=""/>
         </a>
 
         <div class="goodsInfor">

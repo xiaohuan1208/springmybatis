@@ -9,13 +9,27 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by LHM on 2018/8/13.
+ * Created by 29596 on 2018/8/13.
  */
 @Service
 public class AreaServiceImpl implements AreaService {
     @Autowired
     private AreaDAO areaDAO;
 
+    @Override
+    public List<Area> getProvince(int parentId) {
+        return areaDAO.getByParentId(parentId);
+    }
+
+    @Override
+    public List<Area> getCity(int parentId) {
+        return areaDAO.getByParentId(parentId);
+    }
+
+    @Override
+    public List<Area> getDistrict(int parentId) {
+        return areaDAO.getByParentId(parentId);
+    }
     @Override
     public List<Area> findAll() {
         try {

@@ -96,7 +96,7 @@
                 $.each(preData, function (index, item) {
                     var template = $("#comment_template").clone();
                     template.removeAttr("hidden");
-                    template.find(".user_pic img").attr("src", "../../images/icon/" + item.headimg);
+                    template.find(".user_pic img").attr("src",  item.headimg);
                     template.find(".rt_infor em").html(item.nickname);
                     template.find(".rt_infor time").html(item.createtime);
                     template.find(".comment_cont_txt").html(item.content);

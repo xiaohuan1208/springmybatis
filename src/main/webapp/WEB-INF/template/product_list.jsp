@@ -85,7 +85,7 @@
     <ul>
         <li>
             <a href="product" class="goodsPic">
-                <img src="../../upload/goods001.jpg"/>
+                <img src="goods001.jpg"/>
             </a>
 
             <div class="goodsInfor">
@@ -104,7 +104,7 @@
         </li>
         <li>
             <a href="product" class="goodsPic">
-                <img src="../../upload/goods002.jpg"/>
+                <img src="goods002.jpg"/>
             </a>
 
             <div class="goodsInfor">
@@ -123,7 +123,7 @@
         </li>
         <li>
             <a href="product" class="goodsPic">
-                <img src="../../upload/goods003.jpg"/>
+                <img src="goods003.jpg"/>
             </a>
 
             <div class="goodsInfor">
@@ -142,7 +142,7 @@
         </li>
         <li>
             <a href="product" class="goodsPic">
-                <img src="../../upload/goods005.jpg"/>
+                <img src="goods005.jpg"/>
             </a>
 
             <div class="goodsInfor">
@@ -161,7 +161,7 @@
         </li>
         <li>
             <a href="product" class="goodsPic">
-                <img src="../../upload/goods004.jpg"/>
+                <img src="goods004.jpg"/>
             </a>
 
             <div class="goodsInfor">
