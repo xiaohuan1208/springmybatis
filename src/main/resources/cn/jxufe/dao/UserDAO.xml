@@ -108,4 +108,5 @@
     SET telPhone = #{telphone,jdbcType=VARCHAR}
     WHERE telPhone = #{oldtel,jdbcType=VARCHAR}
   </update>
+
 </mapper>
