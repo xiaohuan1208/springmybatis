@@ -39,7 +39,7 @@
 </header>
 <dd id="template" hidden="hidden">
     <input type="checkbox" class="onecheck"/>
-    <a href="product" class="goodsPic"><img src="../../upload/goods004.jpg"/></a>
+    <a href="product" class="goodsPic"><img src="goods004.jpg"/></a>
 
     <div class="goodsInfor">
         <h2>
@@ -146,7 +146,7 @@
                     template.attr("datagoodsid", result.goodsid);
                     template.find(".goodsPic").attr("href", "product?goodId=" + result.goodsid);
                     if (result.img != null) {
-                        template.find("img").attr("src", "upload/" + result.img);
+                        template.find("img").attr("src", result.img);
                     }
                     template.find(".goodsInfor #name").attr("href","product?goodsId="+result.goodsid);
                     template.find(".goodsInfor #name").html(result.goodsname);

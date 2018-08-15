@@ -84,7 +84,7 @@
                     template.removeAttr("hidden");
                     template.find(".goodsPic").attr("href", "product?goodsId=" + item.goodsid);
                     if (item.img != null) {
-                        template.find(".goodsPic img").attr("src", "../../upload/" + item.img);
+                        template.find(".goodsPic img").attr("src", item.img);
                     }
                     template.find(".goodsInfor .name").attr("href", "product?goodsId=" + item.goodsid);
                     template.find(".goodsInfor .name").html(item.goodsname);
@@ -158,7 +158,7 @@
 <section class="productList">
     <li id="template" hidden="hidden">
         <a href="product" class="goodsPic">
-            <img src="../../upload/goods001.jpg"/>
+            <img src=""/>
         </a>
 
         <div class="goodsInfor">
@@ -183,8 +183,7 @@
     <a href="cart">0</a>
 </div>
 <!--用于弹框显示的，合并代码的时候别遗漏了-->
-<div id="pro"
-     style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
+<div id="pro" style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
     <p style="color:white;text-align: center;line-height: 100px;"></p>
 </div>
 </body>

@@ -46,8 +46,9 @@ public class GoodsController {
 
     @ResponseBody
     @RequestMapping("getByType")
-    public List<Goods> getGoodsByType(int pageNo, int pageSize, int typeId){
-        return goodsService.findByType(pageNo, pageSize, typeId);
+    public List<Goods> getGoodsByType(int pageNo, int pageSize, int typeId,String sort,String order){
+        String orders = sort + " " + order;
+        return goodsService.findByType(pageNo, pageSize, typeId,orders);
     }
     @ResponseBody
     @RequestMapping("usergoods")
@@ -55,7 +56,6 @@ public class GoodsController {
         return goodsService.findByNickname(nickname);
     }
 }
-//
 
 
 

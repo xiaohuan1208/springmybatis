@@ -31,7 +31,7 @@ public class Comment implements Serializable {
     /**
      * 评论时间
      */
-    private Date createtime;
+    private String createtime;
 
     private String nickname;
 
@@ -71,11 +71,11 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 

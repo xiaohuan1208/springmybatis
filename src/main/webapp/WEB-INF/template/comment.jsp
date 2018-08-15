@@ -36,16 +36,18 @@
 
         $(document).ready(function () {
             var goodsId = getParams();
+            var url = "comment/getComment?goodsId="+goodsId;
             //加载评论
-            getComment(goodsId);
+            getComment(url);
             $(".comment_input input").click(function () {
                 var commentContent = $("#commentContent").val();
                 sendComment(commentContent);
             });
             //监听加载更多按钮
             $(".more_btn").click(function () {
+                var url = "comment/getComment?goodsId="+goodsId+"&page="+currentPage;
                 //加载更多评论
-                getComment(goodsId);
+                getComment(url);
             });
         });
         function sendComment(commentContent) {
@@ -55,7 +57,9 @@
             comment.content = commentContent;
             $.post("comment/addComment", comment, function (e) {
                 if (e.code != -10) {
-                    getComment(goodsId);
+                    var url = "comment/getComment?goodsId="+goodsId;
+                    getComment(url);
+                    preData = [];
                 }
                 prompt(e.message);
             })
@@ -67,30 +71,29 @@
             return goodsId;
         }
         //加载评论
-        function getComment(goodsId) {
-            $.post("comment/getComment", {"goodsId": goodsId, "page": currentPage}, function (data) {
+        function getComment(url) {
+            $.get(url, function (data) {
                 if(data.list.length!=0){
                     currentPage = currentPage + 1;
-                    //调用显示评论的方法
-                    showComment(data.list);
                     //调用提示框
-                    prompt("加载了" + data.list.length + "条评论");
+                    //prompt("加载了" + data.list.length + "条评论");
                 } else {
                     prompt("已全部加载完毕");
                 }
+                //调用显示评论的方法
+                showComment(data.list);
             });
         }
         //将获取的评论显示出来
         function showComment(data) {
             pushData(data);
-
             var list = $(".comment_cont ul");
             list.html("");
             if (preData.length != 0) {
                 $.each(preData, function (index, item) {
                     var template = $("#comment_template").clone();
                     template.removeAttr("hidden");
-                    template.find(".user_pic img").attr("src", "../../images/icon/" + item.headimg);
+                    template.find(".user_pic img").attr("src",  item.headimg);
                     template.find(".rt_infor em").html(item.nickname);
                     template.find(".rt_infor time").html(item.createtime);
                     template.find(".comment_cont_txt").html(item.content);
@@ -105,7 +108,7 @@
         //弹框显示，自动消失
         function prompt(text) {
             $('#pro p').html(text);
-            $('#pro').show().delay(3000).fadeOut();
+            $('#pro').show().delay(2000).fadeOut();
         }
         //将之前的数据于现在查找的数据合起来
         function pushData(data) {
@@ -145,7 +148,7 @@
 </div>
 <!--用于弹框显示的，合并代码的时候别遗漏了-->
 <div id="pro"
-     style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;display:inline-block;">
+     style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
     <p style="color:white;text-align: center;line-height: 100px;"></p>
 </div>
 </body>

@@ -1,6 +1,7 @@
 package cn.jxufe.dao;
 
 import cn.jxufe.entity.Goods;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public interface GoodsDAO extends MyBatisBaseDao<Goods, Integer> {
      */
     public List<Goods> findByName(String goodsName);
 
-    public List<Goods> findByType(int typeId);
+    public List<Goods> findByType(@Param("typeId")int typeId,@Param("orders")String orders);
     /**
      * 查询全部商品
      */
