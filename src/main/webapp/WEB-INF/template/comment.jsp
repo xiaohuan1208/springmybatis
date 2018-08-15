@@ -56,12 +56,15 @@
             comment.goodsid = goodsId;
             comment.content = commentContent;
             $.post("comment/addComment", comment, function (e) {
-                if (e.code != -10) {
+                if (e.code > 0) {
                     var url = "comment/getComment?goodsId="+goodsId;
                     getComment(url);
                     preData = [];
                 }
                 prompt(e.message);
+                if(e.code == -11){
+                    location.href = "login";
+                }
             })
         }
         //获取商品详情页面传过来的商品ID
