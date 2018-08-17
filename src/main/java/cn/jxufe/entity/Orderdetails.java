@@ -11,12 +11,12 @@ public class Orderdetails implements Serializable {
     /**
      * 订单详情id（主键）
      */
-    private String orderdetailsid;
+    private Integer orderdetailsid;
 
     /**
      * 订单id（外键）
      */
-    private Integer orderid;
+    private Long orderid;
 
     /**
      * 商品id（外键）
@@ -45,19 +45,19 @@ public class Orderdetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getOrderdetailsid() {
+    public Integer getOrderdetailsid() {
         return orderdetailsid;
     }
 
-    public void setOrderdetailsid(String orderdetailsid) {
+    public void setOrderdetailsid(Integer orderdetailsid) {
         this.orderdetailsid = orderdetailsid;
     }
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 

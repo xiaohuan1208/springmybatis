@@ -2,6 +2,9 @@ package cn.jxufe.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * T_Order
@@ -11,7 +14,7 @@ public class Order implements Serializable {
     /**
      * 订单编号
      */
-    private Integer orderid;
+    private Long orderid;
 
     /**
      * 手机号（用户）
@@ -43,13 +46,27 @@ public class Order implements Serializable {
      */
     private String address;
 
+    private HashMap<Object,List<Orderdetails>> orderDetailMap;
+
+    public HashMap<Object,List<Orderdetails>> getOrderDetailMap() {
+        return orderDetailMap;
+    }
+
+    public void setOrderDetailMap(HashMap<Object,List<Orderdetails>> orderDetailMap) {
+        this.orderDetailMap = orderDetailMap;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     private static final long serialVersionUID = 1L;
 
-    public Integer getOrderid() {
+    public Long getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Integer orderid) {
+    public void setOrderid(Long orderid) {
         this.orderid = orderid;
     }
 
