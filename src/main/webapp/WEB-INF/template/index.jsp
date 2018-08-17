@@ -95,17 +95,24 @@
     }
     //加入购物车
     function pushCart(goodsid,obj){
-      var cart = {}
-      cart.goodsId = goodsid;
-      cart.number = 1;
-      $.get("user/pushcart",cart,function(result){
-        if(result.code>0){
-          $.get("user/cart",function(data){
-            animation(obj);
-            $(".hoverCart a").html(Object.keys(data).length);
+      $.get("user/information", function (data) {
+        if (data == null || data == "") {
+          alert("您尚未登录请先登录！");
+          location.href = "login";
+        }else{
+          var cart = {}
+          cart.goodsId = goodsid;
+          cart.number = 1;
+          $.get("user/pushcart",cart,function(result){
+            if(result.code>0){
+              $.get("user/cart",function(data){
+                animation(obj);
+                $(".hoverCart a").html(Object.keys(data).length);
+              });
+            }
           });
         }
-      });
+      })
     }
 
     //飞入特效

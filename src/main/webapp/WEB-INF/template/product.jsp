@@ -34,6 +34,18 @@
             $.get("goods/one?goodsId=" + goodsId, function (data) {
                 showGoods(data);
             })
+
+            $.get("user/cart",function(data){
+                var sum = 0;
+                $(".cart_icon em").html(Object.keys(data).length);
+                $.each(data, function (index, item) {
+                    $.get("goods/one?goodsId=" + item.goodsId, function (result) {
+                        sum += Number(item.number)*Number(result.sellingprice/100.00);
+                        $("#total").text("合计：￥"+sum.toFixed(2));
+                    })
+                })
+
+            });
         });
         //获取商品并展示
         function showGoods(data) {
@@ -48,6 +60,7 @@
             $("#sell b").html(data.transactionnum);
             $("#like b").html(data.likenumber);
             $(".pro_infor .more_link").attr("onclick", "comment(" + data.goodsid + ")");
+            $(".add_btn").attr("onclick","pushCart("+data.goodsid+",this)");
         }
         //获取当前商品id
         function getParams() {
@@ -59,6 +72,35 @@
         function comment(goodsid) {
             location.href = "comment?goodsId=" + goodsid;
         }
+
+        //加入购物车
+        function pushCart(goodsid,obj){
+            $.get("user/information", function (data) {
+                if (data == null || data == "") {
+                    alert("您尚未登录请先登录！");
+                    location.href = "login";
+                }else{
+                    var cart = {}
+                    cart.goodsId = goodsid;
+                    cart.number = 1;
+                    var sum = 0;
+                    $.get("user/pushcart",cart,function(result){
+                        if(result.code>0){
+                            $.get("user/cart",function(data){
+                                $(".cart_icon em").html(Object.keys(data).length);
+                                $.each(data, function (index, item) {
+                                    $.get("goods/one?goodsId=" + item.goodsId, function (result) {
+                                        sum += Number(item.number)*Number(result.sellingprice/100.00);
+                                        $("#total").text("合计：￥"+sum.toFixed(2));
+                                    })
+                                })
+                            });
+                        }
+                    });
+                }
+            })
+        }
+
     </script>
 </head>
 <body>
@@ -111,7 +153,7 @@
 <aside class="btmNav">
     <ul>
         <li><a class="cart_icon"><em>0</em></a></li>
-        <li><a>合计：￥0.00</a></li>
+        <li><a id="total">合计：￥0.00</a></li>
         <li><a href="cart">立即下单</a></li>
     </ul>
 </aside>

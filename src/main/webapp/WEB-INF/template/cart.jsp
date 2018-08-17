@@ -79,6 +79,12 @@
 </html>
 <script>
     $(document).ready(function () {
+        $.get("user/information", function (data) {nj
+            if (data == null || data == "") {
+                alert("您尚未登录请先登录！");
+                location.href = "login"
+            }
+        })
         //show or hide:delBtn
         $(".edit").toggle(function () {
             $(this).parent().siblings("dd").find(".delBtn").fadeIn();

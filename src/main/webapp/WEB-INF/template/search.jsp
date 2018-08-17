@@ -48,7 +48,7 @@
 <body>
 <!--header-->
 <header>
-    <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+    <a href="page_index" class="iconfont backIcon">&#60;</a>
 
     <h1>搜索</h1>
 </header>
