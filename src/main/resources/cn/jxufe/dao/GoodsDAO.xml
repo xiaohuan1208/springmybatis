@@ -212,4 +212,8 @@
   <select id="findByStatus" resultType="cn.jxufe.entity.Goods">
     SELECT * FROM T_Goods WHERE status = 1
   </select>
+
+  <select id="findByNickname" resultType="cn.jxufe.entity.Goods">
+    SELECT * FROM T_Goods WHERE designer = #{nickname} ORDER BY createTime DESC
+  </select>
 </mapper>

@@ -28,6 +28,9 @@ public interface UserService {
 
     public User getUserinfo(HttpSession session);
 
+    public Message updateImg(User user,HttpSession session);
+
+
     /*将商品信息添加到session中*/
     public Message pushCart(Cart cart, HttpSession session);
 

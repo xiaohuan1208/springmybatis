@@ -66,4 +66,8 @@ public class GoodsServiceImpl implements GoodsService {
         return message;
     }
 
+    @Override
+    public List<Goods> findByNickname(String nickname) {
+        return goodsDAO.findByNickname(nickname);
+    }
 }

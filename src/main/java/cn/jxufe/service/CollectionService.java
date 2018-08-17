@@ -27,4 +27,11 @@ public interface CollectionService {
      */
     public PageInfo<Collection> findByTelphone(Integer page,HttpSession session);
 
+    /**
+     * 通过商品id和用户账号获取是否点赞
+     * @param collection
+     * @return
+     */
+    public Message isLike(Collection collection, HttpSession session);
+
 }

@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
         try{
             User sessionUser = (User)session.getAttribute("user");
             if(sessionUser==null){
-                message.setCode(-10);
+                message.setCode(-11);
                 message.setMessage("请先登录");
             }else{
                 comment.setTelphone(sessionUser.getTelphone());
@@ -45,13 +45,13 @@ public class CommentServiceImpl implements CommentService {
                     message.setCode(10);
                     message.setMessage("评论成功");
                 }else{
-                    message.setCode(-10);
+                    message.setCode(-12);
                     message.setMessage("评论失败");
                 }
             }
         }catch (Exception e){
             e.printStackTrace();
-            message.setCode(-10);
+            message.setCode(-12);
             message.setMessage("评论失败");
         }
         return message;

@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDAO extends MyBatisBaseDao<User, String> {
     int updateByTel(@Param("telphone") String telphone,@Param("oldtel") String oldtel);
+
+    int updateImg(User user);
 }

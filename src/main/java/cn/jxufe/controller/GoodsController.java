@@ -50,6 +50,11 @@ public class GoodsController {
         String orders = sort + " " + order;
         return goodsService.findByType(pageNo, pageSize, typeId,orders);
     }
+    @ResponseBody
+    @RequestMapping("usergoods")
+    public List<Goods> getGoodsByNickname(String nickname){
+        return goodsService.findByNickname(nickname);
+    }
 }
 
 

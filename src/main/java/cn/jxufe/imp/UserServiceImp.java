@@ -154,6 +154,8 @@ public class UserServiceImp implements UserService {
         return message;
     }
 
+
+
     @Override
     public User getUserinfo(HttpSession session) {
 
@@ -190,8 +192,6 @@ public class UserServiceImp implements UserService {
     @Override
     public Map<Integer,Cart> getCart(HttpSession session) {
         Map<Integer,Cart> map = (Map<Integer,Cart>)session.getAttribute("cart");
-
-
         return map;
     }
 
@@ -215,6 +215,26 @@ public class UserServiceImp implements UserService {
         session.setAttribute("cart", cartMap);
         message.setCode(1);
         message.setMessage("修改成功");
+        return message;
+    }
+
+    @Override
+    public Message updateImg(User user,HttpSession session) {
+        Message message = new Message();
+        if (userDAO.updateImg(user)>0){
+            message.setCode(1);
+            message.setMessage("头像上传成功");
+            try {
+                User user1 = userDAO.selectByPrimaryKey(user.getTelphone());
+                session.setAttribute("user",user1);
+            }catch (Exception e){
+
+            }
+
+        }else {
+            message.setCode(-1);
+            message.setMessage("上传失败");
+        }
         return message;
     }
 }

@@ -125,5 +125,10 @@ public class UserController {
         return userService.eidtCart(cart,session);
     }
 
+    @RequestMapping("img")
+    @ResponseBody
+    public Message updateImg(User user,HttpSession session){
+        return userService.updateImg(user, session);
+    }
 }
 
