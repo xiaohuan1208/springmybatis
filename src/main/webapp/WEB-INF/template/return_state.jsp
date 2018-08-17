@@ -27,6 +27,7 @@
           href="../../images/icon/apple-touch-icon-196x196-precomposed.png">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <script type="text/javascript" src="../../js/jquery.js"></script>
 </head>
 <body>
 <!--header-->
@@ -51,5 +52,39 @@
         <a href="page_index">返回首页</a>
     </p>
 </section>
+<script type="text/javascript">
+    $(function () {
+        getData();
+    })
+    function getData(){
+        var href = window.document.location.href;
+        var param = href.split("?")[1];
+        var totalPrice = param.split("&")[0].split("=")[1];
+        var orderId = param.split("&")[1].split("=")[1];
+        $(".return_state p").eq(0).html("订单编号："+orderId);
+        $(".return_state p").eq(1).children("strong").html(totalPrice);
+        $(".return_state p").eq(2).children("time").html(getCurrDate());
+        console.log(totalPrice);
+        console.log(orderId);
+        console.log(getCurrDate());
+    }
+    //获取当前时间
+    function getCurrDate(){
+        var myDate = new Date();
+        //获取当前年
+        var year=myDate.getFullYear();
+        //获取当前月
+        var month=myDate.getMonth()+1;
+        //获取当前日
+        var date=myDate.getDate();
+        var h=myDate.getHours();       //获取当前小时数(0-23)
+        var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+        var s=myDate.getSeconds();
+        return (year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m)+":"+p(s));
+    }
+    function p(s) {
+        return s < 10 ? '0' + s: s;
+    }
+</script>
 </body>
 </html>

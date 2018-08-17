@@ -76,7 +76,7 @@
 </html>
 <script>
     $(function(){
-        getCity("select-second",1,"address/getCity");
+        getCity("select-second",1,"area/getCity");
     })
     var flag = 2;
     function getCity(id,value,targetUrl){
@@ -91,15 +91,15 @@
             success:function(data){
                 //遍历回传的数据添加到二级select
                 $.each(data, function(index,item) {
-                    if(index == 0 && targetUrl== "address/getCity"){
+                    if(index == 0 && targetUrl== "area/getCity"){
                         flag = item.areaid;
                     }
                     var option = '<option value="'+item.areaid+'">'+item.areaname+'</option>'
                     $("#"+id).append(option);
                 })
-                if(targetUrl=="address/getCity"){
+                if(targetUrl=="area/getCity"){
                     $("#select-third").empty();
-                    getCity("select-third",flag,"address/getDistrict");
+                    getCity("select-third",flag,"area/getDistrict");
                 }
             },
             error:function(){
@@ -116,7 +116,7 @@
         //获得一级select的值
         var firstValue = $(this).val();
         //根据一级select的值，异步获取数据更新二级的选项
-        getCity("select-second",firstValue,"address/getCity");
+        getCity("select-second",firstValue,"area/getCity");
     });
 
     //级联select:二级select值改变，触发三级select变化
@@ -126,7 +126,7 @@
         //二级select的值
         var secondValue = $(this).val();
         //根据二级select的值，异步获取数据更新三级的选项
-        getCity("select-third",secondValue,"address/getDistrict");
+        getCity("select-third",secondValue,"area/getDistrict");
     });
 
 </script>

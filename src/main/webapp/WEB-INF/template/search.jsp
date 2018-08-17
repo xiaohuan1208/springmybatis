@@ -129,7 +129,6 @@
         $.post("goods/search_" + searchContent, function (data) {
             $(".searchHistory").hide();
             $("#content").val("");
-            console.log(data.length);
             if(data.length != 0){
                 //将数据放到界面显示
                 showGoodsList(data);
@@ -144,16 +143,15 @@
         var list = $(".tab_proList ul");
         list.html("");
         $.each(data,function(index,item){
+            console.log(item.img);
             var template = $("#goods-template").clone();
             template.removeAttr("hidden");
             template.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
-            if(item.img != null){
-                template.find(".goodsPic img").attr("src",+item.img);
-            }
+            template.find(".goodsPic img").attr("src",item.img);
             template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
             template.find(".goodsInfor .name").html(item.goodsname);
-            template.find(".goodsInfor del").html(item.originalprice);
-            template.find(".goodsInfor strong").html(item.sellingprice);
+            template.find(".goodsInfor del").html(item.originalprice/100.0);
+            template.find(".goodsInfor strong").html(item.sellingprice/100.0);
             template.find("aside .like_icon").html(item.likenumber);
             template.find("aside .comment_icon").html(item.commentnum);
             template.find("aside .deal_icon").html(item.transactionnum);

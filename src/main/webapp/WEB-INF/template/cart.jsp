@@ -72,9 +72,14 @@
     <ul>
         <li><a class="cart_icon"><em>0</em></a></li>
         <li><a class="total">合计：￥0.00</a></li>
-        <li><a href="confirm_order">立即下单</a></li>
+        <li><a id="subBtn">立即下单</a></li>
     </ul>
 </aside>
+<!--用于弹框显示的，合并代码的时候别遗漏了-->
+<div id="pro"
+     style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
+    <p style="color:white;text-align: center;line-height: 100px;"></p>
+</div>
 </body>
 </html>
 <script>
@@ -196,8 +201,6 @@
     $("#template .onecheck").click(function () {
         var len = $(".cart dd .onecheck").length;
         var checkedLen = $(".cart dd .onecheck:checked").length;
-        console.log(len);
-        console.log(checkedLen);
         if (len == checkedLen) {
             $('#checkAll').prop('checked', true);
         } else {
@@ -209,14 +212,48 @@
 
     function getTotal() {
         var sum = 0.00;
+        var goodsList = [];//用来装选中的商品的id
         $(".cart dd  .onecheck").each(function () {
             if (this.checked == true) {
+                var goodsId = $(this).parent().attr("datagoodsid");//获取选中的商品的Id
+                var goodsName = $(this).parent().find(".goodsInfor #name").text();//获取商品名
+                var price = $(this).parent().find(".priceArea strong").text();
+                var goods = {
+                    "goodsid":goodsId,
+                    "goodsname":goodsName,
+                    "price":price
+                };
                 var money = $(this).parent().find('.priceArea strong').text();
                 var num = $(this).parent().find('#number').text();
                 sum += Number(money) * Number(num);
+                goods.totalprice = sum.toFixed(2);
+                goodsList.push(goods);
             }
         })
         $(".total").text("合计：￥" + sum.toFixed(2));
+        return goodsList;
     }
 
+    $("#subBtn").click(function(){
+        //获取所有选中的商品的ID
+        var goodsList = getTotal();
+        $.ajax({
+            url: "user/suborder",
+            data: JSON.stringify(goodsList),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (e) {
+                prompt(e.message);
+                var orderId = e.code;
+                var totalprice = goodsList[goodsList.length-1].totalprice;
+                location.href="confirm_order?totalprice="+totalprice+"&orderid="+orderId;
+            }
+        });
+    })
+    //弹框显示，自动消失
+    function prompt(text) {
+        $('#pro p').html(text);
+        $('#pro').show().delay(2000).fadeOut();
+    }
 </script>

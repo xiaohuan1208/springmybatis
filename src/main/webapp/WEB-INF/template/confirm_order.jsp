@@ -27,7 +27,9 @@
           href="../../images/icon/apple-touch-icon-196x196-precomposed.png">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/jquery-confirm.css">
     <script src="../../js/jquery.js"></script>
+    <script src="../../js/jquery-confirm.js"></script>
     <script>
         $(document).ready(function () {
             //payment style
@@ -37,10 +39,71 @@
             });
             //测试流程效果，程序对接可将其删除！
             $(".btmNav a:last").click(function () {
-                alert("点击提交订单后跳转支付接口，再返回支付状态！");
-                location.href = "return_state";
+                //alert("点击提交订单后跳转支付接口，再返回支付状态！");
+                //判断是否选择支付方式
+                var bFlag = false;
+                var payway = document.getElementsByName('pay');
+                for (var i = 0; i < payway.length; i++) {
+                    if (payway[i].checked) {
+                        bFlag = true;
+                        break;
+                    }
+                }
+                if (bFlag == false) {
+                    prompt("请选择支付方式");
+                }else{
+                    //location.href = "return_state";
+                    $.confirm({
+                        title: '确认',
+                        content: '确认现在付款吗?',
+                        type: 'orange',
+                        icon: 'glyphicon glyphicon-question-sign',
+                        buttons: {
+                            ok: {
+                                text: '确认',
+                                btnClass: 'btn-primary',
+                                action: function() {
+                                    var orderInfo =  getTotalPrice();
+                                    var orderremarks = $(".order_msg textarea").val();
+                                    var address = $(".confirmAddr address").text();
+                                    orderInfo.orderremarks = orderremarks;
+                                    orderInfo.address = address;
+                                    payOrder(orderInfo);
+                                }
+                            },
+                            cancel: {
+                                text: '取消',
+                                btnClass: 'btn-primary'
+                            }
+                        }
+                    });
+                }
             });
+            //支付订单
+            function payOrder(data){
+                $.ajax({
+                    url: "user/payorder",
+                    data: JSON.stringify(data),
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (e) {
+                        prompt(e.message);
+                        var orderInfo = getTotalPrice();
+                        var orderId = orderInfo.orderid;
+                        var totalPrice = orderInfo.totalPrice;
+                        location.href = "return_state?orderId="+orderId+"&totalPrice="+totalPrice;
+                    }
+                });
+            }
+
         });
+        //弹框显示，自动消失
+        function prompt(text) {
+            $('#pro p').html(text);
+            $('#pro').show().delay(2000).fadeOut();
+        }
+
     </script>
 </head>
 <body>
@@ -74,8 +137,38 @@
 <aside class="btmNav">
     <ul>
         <li><a>合计：￥0.00</a></li>
-        <li><a href="return_state">立即付款</a></li>
+        <li><a>立即付款</a></li>
     </ul>
 </aside>
+<!--用于弹框显示的，合并代码的时候别遗漏了-->
+<div id="pro"
+     style="display: none; width: 100px; height: 100px; position: fixed; top: 300px; left: 40%; background-color: rgb(0, 0, 0); z-index: 5000; opacity: 0.5; background-position: initial; background-repeat: initial;border-radius:10px;">
+    <p style="color:white;text-align: center;line-height: 100px;"></p>
+</div>
 </body>
 </html>
+<script>
+    $(function(){
+        $.get("getDefaultAddress",function(data){
+            $(".confirmAddr").find("p span:first").html("收货人："+data.consignee);
+            var tel = data.telphone;
+            var reg = /1(\d{2})\d{4}(\d{4})/g;
+            tel = tel.replace(reg,"1$1****$2");
+            $(".confirmAddr").find("p span:last").html(tel);
+            $(".confirmAddr").find("address").html(data.province+data.city+data.district+data.detail);
+            $(".btmNav a:first").text("合计：￥"+getTotalPrice().totalPrice);
+        })
+    })
+    //获取总金额
+    function getTotalPrice(){
+        var href = window.document.location.href;
+        var param = href.split("?")[1];
+        var totalPrice = param.split("&")[0].split("=")[1];
+        var orderId = param.split("&")[1].split("=")[1];
+        var orderInfo = {
+            "totalPrice":totalPrice,
+            "orderid":orderId
+        };
+        return orderInfo;
+    }
+</script>
