@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AddressDAO extends MyBatisBaseDao<Address, Integer> {
+    Address selectByTelphone(String telphone);
 }

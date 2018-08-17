@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -20,8 +21,15 @@ public class PageController {
     private AdvertisementService advService;
 
     @RequestMapping("{url}")
-    public String toPage(@PathVariable String url){
-        return url;
+    public String toPage(@PathVariable String url,HttpSession session,ModelMap modelMap){
+        List<Advertisement> advertisements = advService.findAll();
+        modelMap.put("adv",advertisements);
+        User user = (User)session.getAttribute("user");
+        if(user!=null){
+            return url;
+        }else{
+            return "login";
+        }
     }
     @RequestMapping("page_{url}")
     public String toIndex(@PathVariable String url,ModelMap modelMap){

@@ -2,9 +2,14 @@ package cn.jxufe.controller;
 
 import cn.jxufe.bean.Cart;
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.OrderInfo;
+import cn.jxufe.entity.Goods;
+import cn.jxufe.entity.Order;
 import cn.jxufe.entity.Registerinfo;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.UserService;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -130,5 +135,64 @@ public class UserController {
     public Message updateImg(User user,HttpSession session){
         return userService.updateImg(user, session);
     }
+
+    /**
+     * 提交订单（但是不付款）
+     * @return
+     */
+    @RequestMapping("suborder")
+    @ResponseBody
+    public Message submitOrder(@RequestBody List<OrderInfo> orderInfo,HttpSession session){
+        System.out.println("有一个请求来了");
+        return userService.addOrder(session,orderInfo);
+    }
+
+    /**
+     * 支付订单
+     * @return
+     */
+    @RequestMapping("payorder")
+    @ResponseBody
+    public Message payOrder(@RequestBody Order order){
+        System.out.println("有一个请求来了");
+        return userService.payOrder(order);
+    }
+
+    /**
+     * 获取当前用户所有的未支付订单
+     */
+    @RequestMapping("nopay")
+    @ResponseBody
+    public List<Order> noPay(String orderState,HttpSession session){
+        return userService.findAll(session,orderState);
+    }
+
+    /**
+     * 获取当前用户所有的已支付订单
+     */
+    @RequestMapping("ispay")
+    @ResponseBody
+    public List<Order> isPay(HttpSession session,String orderState){
+        return userService.findAll(session,orderState);
+    }
+    /**
+     * 获取当前用户所有的已完成订单
+     */
+    @RequestMapping("completeorder")
+    @ResponseBody
+    public List<Order> completeOrder(HttpSession session,String orderState){
+        return userService.findAll(session,orderState);
+    }
+
+    /**
+     * 取消订单
+     */
+    @RequestMapping("deleteorder")
+    @ResponseBody
+    public Message deleteOrder(long orderid){
+        System.out.println(orderid);
+        return userService.deleteOrder(orderid);
+    }
+
 }
 
