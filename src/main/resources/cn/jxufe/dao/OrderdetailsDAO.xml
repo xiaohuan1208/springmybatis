@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.jxufe.dao.OrderdetailsDAO">
   <resultMap id="BaseResultMap" type="cn.jxufe.entity.Orderdetails">
-    <id column="orderDetailsId" jdbcType="VARCHAR" property="orderdetailsid" />
-    <result column="orderId" jdbcType="INTEGER" property="orderid" />
+    <id column="orderDetailsId" jdbcType="INTEGER" property="orderdetailsid" />
+    <result column="orderId" jdbcType="BIGINT" property="orderid" />
     <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
     <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
     <result column="price" jdbcType="DOUBLE" property="price" />
@@ -13,21 +13,21 @@
   <sql id="Base_Column_List">
     orderDetailsId, orderId, goodsId, goodsName, price, amount, createTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from T_OrderDetails
-    where orderDetailsId = #{orderdetailsid,jdbcType=VARCHAR}
+    where orderDetailsId = #{orderdetailsid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_OrderDetails
-    where orderDetailsId = #{orderdetailsid,jdbcType=VARCHAR}
+    where orderDetailsId = #{orderdetailsid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.jxufe.entity.Orderdetails">
     insert into T_OrderDetails (orderDetailsId, orderId, goodsId, 
       goodsName, price, amount, 
       createTime)
-    values (#{orderdetailsid,jdbcType=VARCHAR}, #{orderid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, 
+    values (#{orderdetailsid,jdbcType=INTEGER}, #{orderid,jdbcType=BIGINT}, #{goodsid,jdbcType=INTEGER}, 
       #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{amount,jdbcType=INTEGER}, 
       #{createtime,jdbcType=TIMESTAMP})
   </insert>
@@ -58,10 +58,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderdetailsid != null">
-        #{orderdetailsid,jdbcType=VARCHAR},
+        #{orderdetailsid,jdbcType=INTEGER},
       </if>
       <if test="orderid != null">
-        #{orderid,jdbcType=INTEGER},
+        #{orderid,jdbcType=BIGINT},
       </if>
       <if test="goodsid != null">
         #{goodsid,jdbcType=INTEGER},
@@ -84,7 +84,7 @@
     update T_OrderDetails
     <set>
       <if test="orderid != null">
-        orderId = #{orderid,jdbcType=INTEGER},
+        orderId = #{orderid,jdbcType=BIGINT},
       </if>
       <if test="goodsid != null">
         goodsId = #{goodsid,jdbcType=INTEGER},
@@ -102,16 +102,22 @@
         createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where orderDetailsId = #{orderdetailsid,jdbcType=VARCHAR}
+    where orderDetailsId = #{orderdetailsid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Orderdetails">
     update T_OrderDetails
-    set orderId = #{orderid,jdbcType=INTEGER},
+    set orderId = #{orderid,jdbcType=BIGINT},
       goodsId = #{goodsid,jdbcType=INTEGER},
       goodsName = #{goodsname,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
       amount = #{amount,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP}
-    where orderDetailsId = #{orderdetailsid,jdbcType=VARCHAR}
+    where orderDetailsId = #{orderdetailsid,jdbcType=INTEGER}
   </update>
+  <select id="findByOrderId" resultMap="BaseResultMap">
+    select * from T_OrderDetails where orderid = #{0};
+  </select>
+  <delete id="deleteByOrderId" parameterType="java.lang.Long">
+    delete from T_OrderDetails where orderId = #{0}
+  </delete>
 </mapper>

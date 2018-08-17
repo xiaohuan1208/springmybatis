@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.jxufe.entity.Address">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="consignee" jdbcType="VARCHAR" property="consignee" />
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="district" jdbcType="VARCHAR" property="district" />
@@ -11,7 +12,7 @@
     <result column="checked" jdbcType="INTEGER" property="checked" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, telphone, province, city, district, detail, `checked`
+    id, telphone, consignee, province, city, district, detail, `checked`
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -19,17 +20,20 @@
     from T_Address
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByTelphone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT * FROM T_Address WHERE telphone = #{telphone} AND checked =1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from T_Address
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.jxufe.entity.Address">
-    insert into T_Address (id, telphone, province, 
-      city, district, detail, 
-      `checked`)
-    values (#{id,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, 
-      #{checked,jdbcType=INTEGER})
+    insert into T_Address (id, telphone, consignee, 
+      province, city, district, 
+      detail, `checked`)
+    values (#{id,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{checked,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.jxufe.entity.Address">
     insert into T_Address
@@ -39,6 +43,9 @@
       </if>
       <if test="telphone != null">
         telphone,
+      </if>
+      <if test="consignee != null">
+        consignee,
       </if>
       <if test="province != null">
         province,
@@ -63,6 +70,9 @@
       <if test="telphone != null">
         #{telphone,jdbcType=VARCHAR},
       </if>
+      <if test="consignee != null">
+        #{consignee,jdbcType=VARCHAR},
+      </if>
       <if test="province != null">
         #{province,jdbcType=VARCHAR},
       </if>
@@ -86,6 +96,9 @@
       <if test="telphone != null">
         telphone = #{telphone,jdbcType=VARCHAR},
       </if>
+      <if test="consignee != null">
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
       <if test="province != null">
         province = #{province,jdbcType=VARCHAR},
       </if>
@@ -107,6 +120,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.jxufe.entity.Address">
     update T_Address
     set telphone = #{telphone,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
