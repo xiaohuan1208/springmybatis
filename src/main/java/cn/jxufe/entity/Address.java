@@ -18,6 +18,11 @@ public class Address implements Serializable {
     private String telphone;
 
     /**
+     * 收货人姓名
+     */
+    private String consignee;
+
+    /**
      * 省
      */
     private String province;
@@ -58,6 +63,14 @@ public class Address implements Serializable {
 
     public void setTelphone(String telphone) {
         this.telphone = telphone;
+    }
+
+    public String getConsignee() {
+        return consignee;
+    }
+
+    public void setConsignee(String consignee) {
+        this.consignee = consignee;
     }
 
     public String getProvince() {
@@ -114,6 +127,7 @@ public class Address implements Serializable {
         Address other = (Address) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTelphone() == null ? other.getTelphone() == null : this.getTelphone().equals(other.getTelphone()))
+            && (this.getConsignee() == null ? other.getConsignee() == null : this.getConsignee().equals(other.getConsignee()))
             && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
             && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
             && (this.getDistrict() == null ? other.getDistrict() == null : this.getDistrict().equals(other.getDistrict()))
@@ -127,6 +141,7 @@ public class Address implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTelphone() == null) ? 0 : getTelphone().hashCode());
+        result = prime * result + ((getConsignee() == null) ? 0 : getConsignee().hashCode());
         result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
         result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
         result = prime * result + ((getDistrict() == null) ? 0 : getDistrict().hashCode());
@@ -143,6 +158,7 @@ public class Address implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", telphone=").append(telphone);
+        sb.append(", consignee=").append(consignee);
         sb.append(", province=").append(province);
         sb.append(", city=").append(city);
         sb.append(", district=").append(district);

@@ -28,7 +28,7 @@
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
     <script src="../../js/jquery.js"></script>
-    <script>
+    <%--<script>
         $(document).ready(function () {
             //测试返回页面，程序对接删除即可
             $(".userForm input[type='button']").click(function () {
@@ -36,7 +36,7 @@
                 location.href = "user_set";
             });
         });
-    </script>
+    </script>--%>
 </head>
 <body>
 <!--header-->
@@ -46,7 +46,7 @@
 </header>
 <ul class="userForm">
     <li>
-        <input type="text" value="HZIT"/>
+        <input type="text" value="HZIT" id="consignee" placeholder="收货人"/>
     </li>
     <li>
         <select id="select-first">
@@ -66,7 +66,7 @@
         </select>
     </li>
     <li>
-        <textarea>三八东路德州市体育中心</textarea>
+        <textarea placeholder="详细地址：如道路、门牌号、小区、楼栋号、单元室等"></textarea>
     </li>
     <li>
         <input type="button" value="修改地址" class="formLastBtn"/>
@@ -75,10 +75,49 @@
 </body>
 </html>
 <script>
+    var id;         //当前地址id
     $(function(){
-        getCity("select-second",1,"address/getCity");
+        $.get("getDefaultAddress",function(data){
+            if(data==null){
+                getCity("select-second",1,"area/getCity");
+            }else{
+                id = data.id;
+                $("#consignee").val(data.consignee);    //初始化收货人
+                $("#select-first").find("option:contains("+data.province+")").attr("selected",true);    //将省份选择器里的当前选项设置为数据库中的数据
+                $.ajax({            //获取当前省份的市
+                    type:'get',
+                    url:"area/getCity",
+                    data:{
+                        parentId:$("#select-first").val()
+                    },
+                    cache:false,
+                    dataType:'json',
+                    success:function(result){
+                        //遍历回传的数据添加到二级select
+                        $.each(result, function(index,item) {
+                            var option = '<option value="'+item.areaid+'">'+item.areaname+'</option>'
+                            $("#select-second").append(option);
+                        })
+                        $("#select-second").find("option:contains("+data.city+")").attr("selected",true);       //将市选择器的当前选项设置为数据库中的数据
+                        console.log($("#select-second").val());
+                        $.get("area/getDistrict",{parentId:$("#select-second").val()},function(e){              //获取当前市的区县
+                            $.each(e, function(index,item) {
+                                var option = '<option value="'+item.areaid+'">'+item.areaname+'</option>'
+                                $("#select-third").append(option);
+                            })
+                            $("#select-third").find("option:contains("+data.district+")").attr("selected",true);//将区选择器的当前选项设置为数据库中的数据
+                        })
+                    },
+                    error:function(){
+                        alert("请求失败")
+                    }
+                });
+                $(".userForm textarea").html(data.detail);
+            }
+        })
     })
     var flag = 2;
+    //id为级联元素的id，value为上一级option选中的value，targetUrl为请求路径
     function getCity(id,value,targetUrl){
         $.ajax({
             type:'get',
@@ -91,15 +130,15 @@
             success:function(data){
                 //遍历回传的数据添加到二级select
                 $.each(data, function(index,item) {
-                    if(index == 0 && targetUrl== "address/getCity"){
+                    if(index == 0 && targetUrl== "area/getCity"){
                         flag = item.areaid;
                     }
                     var option = '<option value="'+item.areaid+'">'+item.areaname+'</option>'
                     $("#"+id).append(option);
                 })
-                if(targetUrl=="address/getCity"){
+                if(targetUrl=="area/getCity"){
                     $("#select-third").empty();
-                    getCity("select-third",flag,"address/getDistrict");
+                    getCity("select-third",flag,"area/getDistrict");
                 }
             },
             error:function(){
@@ -116,7 +155,7 @@
         //获得一级select的值
         var firstValue = $(this).val();
         //根据一级select的值，异步获取数据更新二级的选项
-        getCity("select-second",firstValue,"address/getCity");
+        getCity("select-second",firstValue,"area/getCity");
     });
 
     //级联select:二级select值改变，触发三级select变化
@@ -126,7 +165,24 @@
         //二级select的值
         var secondValue = $(this).val();
         //根据二级select的值，异步获取数据更新三级的选项
-        getCity("select-third",secondValue,"address/getDistrict");
+        getCity("select-third",secondValue,"area/getDistrict");
     });
 
+    $(".formLastBtn").click(function(){
+        var address = {};
+        address.id = id;
+        address.consignee = $("#consignee").val();
+        address.province = $("#select-first").find("option:selected").text();
+        address.city = $("#select-second").find("option:selected").text();
+        address.district = $("#select-third").find("option:selected").text();
+        address.detail = $(".userForm textarea").val();
+        $.post("updateAddress",address,function(result){
+            if(result.code == 1){
+                alert(result.message);
+                location.href = "user_set";
+            }else{
+                alert(result.message);
+            }
+        })
+    })
 </script>

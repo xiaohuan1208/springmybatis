@@ -150,12 +150,12 @@
     <li id="goods-template" hidden="hidden">
       <div class="productArea">
         <a href="product" class="goodsPic">
-          <img src="goods001.jpg"/>
+          <img src=""/>
         </a>
 
         <div class="goodsInfor">
           <h2>
-            <a class="name" href="product">水晶骷髅头 截取字符串...</a>
+            <a class="name" href="product"></a>
           </h2>
 
           <p>

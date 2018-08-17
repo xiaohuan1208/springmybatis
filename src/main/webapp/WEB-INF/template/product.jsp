@@ -69,7 +69,7 @@
     <h1>产品详情</h1>
 </header>
 <div class="pro_bigImg">
-    <img src="goods005.jpg"/>
+    <img src=""/>
 </div>
 <!--base information-->
 <section class="pro_baseInfor">

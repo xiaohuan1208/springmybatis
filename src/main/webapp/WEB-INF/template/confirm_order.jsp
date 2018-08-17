@@ -56,7 +56,7 @@
         <span>1830927**73</span>
     </p>
     <address>陕西省深圳市雁塔区昆明路220号</address>
-    <a href="address" class="iconfont">&#60;</a>
+    <a href="area/province" class="iconfont">&#60;</a>
 </aside>
 <dl class="payment">
     <dt>选择支付方式</dt>
@@ -79,3 +79,15 @@
 </aside>
 </body>
 </html>
+<script>
+    $(function(){
+        $.get("getDefaultAddress",function(data){
+            $(".confirmAddr").find("p span:first").html("收货人："+data.consignee);
+            var tel = data.telphone;
+            var reg = /1(\d{2})\d{4}(\d{4})/g;
+            tel = tel.replace(reg,"1$1****$2");
+            $(".confirmAddr").find("p span:last").html(tel);
+            $(".confirmAddr").find("address").html(data.province+data.city+data.district+data.detail);
+        })
+    })
+</script>

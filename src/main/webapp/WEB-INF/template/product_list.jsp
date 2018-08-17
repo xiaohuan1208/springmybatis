@@ -142,7 +142,7 @@
         </li>
         <li>
             <a href="product" class="goodsPic">
-                <img src="goods005.jpg"/>
+                <img src=""/>
             </a>
 
             <div class="goodsInfor">
