@@ -2,17 +2,16 @@ package cn.jxufe.imp;
 
 import cn.jxufe.bean.Cart;
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.OrderInfo;
+import cn.jxufe.dao.GoodsDAO;
+import cn.jxufe.dao.OrderDAO;
+import cn.jxufe.dao.OrderdetailsDAO;
 import cn.jxufe.dao.UserDAO;
-import cn.jxufe.entity.Registerinfo;
-import cn.jxufe.entity.User;
+import cn.jxufe.entity.*;
 import cn.jxufe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.misc.resources.Messages_sv;
-
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,12 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private UserDAO userDAO;
+    @Autowired
+    private OrderDAO orderDAO;
+    @Autowired
+    private OrderdetailsDAO orderdetailsDAO;
+    @Autowired
+    private GoodsDAO goodsDAO;
 
     @Override
     public Message register(Registerinfo registerinfo, HttpSession session) {
@@ -209,12 +214,131 @@ public class UserServiceImp implements UserService {
         for (Cart c : cart){
             //放入商品
             cartMap.put(c.getGoodsId(),c);
+            System.out.println(c);
         }
 
         //放入session
         session.setAttribute("cart", cartMap);
         message.setCode(1);
         message.setMessage("修改成功");
+        return message;
+    }
+
+    @Override
+    public Message addOrder(HttpSession session, List<OrderInfo> orderInfoList) {
+        Message message = new Message();
+        User user = (User)session.getAttribute("user");
+        String telPhone = user.getTelphone();
+        //生成订单编号
+        long orderId = System.currentTimeMillis();
+        Order order = new Order();
+        order.setOrderid(orderId);
+        order.setTelphone(telPhone);
+        order.setOrderstate("0");//表示未支付
+        Map<Integer,Cart> cartMap = (Map<Integer,Cart>)session.getAttribute("cart");
+        try{
+            for(OrderInfo orderInfo : orderInfoList){
+                //只需要获取最后一个总金额
+                order.setTotalprice(orderInfo.getTotalprice());
+                //根据商品ID从购物车中找出相应的Cart实体bean
+                Cart c = cartMap.get(orderInfo.getGoodsid());
+                //删除购物车中相应的商品信息
+                cartMap.remove(orderInfo.getGoodsid());
+                //找出商品数量
+                int num = c.getNumber();
+                Orderdetails orderdetails = new Orderdetails();
+                orderdetails.setOrderid(orderId);
+                orderdetails.setGoodsid(orderInfo.getGoodsid());
+                orderdetails.setAmount(num);
+                orderdetails.setGoodsname(orderInfo.getGoodsname());
+                orderdetails.setPrice(orderInfo.getPrice());
+                //存入详细订单表
+                int result2 = orderdetailsDAO.insertSelective(orderdetails);
+                //修改商品库存
+                //获取相应的商品信息
+                Goods goods = goodsDAO.selectByPrimaryKey(c.getGoodsId());
+                goods.setStock(goods.getStock()-num);
+                int result3 = goodsDAO.updateByPrimaryKeySelective(goods);
+            }
+            int result1 = orderDAO.insertSelective(order);
+            message.setCode(orderId);
+            message.setMessage("下单成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            message.setCode(-10);
+            message.setMessage("下单失败");
+        }
+        return message;
+    }
+
+    @Override
+    public Message payOrder(Order order) {
+        Message message = new Message();
+        System.out.println(order);
+        try{
+            Order result = orderDAO.selectByPrimaryKey(order.getOrderid());
+            result.setAddress(order.getAddress());
+            result.setOrderstate("1");//订单状态设置为已支付
+            result.setOrderremarks(order.getOrderremarks());
+            int resValue = orderDAO.updateByPrimaryKeySelective(result);
+            if(resValue>0){
+                message.setCode(10);
+                message.setMessage("支付成功");
+            }else{
+                message.setCode(-10);
+                message.setMessage("支付失败");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            message.setCode(-10);
+            message.setMessage("支付失败");
+        }
+        return message;
+    }
+
+    @Override
+    public List<Order> findAll(HttpSession session,String orderState) {
+        User user = (User)session.getAttribute("user");
+        List<Order> orderList = null;
+        if(user!=null){
+            String telphone = user.getTelphone();
+            //查找所有未支付订单
+            orderList = orderDAO.findByTelphone(telphone,orderState);
+            for(Order order : orderList){
+                HashMap<Object,List<Orderdetails>> map = new HashMap<Object,List<Orderdetails>>();
+                List<Orderdetails> orderdetailses = orderdetailsDAO.findByOrderId(order.getOrderid());
+                map.put("orderdetails",orderdetailses);
+                order.setOrderDetailMap(map);
+            }
+            return orderList;
+        }
+        return null;
+    }
+
+    @Override
+    public Message deleteOrder(long orderid) {
+        Message message = new Message();
+        try{
+            //恢复商品库存
+            List<Orderdetails> orderdetailses = orderdetailsDAO.findByOrderId(orderid);
+            for(Orderdetails o : orderdetailses){
+                int goodsId = o.getGoodsid();
+                int amount = o.getAmount();
+                Goods goods = goodsDAO.selectByPrimaryKey(goodsId);
+                goods.setStock(goods.getStock()+amount);
+                int result3 = goodsDAO.updateByPrimaryKeySelective(goods);
+            }
+            //删除订单表信息
+            int result1 = orderDAO.deleteByPrimaryKey(orderid);
+            //删除订单详情表信息
+            int result2 = orderdetailsDAO.deleteByOrderId(orderid);
+            message.setCode(10);
+            message.setMessage("取消成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            message.setCode(-10);
+            message.setMessage("取消失败");
+        }
         return message;
     }
 
@@ -230,11 +354,12 @@ public class UserServiceImp implements UserService {
             }catch (Exception e){
 
             }
-
         }else {
             message.setCode(-1);
             message.setMessage("上传失败");
         }
         return message;
     }
+
+
 }

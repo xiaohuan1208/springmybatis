@@ -2,6 +2,8 @@ package cn.jxufe.service;
 
 import cn.jxufe.bean.Cart;
 import cn.jxufe.bean.Message;
+import cn.jxufe.bean.OrderInfo;
+import cn.jxufe.entity.Order;
 import cn.jxufe.entity.Registerinfo;
 import cn.jxufe.entity.User;
 
@@ -37,5 +39,33 @@ public interface UserService {
     public Map<Integer,Cart> getCart(HttpSession session);
 
     public Message eidtCart(Cart[] cart,HttpSession session);
+
+    /**
+     * 用户提交订单（不含支付）
+     * @param session
+     * @param orderInfoList
+     * @return
+     */
+    public Message addOrder(HttpSession session,List<OrderInfo> orderInfoList);
+
+    /**
+     * 用户支付订单
+     * @param order
+     * @return
+     */
+    public Message payOrder(Order order);
+
+    /**
+     * 根据订单状态查询当前用户的订单信息
+     * @param orderState 订单状态
+     * @return
+     */
+    public List<Order> findAll(HttpSession session,String orderState);
+
+    /**
+     * 用户取消订单
+     * @return
+     */
+    public Message deleteOrder(long orderid);
 }
 
