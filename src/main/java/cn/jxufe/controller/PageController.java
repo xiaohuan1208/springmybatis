@@ -28,6 +28,9 @@ public class PageController {
         if(user!=null){
             return url;
         }else{
+            if(url.equals("register")){
+                return "register";
+            }
             return "login";
         }
     }

@@ -21,11 +21,10 @@ public class SearchController {
     private SearchService searchService;
 
     @RequestMapping("getSearch")
-    public Object getSearch(ModelMap map){
+    public Object getSearch(HttpSession session,ModelMap map){
         try {
             //获取当前用户的搜索记录
-            map.put("searchList",searchService.findAll());
-            System.out.println(searchService.findAll().size());
+            map.put("searchList",searchService.findAll(session));
         }catch (Exception e){
             e.printStackTrace();
             return "404";

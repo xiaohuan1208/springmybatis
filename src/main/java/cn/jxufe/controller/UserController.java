@@ -194,5 +194,14 @@ public class UserController {
         return userService.deleteOrder(orderid);
     }
 
+    /**
+     * 用户安全退出
+     */
+    @RequestMapping("logout")
+    @ResponseBody
+    public Message safeQuit(HttpSession session){
+        return userService.safeQuit(session);
+    }
+
 }
 

@@ -343,6 +343,15 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public Message safeQuit(HttpSession session) {
+        Message message = new Message();
+        session.removeAttribute("user");
+        message.setCode(10);
+        message.setMessage("退出成功");
+        return message;
+    }
+
+    @Override
     public Message updateImg(User user,HttpSession session) {
         Message message = new Message();
         if (userDAO.updateImg(user)>0){

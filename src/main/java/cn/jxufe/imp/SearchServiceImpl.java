@@ -27,9 +27,9 @@ public class SearchServiceImpl implements SearchService {
     private SearchDAO searchDAO;
 
     @Override
-    public List<Search> findAll() {
-        //User user = (User)session.getAttribute("user");
-        String telphone = "13687091090";
+    public List<Search> findAll(HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        String telphone = user.getTelphone();
         String orderBy = "createtime desc";
         PageHelper.startPage(1,6,orderBy);//只需要获取最新的前六条搜索记录
         return searchDAO.findByTelphone(telphone);
@@ -80,5 +80,4 @@ public class SearchServiceImpl implements SearchService {
         }
         return message;
     }
-
 }

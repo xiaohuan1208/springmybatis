@@ -107,16 +107,17 @@ public class CollectionServiceImpl implements CollectionService {
     public Message isLike(Collection collection,HttpSession session) {
         Message message = new Message();
         User user = (User)session.getAttribute("user");
-        collection.setTelphone(user.getTelphone());
-        Collection collection1 = collectionDAO.findByTelAndGoodsid(collection);
-        if (collection1 == null){
-            message.setCode(-1);
-            message.setMessage("没有收藏");
-        }else{
-            message.setCode(1);
-            message.setMessage("已收藏");
+        if(user!=null){
+            collection.setTelphone(user.getTelphone());
+            Collection collection1 = collectionDAO.findByTelAndGoodsid(collection);
+            if (collection1 == null){
+                message.setCode(-1);
+                message.setMessage("没有收藏");
+            }else{
+                message.setCode(1);
+                message.setMessage("已收藏");
+            }
         }
-
         return message;
     }
 }

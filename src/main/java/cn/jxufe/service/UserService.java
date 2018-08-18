@@ -67,5 +67,10 @@ public interface UserService {
      * @return
      */
     public Message deleteOrder(long orderid);
+
+    /**
+     * 用户退出
+     */
+    public Message safeQuit(HttpSession session);
 }
 
