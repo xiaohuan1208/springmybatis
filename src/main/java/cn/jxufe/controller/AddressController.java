@@ -1,5 +1,6 @@
 package cn.jxufe.controller;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Address;
 import cn.jxufe.entity.User;
 import cn.jxufe.service.AddressService;
@@ -24,5 +25,11 @@ public class AddressController {
         User user = (User)session.getAttribute("user");
         System.out.println(user.getTelphone());
         return addressService.selectByTelphone(session);
+    }
+
+    @RequestMapping("updateAddress")
+    @ResponseBody
+    public Message updateAddress(Address address,HttpSession session){
+        return addressService.updateAddress(address,session);
     }
 }

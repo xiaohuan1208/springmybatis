@@ -48,7 +48,7 @@
 <body>
 <!--header-->
 <header>
-    <a href="javascript:history.go(-1);" class="iconfont backIcon">&#60;</a>
+    <a href="page_index" class="iconfont backIcon">&#60;</a>
 
     <h1>搜索</h1>
 </header>
@@ -129,6 +129,7 @@
         $.post("goods/search_" + searchContent, function (data) {
             $(".searchHistory").hide();
             $("#content").val("");
+            console.log(data.length);
             if(data.length != 0){
                 //将数据放到界面显示
                 showGoodsList(data);
@@ -143,11 +144,12 @@
         var list = $(".tab_proList ul");
         list.html("");
         $.each(data,function(index,item){
-            console.log(item.img);
             var template = $("#goods-template").clone();
             template.removeAttr("hidden");
             template.find(".goodsPic").attr("href","product?goodsId="+item.goodsid);
-            template.find(".goodsPic img").attr("src",item.img);
+            if(item.img != null){
+                template.find(".goodsPic img").attr("src",item.img);
+            }
             template.find(".goodsInfor .name").attr("href","product?goodsId="+item.goodsid);
             template.find(".goodsInfor .name").html(item.goodsname);
             template.find(".goodsInfor del").html(item.originalprice/100.0);

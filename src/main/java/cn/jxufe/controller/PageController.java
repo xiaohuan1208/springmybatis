@@ -37,7 +37,12 @@ public class PageController {
         modelMap.put("adv",advertisements);
         return url;
     }
-
+    @RequestMapping("/")
+    public String toIndexs(@PathVariable String url,ModelMap modelMap){
+        List<Advertisement> advertisements = advService.findAll();
+        modelMap.put("adv",advertisements);
+        return "index";
+    }
 
 }
 

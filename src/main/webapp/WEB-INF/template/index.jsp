@@ -24,7 +24,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="196x196" href="../../images/icon/apple-touch-icon-196x196-precomposed.png">
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="../../css/style.css" />
-    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
     <script src="../../js/jquery.js"></script>
     <script src="../../js/swiper.min.js"></script>
     <script type="text/javascript" src="../../js/getCurrLocation.js"></script>
@@ -36,21 +35,17 @@
                 loop:true,
                 pagination : '.pagination'
             });
-
             //调用自动定位函数
             writeAddress($(".location"));
             //获取商品数据
             goodsList();
-
             //初始化购物车数量
             $.get("user/cart",function(data){
                 $(".hoverCart a").html(Object.keys(data).length);
             });
         });
-
         //获取商品数据
         function goodsList(){
-
             $.get("goods/list",function(data){
                 showGoodsList(data);
             })
@@ -75,24 +70,43 @@
                 template.find("aside .comment_icon").html(item.commentnum);
                 template.find("aside .deal_icon").html(item.transactionnum);
                 template.find(".addToCart").attr("onclick","pushCart("+item.goodsid+",this)");
+                isLike(item.goodsid,template);
                 list.append(template);
+            });
+        }
+        //渲染点赞样式
+        function isLike(goodsid,template){
+            var collection = {};
+            collection.goodsid = goodsid;
+            $.get("collection/islike",collection,function(result){
+                if(result.code>0){
+                    template.find("aside a:first-child").attr("class","like_icon_visited");
+                }else{
+                    template.find("aside a:first-child").attr("class","like_icon");
+                }
             });
         }
         //加入购物车
         function pushCart(goodsid,obj){
-            var cart = {}
-            cart.goodsId = goodsid;
-            cart.number = 1;
-            $.get("user/pushcart",cart,function(result){
-                if(result.code>0){
-                    $.get("user/cart",function(data){
-                        animation(obj);
-                        $(".hoverCart a").html(Object.keys(data).length);
+            $.get("user/information", function (data) {
+                if (data == null || data == "") {
+                    alert("您尚未登录请先登录！");
+                    location.href = "login";
+                }else{
+                    var cart = {}
+                    cart.goodsId = goodsid;
+                    cart.number = 1;
+                    $.get("user/pushcart",cart,function(result){
+                        if(result.code>0){
+                            $.get("user/cart",function(data){
+                                animation(obj);
+                                $(".hoverCart a").html(Object.keys(data).length);
+                            });
+                        }
                     });
                 }
-            });
+            })
         }
-
         //飞入特效
         function animation(obj){
             obj=$(obj);
@@ -113,7 +127,6 @@
                 $(this).remove();
             });
         }
-
         //点赞
         function likeGoods(goodsid){
             $.post("collection/addCollection_"+goodsid, function (e) {
@@ -151,12 +164,12 @@
         <li id="goods-template" hidden="hidden">
             <div class="productArea">
                 <a href="product" class="goodsPic">
-                    <img src="goods001.jpg"/>
+                    <img src=""/>
                 </a>
 
                 <div class="goodsInfor">
                     <h2>
-                        <a class="name" href="product">水晶骷髅头 截取字符串...</a>
+                        <a class="name" href="product"></a>
                     </h2>
 
                     <p>
@@ -169,7 +182,7 @@
                 </div>
             </div>
             <aside>
-                <a class="like_icon"></a>
+                <a class="like_icon">580</a>
                 <a class="comment_icon">260</a>
                 <a class="deal_icon">355</a>
             </aside>
@@ -193,4 +206,3 @@
 </nav>
 </body>
 </html>
-

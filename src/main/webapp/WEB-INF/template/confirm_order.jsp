@@ -89,10 +89,12 @@
                     contentType: "application/json",
                     success: function (e) {
                         prompt(e.message);
-                        var orderInfo = getTotalPrice();
-                        var orderId = orderInfo.orderid;
-                        var totalPrice = orderInfo.totalPrice;
-                        location.href = "return_state?orderId="+orderId+"&totalPrice="+totalPrice;
+                        if(e.code>0){
+                            var orderInfo = getTotalPrice();
+                            var orderId = orderInfo.orderid;
+                            var totalPrice = orderInfo.totalPrice;
+                            location.href = "return_state?orderId="+orderId+"&totalPrice="+totalPrice;
+                        }
                     }
                 });
             }
@@ -119,7 +121,7 @@
         <span>1830927**73</span>
     </p>
     <address>陕西省深圳市雁塔区昆明路220号</address>
-    <a href="address" class="iconfont">&#60;</a>
+    <a href="area/province" class="iconfont">&#60;</a>
 </aside>
 <dl class="payment">
     <dt>选择支付方式</dt>

@@ -1,5 +1,6 @@
 package cn.jxufe.service;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.entity.Address;
 
 import javax.servlet.http.HttpSession;
@@ -9,4 +10,5 @@ import javax.servlet.http.HttpSession;
  */
 public interface AddressService {
     public Address selectByTelphone(HttpSession session);
+    public Message updateAddress(Address address,HttpSession session);
 }

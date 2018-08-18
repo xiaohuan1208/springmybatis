@@ -56,7 +56,7 @@
 <!--fixedNav:footer-->
 <div style="height:1.2rem;"></div>
 <nav>
- <a href="index" class="homeIcon">首页</a>
+ <a href="page_index" class="homeIcon">首页</a>
  <a href="category" class="categoryIcon">分类</a>
  <a href="cart" class="cartIcon">购物车</a>
  <a href="user" class="userIcon">我的</a>
@@ -70,11 +70,16 @@
 <script>
     $(document).ready(function () {
         $.get("user/information", function (data) {
-            $(".userInfor #tel").html(data.telphone);
-            if (data.headimg == null || "" == data.headimg) {
-                $(".userInfor .userIcon img").attr("src", "../../images/icon/DefaultAvatar.jpg");
-            } else {
-                $(".userInfor .userIcon img").attr("src", data.headimg);
+            if(data==null||data==""){
+                alert("您尚未登录请先登录！");
+                location.href = "login"
+            }else{
+                $(".userInfor #tel").html(data.telphone);
+                if (data.headimg == null || "" == data.headimg) {
+                    $(".userInfor .userIcon img").attr("src", "../../images/icon/DefaultAvatar.jpg");
+                } else {
+                    $(".userInfor .userIcon img").attr("src", data.headimg);
+                }
             }
         });
 

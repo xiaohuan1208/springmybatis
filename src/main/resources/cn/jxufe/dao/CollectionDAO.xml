@@ -85,4 +85,8 @@
   <select id="findByTelphone" resultType="cn.jxufe.entity.Collection">
     SELECT * FROM T_Collection WHERE telphone = #{0} AND status = 1
   </select>
+
+  <select id="findByTelAndGoodsid" resultType="cn.jxufe.entity.Collection">
+    SELECT * FROM T_Collection WHERE telphone = #{telphone} and goodsid = #{goodsid} and status = 1
+  </select>
 </mapper>

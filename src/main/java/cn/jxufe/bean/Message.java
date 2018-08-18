@@ -5,7 +5,7 @@ package cn.jxufe.bean;
  */
 public class Message {
     private String message;
-    private int code;
+    private long code;
 
     public Message() {
     }
@@ -18,11 +18,11 @@ public class Message {
         this.message = message;
     }
 
-    public int getCode() {
+    public long getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(long code) {
         this.code = code;
     }
 }

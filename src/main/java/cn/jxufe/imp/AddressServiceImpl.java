@@ -1,5 +1,6 @@
 package cn.jxufe.imp;
 
+import cn.jxufe.bean.Message;
 import cn.jxufe.dao.AddressDAO;
 import cn.jxufe.entity.Address;
 import cn.jxufe.entity.User;
@@ -16,21 +17,32 @@ import javax.servlet.http.HttpSession;
 public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDAO addressDAO;
+
     @Override
     public Address selectByTelphone(HttpSession session) {
-        User user = (User)session.getAttribute("user");
-        if(user!=null){
-            System.out.println(user.getTelphone());
-            Address address = addressDAO.selectByTelphone(user.getTelphone());
-            if(address!=null){
-                System.out.println(address.getTelphone());
-                return addressDAO.selectByTelphone(user.getTelphone());
-            }else{
-                System.out.println("用户还没有添加地址");
-            }
-        }else{
-            System.out.println("用户还没有登录");
+        User user = (User) session.getAttribute("user");
+        return addressDAO.selectByTelphone(user.getTelphone());
+    }
+
+    @Override
+    public Message updateAddress(Address address, HttpSession session) {
+        Message message = new Message();
+        int result;
+        User user = (User) session.getAttribute("user");
+        address.setTelphone(user.getTelphone());
+        address.setChecked(1);
+        if (address.getId() == null) {
+            result = addressDAO.insertSelective(address);
+        } else {
+            result = addressDAO.updateByPrimaryKeySelective(address);
         }
-        return null;
+        if (result == 1) {
+            message.setCode(1);
+            message.setMessage("地址修改成功！");
+        } else {
+            message.setCode(0);
+            message.setMessage("地址修改失败！");
+        }
+        return message;
     }
 }

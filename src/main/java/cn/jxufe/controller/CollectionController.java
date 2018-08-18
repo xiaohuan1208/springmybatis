@@ -40,4 +40,10 @@ public class CollectionController {
     public Object getCollection(@RequestParam(value = "page") Integer page,HttpSession session){
         return collectionService.findByTelphone(page,session);
     }
+
+    @RequestMapping("islike")
+    @ResponseBody
+    public Message isLike(Collection collection, HttpSession session){
+        return collectionService.isLike(collection, session);
+    }
 }

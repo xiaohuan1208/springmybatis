@@ -39,8 +39,6 @@
                     $(this).parents(".drop_list").hide();
                 });
             });
-
-
             show();
         });
         function show(){
@@ -55,7 +53,6 @@
         //刷新商品信息界面
         function showGoodsList(data){
             var list = $(".productList ul");
-
             $.each(data,function(index,item){
                 var template = $("#template").clone();
                 template.removeAttr("hidden");
