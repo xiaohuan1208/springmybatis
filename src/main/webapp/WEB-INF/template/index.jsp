@@ -78,13 +78,13 @@
         function isLike(goodsid,template){
             var collection = {};
             collection.goodsid = goodsid;
-            $.get("collection/islike",collection,function(result){
+            /*$.get("collection/islike",collection,function(result){
                 if(result.code>0){
                     template.find("aside a:first-child").attr("class","like_icon_visited");
                 }else{
                     template.find("aside a:first-child").attr("class","like_icon");
                 }
-            });
+            });*/
         }
         //加入购物车
         function pushCart(goodsid,obj){

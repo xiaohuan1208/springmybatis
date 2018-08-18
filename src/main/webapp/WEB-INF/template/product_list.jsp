@@ -79,7 +79,7 @@
 
 <li id="template" hidden="hidden">
     <a href="product" class="goodsPic">
-        <img src="../../upload/goods001.jpg"/>
+        <img src="upload/goods001.jpg"/>
     </a>
 
     <div class="goodsInfor">

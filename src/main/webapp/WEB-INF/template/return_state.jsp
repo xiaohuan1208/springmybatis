@@ -59,8 +59,8 @@
     function getData(){
         var href = window.document.location.href;
         var param = href.split("?")[1];
-        var totalPrice = param.split("&")[0].split("=")[1];
-        var orderId = param.split("&")[1].split("=")[1];
+        var  orderId = param.split("&")[0].split("=")[1];
+        var totalPrice = param.split("&")[1].split("=")[1];
         $(".return_state p").eq(0).html("订单编号："+orderId);
         $(".return_state p").eq(1).children("strong").html(totalPrice);
         $(".return_state p").eq(2).children("time").html(getCurrDate());
