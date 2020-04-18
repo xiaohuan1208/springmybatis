@@ -29,8 +29,8 @@ public class FileController {
     public Object upload(@RequestBody MultipartFile file){
         Message message = new Message();
         String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-        String accessKeyId = "LTAIUAD3kRsfXt0y";
-        String accessKeySecret = "gpLbowd0hQTU4IxNd82V2WbsGARDvH";
+        String accessKeyId = "你的accessKeyId";
+        String accessKeySecret = "你的accessKeySecret";
         String buckName = "jxufespring";
         // 创建OSSClient实例。
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
